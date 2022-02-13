@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+import Form from './components/Form/Form.js';
+import Posts from './components/Posts/Posts.js';
 import { Container, AppBar, Typography, Grow, Grid} from '@material-ui/core';
 
 const App = () => {

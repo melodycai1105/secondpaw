@@ -18,3 +18,4 @@ https://nodejs.org/
     - redux
     - redux-thunk
     - npm install -D tailwindcss postcss autoprefixer
+    - npm install @mui/material @emotion/react @emotion/styled

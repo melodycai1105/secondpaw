@@ -1,2 +1,1 @@
-# Second-Paw
-UCLA Second-hand Sale Website
+# egg-on-fire

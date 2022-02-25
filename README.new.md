@@ -17,3 +17,4 @@ https://nodejs.org/
     - react-file-base64
     - redux
     - redux-thunk
+    - npm install -D tailwindcss postcss autoprefixer

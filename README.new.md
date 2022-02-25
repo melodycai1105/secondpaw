@@ -11,6 +11,9 @@ https://nodejs.org/
     - express (Routing framework)
     - mongoose
     - nodemon (So we don't need to restart the server to update code)
+    - npm install bcryptjs
+    - npm install jsonwebtoken
+
 ### Client
     - axios
     - moment
@@ -19,3 +22,5 @@ https://nodejs.org/
     - redux-thunk
     - npm install -D tailwindcss postcss autoprefixer
     - npm install @mui/material @emotion/react @emotion/styled
+    - npm install jwt-decode
+    - npm install react-google-login

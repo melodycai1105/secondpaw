@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom';
 
 import useStyles from './styles';
 
-const Paginate = ({ }) => { 
+const Paginate = ({ }) => {
     const classes = useStyles();
-
     return (
         <Pagination
             classes={{ ul: classes.ul }}

@@ -41,6 +41,10 @@ const Navbar = () => {
           ) : (
             <Button component={Link} to="/auth" variant="contained" color="primary">sign in</Button>
           )
+        }        
+        {
+          //edit post button ui
+            <Button component={Link} to="/auth" variant="contained" color="primary">edit post</Button>
         }
       </Toolbar>
     </AppBar >

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { useParams, useNavigate, UNSAFE_NavigationContext } from 'react-router-dom';
 
+import CommentSection from './CommentSection';
 import { getPost, getPostsBySearch } from '../../actions/posts';
 import useStyles from './styles'; 
 
@@ -18,11 +19,11 @@ const PostDetails = () => {
     dispatch(getPost(id));
   }, [id]);
 
-  useEffect(() => {
-    if (post) {
-      dispatch(getPostsBySearch({ search: 'none', tags: post?.tags.join(',') })) 
-    }
-  }, [post]);
+  // useEffect(() => {
+  //   if (post) {
+  //     dispatch(getPostsBySearch({ search: 'none', tags: post?.tags.join(',') })) 
+  //   }
+  // }, [post]);
 
   if (!post) return null;
 
@@ -32,9 +33,9 @@ const PostDetails = () => {
     </Paper>
   }
 
-  const recommendedPosts = posts.filter(({ _id }) => _id != post._id);
+  // const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
 
-  const openPost = (_id) => navigate(`/posts/${_id}`);
+  // const openPost = (_id) => navigate(`/posts/${_id}`);
 
   return (
     <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
@@ -46,14 +47,14 @@ const PostDetails = () => {
           <Typography variant="h6">Created by: {post.name}</Typography>
           <Typography variant="body1">{moment(post.createdAt).fromNow()}</Typography>
           <Divider style={{ margin: '20px 0' }}/>
-          <Typography variant="body1">Comments</Typography>
+          <CommentSection post={post} />
           <Divider style={{ margin: '20px 0' }}/>
         </div>
         <div className={classes.imageSection}>
           <img className={classes.media} src={post.selectedFile} alt={post.title} />
         </div>
       </div>
-      {recommendedPosts.length && (
+      {/* {recommendedPosts.length && (
         <div className={classes.section}>
           <Typography gutterBottom variant="h5">You might also like: </Typography>
           <Divider>
@@ -64,13 +65,13 @@ const PostDetails = () => {
                   <Typography gutterBottom variant="subtitle2">{name}</Typography>
                   <Typography gutterBottom variant="subtitle2">{message}</Typography>
                   <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
-                  <img src={selectedFile} width='200px' />
+                  <img src={selectedFile} alt="" width='200px' />
                 </div>
               ))};
             </div>
           </Divider>
         </div>
-      )}
+      )} */}
   </Paper>
   );
 };

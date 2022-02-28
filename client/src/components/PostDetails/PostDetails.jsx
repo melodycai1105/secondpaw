@@ -8,7 +8,7 @@ import { getPost } from '../../actions/posts';
 import useStyles from './styles'; 
 
 const PostDetails = () => {
-  const { post, posts, isLoading } = useSelector((state) => state.posts);
+  const { post, posts } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const classes = useStyles();
@@ -16,7 +16,9 @@ const PostDetails = () => {
 
   useEffect(() => {
     dispatch(getPost(id));
-  }, [id])
+  }, [id]);
+
+  if (!post) return null;
 
   return (
     <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>

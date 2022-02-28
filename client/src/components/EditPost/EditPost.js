@@ -5,6 +5,7 @@ import useStyles from './styles';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { createPost, updatePost } from '../../actions/posts';
+import { useNavigate } from "react-router-dom";
 
 const Form = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
@@ -17,13 +18,20 @@ const Form = ({ currentId, setCurrentId }) => {
   const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null);
   const classes = useStyles();
   const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem('profile'))
 
   useEffect(() => {
     if (post)
       setPostData(post);
   }, [post]) // when post changes, set the post data to be the editted data 
 
-  const handleSubmit = async (e) => {
+//   let navigate = useNavigate();
+//   const routeChange = () =>{ 
+//     let path = '/posts'; 
+//     navigate(path);
+//   }
+
+  const handleSubmit2 = async (e) => {
     e.preventDefault();
     console.log(currentId)
     if (currentId) {
@@ -32,6 +40,7 @@ const Form = ({ currentId, setCurrentId }) => {
       dispatch(createPost(postData));
     }
     clear();
+    //routeChange();
   }
 
   const clear = () => {
@@ -45,10 +54,20 @@ const Form = ({ currentId, setCurrentId }) => {
     })
   }
 
+  if (!user?.result?.name) {
+    return (
+      <Paper className={classes.paper}>
+        <Typography variant='h6' align='center'>
+          Please Sign In
+        </Typography>
+      </Paper>
+    )
+  }
+
   return (
     <Container  component="main" maxWidth="xs">
     <Paper className={classes.paper} elevation={3}>
-      <form autoComplete="off" noValidate className={'${classes.root} ${classes.form}'} onSubmit={handleSubmit}>
+      <form autoComplete="off" noValidate className={'${classes.root} ${classes.form}'} onSubmit={handleSubmit2}>
         <Typography height="100%" margin="0" align="center" variant="h6">{currentId ? 'Editing': 'Creating'} a Sell</Typography>
         <TextField name="creator" variant="outlined" label="Creator" margin="dense" fullWidth value={postData.creator} onChange={(e) => setPostData({ ...postData, creator: e.target.value })} />
         <TextField name="title" variant="outlined" label="Title" margin="dense" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
@@ -57,7 +76,7 @@ const Form = ({ currentId, setCurrentId }) => {
         <div className={classes.fileInput}>
           <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
           <div class="flex justify-center items-center space-x-6">
-            <Button className={classes.buttonSubmit} onClick={handleSubmit} variant="contained" type="submit" size="large" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" >
+            <Button className={classes.buttonSubmit} onClick={handleSubmit2} variant="contained" type="submit" size="large" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" >
               Submit
             </Button>
             <Button variant="contained" size="small" onClick={clear} type="clear" class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-5 border-b-4 border-red-700 hover:border-red-500 rounded" >

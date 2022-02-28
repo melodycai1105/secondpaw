@@ -38,11 +38,12 @@ const Form = ({ currentId, setCurrentId }) => {
 
   if (!user?.result?.name) {
     return (
-      <Paper className={classes.paper}>
-        <Typography variant='h6' align='center'>
-          Please Sign In
-        </Typography>
-      </Paper>
+      // <Paper className={classes.paper}>
+      //   <Typography variant='h6' align='center'>
+      //     Please sign in to create post
+      //   </Typography>
+      // </Paper>
+      null
     )
   }
 

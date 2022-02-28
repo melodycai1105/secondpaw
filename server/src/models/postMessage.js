@@ -10,9 +10,13 @@ const postSchema = mongoose.Schema({
     type: [String],
     default: [],
   },
-  createAt: {
+  comments: {
+    type: [String],
+    default: [],
+  },
+  createdAt: {
     type: Date,
-    default: new Date()
+    default: new Date(),
   },
 }); // each post have to have these things
 

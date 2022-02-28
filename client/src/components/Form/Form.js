@@ -15,10 +15,10 @@ const Form = ({ currentId, setCurrentId }) => {
     tags: [],
     selectedFile: ''
   });
+  const user = JSON.parse(localStorage.getItem('profile'))
   const post = useSelector((state) => (currentId ? state.posts.posts.find((message) => message._id === currentId) : null));
   const classes = useStyles();
   const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem('profile'))
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,7 +43,7 @@ const Form = ({ currentId, setCurrentId }) => {
   if (!user?.result?.name) {
     return (
       <Paper className={classes.paper} elevation={6}>
-        <Typography variant='h6' align='center'>
+        <Typography variant="h6" align="center">
           Please Sign In
         </Typography>
       </Paper>
@@ -51,14 +51,16 @@ const Form = ({ currentId, setCurrentId }) => {
   }
 
   const clear = () => {
-    setCurrentId(null);
-    setPostData({
-      title: '',
-      tags: [],
-      message: '',
-      selectedFile: ''
-    })
+    setCurrentId(0);
+    setPostData(
+      {
+        title: '',
+        message: '',
+        tags: [],
+        selectedFile: ''
+      });
   };
+
 
   const handleAddChip = (tag) => {
     setPostData({ ...postData, tags: [...postData.tags, tag] });
@@ -73,7 +75,7 @@ const Form = ({ currentId, setCurrentId }) => {
       <form autoComplete="off" noValidate className={'${classes.root} ${classes.form}'} onSubmit={handleSubmit}>
         <Typography height="100%" margin="0" align="center" variant="h6">{currentId ? `Editing "${post?.title}"` : 'Creating a Sell'}</Typography>
         <TextField name="title" variant="outlined" label="Title" margin="dense" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
-        <TextField name="message" variant="outlined" label="Message" margin="dense" fullWidth multiline rows={4}  value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
+        <TextField name="message" variant="outlined" label="Message" margin="dense" fullWidth multiline rows={4} value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
         <div style={{ padding: '5px 0', width: '94%' }}>
           <ChipInput
             name="tags"
@@ -86,14 +88,14 @@ const Form = ({ currentId, setCurrentId }) => {
           />
         </div>
         <div className={classes.fileInput}></div>
-          <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
-          <div class="flex justify-center items-center space-x-6">
-            <Button className={classes.buttonSubmit} variant="contained" type="submit" size="large" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" >
-              Submit
-            </Button>
-            <Button variant="contained" size="small" onClick={clear} type="clear" class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-5 border-b-4 border-red-700 hover:border-red-500 rounded" >
-              Clear
-            </Button>
+        <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
+        <div class="flex justify-center items-center space-x-6">
+          <Button className={classes.buttonSubmit} variant="contained" type="submit" size="large" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" >
+            Submit
+          </Button>
+          <Button variant="contained" size="small" onClick={clear} type="clear" class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-5 border-b-4 border-red-700 hover:border-red-500 rounded" >
+            Clear
+          </Button>
         </div>
       </form>
     </Paper>

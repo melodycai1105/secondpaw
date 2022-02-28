@@ -4,9 +4,8 @@ import FileBase from 'react-file-base64';
 import useStyles from './styles';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom'
-import { createPost, updatePost } from '../../actions/posts';
 import { useNavigate } from 'react-router-dom';
+import { createPost, updatePost } from '../../actions/posts';
 import ChipInput from 'material-ui-chip-input';
 
 const Form = ({ currentId, setCurrentId }) => {

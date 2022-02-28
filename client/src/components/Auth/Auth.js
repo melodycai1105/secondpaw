@@ -23,16 +23,16 @@ const Auth = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
   const [formData, setFormData] = useState(initialState);
-  const history = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData)
     if (isSignup) {
-      dispatch(signup(formData, history));
+      dispatch(signup(formData, navigate));
     } else {
-      dispatch(signin(formData, history));
+      dispatch(signin(formData, navigate));
     }
   };
 
@@ -43,7 +43,7 @@ const Auth = () => {
     try {
       dispatch({ type: AUTH, data: { result, token } });
 
-      history('/');
+      navigate('/');
     } catch (error) {
       console.log(error);
     }

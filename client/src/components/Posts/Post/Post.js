@@ -14,12 +14,12 @@ import useStyles from './styles'
 const Post = ({ post, setCurrentId }) => {
   const classes = useStyles(); 
   const dispatch = useDispatch();
-  let navigate = useNavigate();
-  const routeChange = () =>{ 
-    let path = '/details'; 
-    navigate(path);
-    setCurrentId(post._id)
-  }
+  // let navigate = useNavigate();
+  // const routeChange = () =>{ 
+  //   let path = '/details'; 
+  //   navigate(path);
+  //   setCurrentId(post._id)
+  // }
   const user = JSON.parse(localStorage.getItem('profile'));
 
   const Likes = () => {
@@ -46,9 +46,9 @@ const Post = ({ post, setCurrentId }) => {
       <Button style={{ color: 'white' }} size="small" onClick={() => setCurrentId(post._id)}>
         <MoreHorizIcon fontSize="medium" />
       </Button>
-      <Button style={{ color: 'white' }} size="small" onClick={routeChange}>
+      {/* <Button style={{ color: 'white' }} size="small" onClick={routeChange}>
         <MoreHorizIcon fontSize="medium" />
-      </Button>
+      </Button> */}
     </div>
     <div className={classes.details}>
       <Typography variant="body2" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>

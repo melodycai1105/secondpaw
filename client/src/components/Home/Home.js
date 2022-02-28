@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container, Grow, Grid, Paper, AppBar, TextField, Button } from '@material-ui/core';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import ChipInput from 'material-ui-chip-input';
 
-import { getPosts, getPostsBySearch } from '../../actions/posts';
+import { getPostsBySearch } from '../../actions/posts';
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
 import Pagination from '../Pagination';
@@ -15,7 +15,7 @@ function useQuery() {
 }
 
 const Home = () => {
-  const [currentId, setCurrentId] = useState(0); // should be changed to use redux
+  const [currentId, setCurrentId] = useState(null); // should be changed to use redux
   const dispatch = useDispatch();
 
   const query = useQuery();
@@ -26,10 +26,6 @@ const Home = () => {
   const classes = useStyles();
   const [search, setSearch] = useState('');
   const [tags, setTags] = useState([]);
-
-  useEffect(() => {
-    dispatch(getPosts());
-  }, [currentId, dispatch]) /// Every change would create new request
 
   const searchPost = () => {
     if (search.trim() || tags) {
@@ -71,17 +67,19 @@ const Home = () => {
               <ChipInput
                 style={{ margin: '10px 0' }}
                 value={tags}
-                onAdd={handleAdd}
-                onDelete={handleDelete}
+                onAdd={(tag) => handleAdd(tag)}
+                onDelete={(tag) => handleDelete(tag)}
                 label="Search Tags"
                 variant="outlined"
               />
               <Button onClick={searchPost} className={classes.searchButton} variant="contained" color="primary"> Search </Button>
             </AppBar>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
-            <Paper className={classes.pagination} elevation={6}>
-              <Pagination />
-            </Paper>
+            {(!searchQuery && !tags.length) && (
+              <Paper className={classes.pagination} elevation={6}>
+                <Pagination page={page} />
+              </Paper>
+            )}
           </Grid>
         </Grid>
       </Container>

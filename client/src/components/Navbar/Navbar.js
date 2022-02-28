@@ -44,7 +44,7 @@ const Navbar = () => {
         }        
         {
           //edit post button ui
-            <Button component={Link} to="/auth" variant="contained" color="primary">edit post</Button>
+            <Button component={Link} to="/editpost" variant="contained" color="primary">create a sell</Button>
         }
       </Toolbar>
     </AppBar >

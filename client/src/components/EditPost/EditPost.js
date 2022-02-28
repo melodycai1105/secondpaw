@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Typography, Paper } from '@material-ui/core';
+import { TextField, Button, Typography, Paper, Container } from '@material-ui/core';
 import FileBase from 'react-file-base64';
 import useStyles from './styles';
 import { useDispatch } from 'react-redux';
@@ -46,7 +46,8 @@ const Form = ({ currentId, setCurrentId }) => {
   }
 
   return (
-    <Paper className={classes.paper}>
+    <Container  component="main" maxWidth="xs">
+    <Paper className={classes.paper} elevation={3}>
       <form autoComplete="off" noValidate className={'${classes.root} ${classes.form}'} onSubmit={handleSubmit}>
         <Typography height="100%" margin="0" align="center" variant="h6">{currentId ? 'Editing': 'Creating'} a Sell</Typography>
         <TextField name="creator" variant="outlined" label="Creator" margin="dense" fullWidth value={postData.creator} onChange={(e) => setPostData({ ...postData, creator: e.target.value })} />
@@ -66,6 +67,7 @@ const Form = ({ currentId, setCurrentId }) => {
         </div>
       </form>
     </Paper>
+    </Container>
   );
 }
 

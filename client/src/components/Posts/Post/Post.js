@@ -6,12 +6,19 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import moment from 'moment'
 import { useDispatch } from 'react-redux';
 import { deletePost, likePost } from '../../../actions/posts';
+import { useNavigate } from "react-router-dom";
 
 import useStyles from './styles'
 
 const Post = ({ post, setCurrentId }) => {
   const classes = useStyles(); 
   const dispatch = useDispatch();
+  let navigate = useNavigate();
+  const routeChange = () =>{ 
+    let path = '/details'; 
+    navigate(path);
+    setCurrentId(post._id)
+  }
 
   return (
     <Card className={classes.card}>
@@ -22,6 +29,9 @@ const Post = ({ post, setCurrentId }) => {
     </div>
     <div className={classes.overlay2}>
       <Button style={{ color: 'white' }} size="small" onClick={() => setCurrentId(post._id)}>
+        <MoreHorizIcon fontSize="medium" />
+      </Button>
+      <Button style={{ color: 'white' }} size="small" onClick={routeChange}>
         <MoreHorizIcon fontSize="medium" />
       </Button>
     </div>

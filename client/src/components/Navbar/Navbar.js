@@ -76,9 +76,9 @@ const Navbar = () => {
       </Link>
       <Grid container>
         <Grid item xs={4}>
-          <Container  >
+          <Container>
             <TextField
-              style={{ marginLeft: '0px', marginTop: '10px', background: 'white', border: '3px light black' }}
+              style={{ marginLeft: '0px', marginTop: '10px', marginRight: '0px', background: 'white', border: '3px light black' }}
               class="button-54"
               name="search"
               variant="outlined"
@@ -91,9 +91,9 @@ const Navbar = () => {
           </Container>
         </Grid>
         <Grid item xs={4}>
-          <Container >
+          <Container>
             <ChipInput
-              style={{ margin: '12px -20px', background: 'white', border: '3px light black' }}
+              style={{ margin: '12px -20px', marginRight: '17px', background: 'white', border: '3px light black' }}
               class="button-54"
               value={tags}
               onAdd={(tag) => handleAdd(tag)}
@@ -134,17 +134,18 @@ const Navbar = () => {
         <Button onClick={searchPost} className={classes.searchButton} variant="contained" color="primary"> Search </Button>
       </Toolbar> */}
       <Toolbar className={classes.toolbar}>
-        {
+        {/* {
           (user &&
             <Button style={{ marginRight: '50px' }} component={Link} to="/editpost" variant="contained" color="primary" size="small" class="button-54">Create Post</Button>
             // <Button component={Link} to="/editpost" variant="contained" color="primary" size="small">create new sell</Button>
           )
-        }
+        } */}
         {
           user?.result ? (
             <div className={classes.profile}>
               <Avatar style={{ marginRight: '20px', marginTop: '12px' }} className={classes.purple} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
               <Typography style={{ marginRight: '20px'}} className={classes.userName} variant='h6'>{user?.result.name}</Typography>
+              <Button style={{ marginRight: '15px' }} component={Link} to="/editpost" variant="contained" color="primary" size="small" class="button-54">Create Post</Button>
               <Button variant="contained" class="button-54" color="primary" onClick={logout}>logout</Button>
             </div>
           ) : (

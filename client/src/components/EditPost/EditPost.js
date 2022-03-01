@@ -60,18 +60,6 @@ const EditPost = ({ currentId, setCurrentId }) => {
     //routeChange();
   }
 
-
-  // if (!user?.result?.name) {
-  //   return (
-  //     <Paper className={classes.paper}>
-  //       <Typography variant='h6' align='center'>
-  //         Please Sign In
-  //       </Typography>
-  //     </Paper>
-  //   )
-  // }
-
-
   const handleAddChip = (tag) => {
     setPostData({ ...postData, tags: [...postData.tags, tag] });
   };

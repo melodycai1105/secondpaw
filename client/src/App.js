@@ -8,9 +8,8 @@ import Auth from './components/Auth/Auth';
 import Form from './components/Form/Form';
 import EditPost from './components/EditPost/EditPost';
 import Posts from './components/Posts/Posts';
-
-
 import PostDetails from './components/PostDetails/PostDetails';
+import UserPage from './components/UserPage/UserPage'
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem('profile'));
@@ -26,8 +25,9 @@ const App = () => {
           <Route path="/auth" element={<Auth />} />
           <Route path="/editpost" element={<EditPost />} />
           <Route path="/details" element={<Posts />} />
-          <Route path="/posts/:id" element={<PostDetails />}></Route>
-          <Route path="/auth" element={<Auth />} ></Route>
+          <Route path="/posts/:id" element={<PostDetails />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/user/:id" element={<UserPage />} />
           {/* {user ? (
             <Route path="/auth" element={<Navigate replace to="/posts" />} />
           ) : (

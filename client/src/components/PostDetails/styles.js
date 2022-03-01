@@ -39,12 +39,11 @@ export default makeStyles((theme) => ({
   },
   recommendedPosts: {
     display: 'flex',
-    alignItems: 'center',
   },
   recommendedPost: {
     padding: '10px', 
     margin: '15px', 
     cursor: 'pointer', 
-    width: '220px',
+    width: '250px',
   },
 }));

@@ -33,7 +33,7 @@ const PostDetails = () => {
     </Paper>
   }
 
-  const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
+  const recommendedPosts = posts.filter(({ _id }) => _id !== post._id).slice(0, 4);
 
   const openPost = (_id) => navigate(`/posts/${_id}`);
 
@@ -61,7 +61,7 @@ const PostDetails = () => {
       </div>
       {!!recommendedPosts.length && (
         <div className={classes.section}>
-          <Typography gutterBottom variant="h5">Others Like This</Typography>
+          <Typography gutterBottom variant="h5">You May Also Like</Typography>
           <div className={classes.recommendedPosts}>
             {recommendedPosts.map(({ title, name, message, likes, selectedFile, _id }) => (
               <Paper className={classes.recommendedPost} elevation={6} onClick={() => openPost(_id)} key={_id}>
@@ -69,7 +69,7 @@ const PostDetails = () => {
                 <Typography gutterBottom variant="subtitle2">{name}</Typography>
                 <Typography gutterBottom variant="subtitle2">{message}</Typography>
                 <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
-                <img src={selectedFile} alt='' width='200px' />
+                <img src={selectedFile} alt='' width='230px' />
               </Paper>
             ))}
           </div>

@@ -48,7 +48,7 @@ const CommentSection = ({post}) => {
                     </Button>
                 </div>
             ) || (
-                <Typography gutterBottom variant="subtitle1">You are logged out. Login to write a comment</Typography>
+                <Typography gutterBottom variant="subtitle1">You are logged out. Login to write a review.</Typography>
             )}
         </div>
     );

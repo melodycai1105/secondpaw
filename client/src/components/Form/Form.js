@@ -21,6 +21,17 @@ const Form = ({ currentId, setCurrentId }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const clear = () => {
+    setCurrentId(0);
+    setPostData(
+      {
+        title: '',
+        message: '',
+        tags: [],
+        selectedFile: ''
+      });
+  };
+  
   useEffect(() => {
     if (!post?.title)
       clear();
@@ -51,17 +62,6 @@ const Form = ({ currentId, setCurrentId }) => {
     )
   }
 
-  const clear = () => {
-    setCurrentId(0);
-    setPostData(
-      {
-        title: '',
-        message: '',
-        tags: [],
-        selectedFile: ''
-      });
-  };
-
 
   const handleAddChip = (tag) => {
     setPostData({ ...postData, tags: [...postData.tags, tag] });
@@ -88,27 +88,15 @@ const Form = ({ currentId, setCurrentId }) => {
             onDelete={(tag) => handleDeleteChip(tag)}
           />
         </div>
-<<<<<<< HEAD
-        <div className={classes.fileInput}>
-          <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} /></div>
+        <div className={classes.fileInput}></div>
+        <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
         <div class="flex justify-center items-center space-x-6">
-          <Button className={classes.buttonSubmit} variant="contained" type="submit" size="large" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" >
+          <Button className={classes.buttonSubmit} onClick={handleSubmit} variant="contained" type="submit" size="large" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" >
             Submit
           </Button>
           <Button variant="contained" size="small" onClick={clear} type="clear" class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-5 border-b-4 border-red-700 hover:border-red-500 rounded" >
             Clear
           </Button>
-=======
-        <div className={classes.fileInput}></div>
-          <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
-          <div class="flex justify-center items-center space-x-6">
-            <Button className={classes.buttonSubmit} onClick={handleSubmit} variant="contained" type="submit" size="large" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" >
-              Submit
-            </Button>
-            <Button variant="contained" size="small" onClick={clear} type="clear" class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-5 border-b-4 border-red-700 hover:border-red-500 rounded" >
-              Clear
-            </Button>
->>>>>>> origin
         </div>
       </form>
     </Paper>

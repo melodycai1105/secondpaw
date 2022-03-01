@@ -44,30 +44,34 @@ const PostDetails = () => {
           <Typography variant="h3" component="h2">{post.title}</Typography>
           <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
           <Typography gutterBottom variant="body1" component="p">{post.message}</Typography>
-          <Typography variant="h6">Created by: {post.name}</Typography>
-          <Typography variant="body1">{moment(post.createdAt).fromNow()}</Typography>
+          <Typography variant="h6">Seller: {post.name}</Typography>
+          <Typography variant="body1">
+            {(moment(post.createdAt).isSame(moment(), 'day')) && (
+                <strong>NEW!&nbsp;</strong>
+              )}
+            Created {moment(post.createdAt).fromNow()}
+          </Typography>
           <Divider style={{ margin: '20px 0' }} />
           <CommentSection post={post} />
           <Divider style={{ margin: '20px 0' }} />
         </div>
-        <div className={classes.imageSection}>
-          <img className={classes.media} src={post.selectedFile} alt={post.title} />
+        <div className={classes.imageSection} style={{ maxWidth: '600px' }}>
+          <img className={classes.media} src={post.selectedFile} alt='' />
         </div>
       </div>
       {!!recommendedPosts.length && (
         <div className={classes.section}>
-          <Typography gutterBottom variant="h5">You might also like: </Typography>
-          <Divider />
+          <Typography gutterBottom variant="h5">Others Like This</Typography>
           <div className={classes.recommendedPosts}>
             {recommendedPosts.map(({ title, name, message, likes, selectedFile, _id }) => (
-              <div style={{margin: '20px', cursor: 'pointer'}} onClick={() => openPost(_id)} key={_id}>
+              <Paper className={classes.recommendedPost} elevation={6} onClick={() => openPost(_id)} key={_id}>
                 <Typography gutterBottom variant="h6">{title}</Typography>
                 <Typography gutterBottom variant="subtitle2">{name}</Typography>
                 <Typography gutterBottom variant="subtitle2">{message}</Typography>
                 <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
                 <img src={selectedFile} alt='' width='200px' />
-              </div>
-            ))};
+              </Paper>
+            ))}
           </div>
         </div>
       )}

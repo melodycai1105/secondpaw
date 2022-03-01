@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Typography, TextField, Button } from '@material-ui/core/';
+import { Typography, TextField, Button, Divider } from '@material-ui/core/';
 import { useDispatch } from 'react-redux';
 
 import { commentPost } from '../../actions/posts';
@@ -24,29 +24,32 @@ const CommentSection = ({post}) => {
     };
 
     return (
-        <div>
-            <div className={classes.commentsOuterContainer}>
-                <div className={classes.commentsInnerContainer}>
-                    <Typography gutterBottom variant="h6">Comments</Typography>
-                    {comments?.map((c, i) => (
-                        <Typography key={i} gutterBottom variant="subtitle1">
-                            <strong>{c.split(': ')[0]}</strong>
-                            {c.split(':')[1]}
-                        </Typography>
-                    ))}
-                    <div ref={commentsRef} />
-                </div>
-                {user?.result?.name && (
-                    <div style={{ width: '70%' }}>
-                        <Typography gutterBottom variant="h6">Write a comment</Typography>
-                        <TextField fullWidth rows={4} variant="outlined" label="Comment" multiline value={comment} onChange={(e) => setComment(e.target.value)} />
-                        <br />
-                        <Button style={{ marginTop: '10px' }} fullWidth disabled={!comment.length} color="primary" variant="contained" onClick={handleClick}>
-                            Comment
-                        </Button>
-                    </div>
+        <div className={classes.commentsOuterContainer}>
+            <div className={classes.commentsInnerContainer}>
+                <Typography gutterBottom variant="h6">{comments.length} Reviews</Typography>
+                {comments?.map((c, i) => (
+                    <Typography key={i} gutterBottom variant="subtitle1">
+                        <strong>{c.split(': ')[0]}</strong>
+                        {c.split(':')[1]}
+                    </Typography>
+                ))}
+                {!comments.length && (
+                    <Typography gutterBottom variant="subtitle1">Be the first to write a review for this product!</Typography>
                 )}
+                <div ref={commentsRef} />
             </div>
+            {user?.result?.name && (
+                <div style={{ width: '90%' }}>
+                    <Typography gutterBottom variant="h6">Write a review</Typography>
+                    <TextField fullWidth rows={4} variant="outlined" label="Comment" multiline value={comment} onChange={(e) => setComment(e.target.value)} />
+                    <br />
+                    <Button style={{ marginTop: '10px' }} fullWidth disabled={!comment.length} color="primary" variant="contained" onClick={handleClick}>
+                        Comment
+                    </Button>
+                </div>
+            ) || (
+                <Typography gutterBottom variant="subtitle1">You are logged out. Login to write a comment</Typography>
+            )}
         </div>
     );
 }

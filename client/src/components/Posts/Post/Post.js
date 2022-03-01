@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import default_bruin from '../../images/secondpaw.png'
 
-import { likePost, deletePost } from '../../../actions/posts';
+import { getPost, likePost, deletePost } from '../../../actions/posts';
 import useStyles from './styles'
 
 const Post = ({ post, setCurrentId }) => {
@@ -38,9 +38,9 @@ const Post = ({ post, setCurrentId }) => {
   return (
     <Card className={classes.card} raised elevation={6}>
       <CardActionArea className={classes.cardAction} onClick={openPost}>
-        <CardMedia className={classes.media} image={post.selectedFile ||  default_bruin } title={post.title} />
+        <CardMedia className={classes.media} image={post.selectedFile || default_bruin} title={post.title} />
         <div className={classes.overlay}>
-          <Typography variant="h6">{post.creator}</Typography>
+          <Typography variant="h6">{post.name}</Typography>
           <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
         </div>
         {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
@@ -70,7 +70,7 @@ const Post = ({ post, setCurrentId }) => {
           <Likes />
         </Button>
         {(user?.result?._id === post?.creator || user?.result?.googleId === post?.creator) && (
-          <Button size="small" color="primary" onClick={() => dispatch(deletePost(post._id))}>
+          <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
             <DeleteIcon fontSize="small" />
           </Button>
         )}

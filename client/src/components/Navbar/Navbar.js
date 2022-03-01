@@ -53,6 +53,6 @@ const Navbar = () => {
       </Toolbar>
     </AppBar >
   );
-}
+};
 
 export default Navbar;

@@ -15,7 +15,7 @@ function useQuery() {
 }
 
 const Home = () => {
-  const [currentId, setCurrentId] = useState(null); // should be changed to use redux
+  const [currentId, setCurrentId] = useState(0); // should be changed to use redux
   const dispatch = useDispatch();
 
   const query = useQuery();
@@ -85,6 +85,6 @@ const Home = () => {
       </Container>
     </Grow>
   );
-}
+};
 
 export default Home;

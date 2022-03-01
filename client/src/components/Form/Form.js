@@ -22,8 +22,8 @@ const Form = ({ currentId, setCurrentId }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // if (!post?.title)
-    //   clear();
+    if (!post?.title)
+      clear();
     if (post)
       setPostData(post);
   }, [post]);// when post changes, set the post data to be the editted data 
@@ -31,11 +31,11 @@ const Form = ({ currentId, setCurrentId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (currentId !== 0) {
-      dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
+    if (currentId === 0) {
+      dispatch(createPost({ ...postData, name: user?.result?.name }, navigate));
       clear();
     } else {
-      dispatch(createPost({ ...postData, name: user?.result?.name }, navigate));
+      dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
       clear();
     }
   };
@@ -76,7 +76,7 @@ const Form = ({ currentId, setCurrentId }) => {
         <Typography height="100%" margin="0" align="center" variant="h6">{currentId ? `Editing "${post?.title}"` : 'Creating a Sell'}</Typography>
         <TextField name="title" variant="outlined" label="Title" margin="dense" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
         <TextField name="message" variant="outlined" label="Message" margin="dense" fullWidth multiline rows={4} value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
-        <div style={{ padding: '5px 0', width: '94%' }}>
+        <div style={{ padding: '5px 0', width: '100%' }}>
           <ChipInput
             name="tags"
             variant="outlined"
@@ -87,8 +87,8 @@ const Form = ({ currentId, setCurrentId }) => {
             onDelete={(tag) => handleDeleteChip(tag)}
           />
         </div>
-        <div className={classes.fileInput}></div>
-        <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
+        <div className={classes.fileInput}>
+          <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} /></div>
         <div class="flex justify-center items-center space-x-6">
           <Button className={classes.buttonSubmit} variant="contained" type="submit" size="large" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" >
             Submit

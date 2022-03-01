@@ -21,7 +21,10 @@ export default (state = { isLoading: true, posts: [] }, action) => {
         posts: action.payload.data
       };
     case CREATE:
-      return { ...state, posts: [...state, action.payload] };
+      return {
+        ...state,
+        posts: [...state.posts, action.payload]
+      };
     case LIKE:
       return { ...state, posts: state.posts.map((post) => (post._id === action.payload._id ? action.payload : post)) };
     case UPDATE:

@@ -21,14 +21,12 @@ const App = () => {
         <Navbar />
         <Routes>
           <Route path="/" element={<Navigate replace to="/posts" />} />
-          <Route path="/posts" element={<Home />} />
-          <Route path="/posts/search" element={<Home />} />
+          <Route path="/posts" element={<Home />}></Route>
+          <Route path="/posts/search" element={<Home />} ></Route>
           <Route path="/auth" element={<Auth />} />
           <Route path="/editpost" element={<EditPost />} />
           <Route path="/details" element={<Posts />} />
-          <Route path="/posts" element={<Home />}></Route>
           <Route path="/posts/:id" element={<PostDetails />}></Route>
-          <Route path="/posts/search" element={<Home />} ></Route>
           <Route path="/auth" element={<Auth />} ></Route>
           {/* {user ? (
             <Route path="/auth" element={<Navigate replace to="/posts" />} />

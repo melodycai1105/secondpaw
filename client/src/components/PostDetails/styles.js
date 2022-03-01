@@ -26,4 +26,13 @@ export default makeStyles((theme) => ({
       marginLeft: 0,
     },
   }, 
+  commentsOuterContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  commentsInnerContainer: {
+    height: '200px',
+    overflowY: 'auto',
+    marginRight: '30px',
+  },
 }));

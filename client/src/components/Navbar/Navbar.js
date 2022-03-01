@@ -47,7 +47,12 @@ const Navbar = () => {
               <Button variant="contained" className={classes.logout} color='secondary' onClick={logout}>logout</Button>
             </div>
           ) : (
-            <Button component={Link} to="/auth" variant="contained" color="primary">sign in</Button>
+            <Button component={Link} to="/auth" variant="contained" color="primary" size="small">sign in</Button>
+          )
+        }        
+        {
+          (user &&
+            <Button component={Link} to="/editpost" variant="contained" color="primary" size="small">create new sell</Button>
           )
         }
       </Toolbar>

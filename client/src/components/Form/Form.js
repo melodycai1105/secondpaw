@@ -4,7 +4,7 @@ import FileBase from 'react-file-base64';
 import useStyles from './styles';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import { createPost, updatePost } from '../../actions/posts';
 import ChipInput from 'material-ui-chip-input';
 
@@ -42,12 +42,13 @@ const Form = ({ currentId, setCurrentId }) => {
 
   if (!user?.result?.name) {
     return (
-      <Paper className={classes.paper} elevation={6}>
-        <Typography variant="h6" align="center">
-          Please Sign In
-        </Typography>
-      </Paper>
-    );
+      // <Paper className={classes.paper}>
+      //   <Typography variant='h6' align='center'>
+      //     Please sign in to create post
+      //   </Typography>
+      // </Paper>
+      null
+    )
   }
 
   const clear = () => {
@@ -87,6 +88,7 @@ const Form = ({ currentId, setCurrentId }) => {
             onDelete={(tag) => handleDeleteChip(tag)}
           />
         </div>
+<<<<<<< HEAD
         <div className={classes.fileInput}>
           <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} /></div>
         <div class="flex justify-center items-center space-x-6">
@@ -96,6 +98,17 @@ const Form = ({ currentId, setCurrentId }) => {
           <Button variant="contained" size="small" onClick={clear} type="clear" class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-5 border-b-4 border-red-700 hover:border-red-500 rounded" >
             Clear
           </Button>
+=======
+        <div className={classes.fileInput}></div>
+          <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
+          <div class="flex justify-center items-center space-x-6">
+            <Button className={classes.buttonSubmit} onClick={handleSubmit} variant="contained" type="submit" size="large" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded" >
+              Submit
+            </Button>
+            <Button variant="contained" size="small" onClick={clear} type="clear" class="bg-red-500 hover:bg-red-400 text-white font-bold py-2 px-5 border-b-4 border-red-700 hover:border-red-500 rounded" >
+              Clear
+            </Button>
+>>>>>>> origin
         </div>
       </form>
     </Paper>

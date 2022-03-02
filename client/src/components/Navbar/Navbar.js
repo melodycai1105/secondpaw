@@ -76,7 +76,7 @@ const Navbar = () => {
       </Link>
       <Grid container>
         <Grid item xs={4}>
-          <Container  >
+          <Container>
             <TextField
               style={{ marginLeft: '0px', marginTop: '10px', background: 'white', border: '3px light black' }}
               class="button-54"

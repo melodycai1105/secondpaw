@@ -9,9 +9,10 @@ import ChipInput from 'material-ui-chip-input';
 
 const EditPost = () => {
   const [postData, setPostData] = useState({ title: '', message: '', tags: [], selectedFile: '' });
-  const currentId = useParams()
-  console.log(currentId)
+  const { id } = useParams();
+  const currentId = id
   const post = useSelector((state) => (currentId ? state.posts.posts.find((message) => message._id === currentId) : null));
+  console.log(post)
   const dispatch = useDispatch();
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem('profile'));
@@ -37,6 +38,7 @@ const EditPost = () => {
       clear();
     }
     clear();
+    history(`/posts/${currentId}`)
     //routeChange();
   }
 
@@ -51,9 +53,8 @@ const EditPost = () => {
   return (
     <Container component="main" maxWidth="xs">
       <Paper className={classes.paper} elevation={3}>
-        <form autoComplete="off" noValidate className={'${classes.root} ${classes.form}'} onSubmit={handleSubmit2}>
+        <form autoComplete="off" noValidate className={'${classes.root} ${classes.form}'} onSubmit={handleSubmit}>
           <Typography height="100%" margin="0" align="center" variant="h6">{currentId ? 'Editing' : 'Creating'} a Sell</Typography>
-          {/* <TextField name="creator" variant="outlined" label="Creator" margin="dense" fullWidth value={postData.creator} onChange={(e) => setPostData({ ...postData, creator: e.target.value })} /> */}
           <TextField name="title" variant="outlined" label="Title" margin="dense" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
           <TextField name="message" variant="outlined" label="Message" margin="dense" fullWidth value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
           <div style={{ padding: '5px 0', width: '100%' }}>
@@ -70,7 +71,7 @@ const EditPost = () => {
           <div className={classes.fileInput}>
             <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
             <div class="flex justify-center items-center space-x-6">
-              <Button className={classes.buttonSubmit} onClick={handleSubmit2} variant="contained" type="submit" size="large" class="button-55" >
+              <Button className={classes.buttonSubmit} onClick={handleSubmit} variant="contained" type="submit" size="large" class="button-55" >
                 Submit
               </Button>
               <Button variant="contained" size="small" onClick={clear} type="clear" class="button-55" >

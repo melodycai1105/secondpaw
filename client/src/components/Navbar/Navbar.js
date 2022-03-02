@@ -113,15 +113,9 @@ const Navbar = () => {
       </div>
       <Toolbar className={classes.toolbar}>
         {user?.result && (
-            <div className={classes.profile}>
-              <Avatar style={{ margin: '12px 10px 0px 0px'}} className={classes.purple} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
-              {/* <Button component={Link} to="/editpost" variant="contained" color="primary" size="small" class="button-54">Create Post</Button> */}
-              {/* <Button variant="contained" class="button-54" color="primary" onClick={logout}>logout</Button> */}
-            </div>
-          )}
-            {/* <Button component={Link} to="/auth" variant="contained" color="primary" class="button-54" size="small">Sign In</Button> */}
-        
-        <div>
+            <Avatar style={{ margin: '12px 20px 0px 0px'}} className={classes.avatar} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
+          )}        
+        <div className={classes.dashboard} >
           <Button
             id="menuButton"
             aria-controls={open ? 'menu' : undefined}
@@ -129,7 +123,6 @@ const Navbar = () => {
             aria-expanded={open ? 'true' : undefined}
             variant="contained" color="primary" class="button-54" size="small"
             onClick={handleClick}
-            style={{marginLeft: '20px'}}
           >
             DASHBOARD
           </Button>
@@ -145,24 +138,24 @@ const Navbar = () => {
           >
             {user?.result ? (
                 <div className={classes.menuList}>
-                  <MenuItem disableRipple>
+                  <MenuItem disableRipple onClick={() => navigate("/editpost")}>
                     <EditIcon />
-                    <Button component={Link} to="/editpost" >Create Post</Button>
+                    <Typography>&nbsp;Create Post</Typography>
                   </MenuItem>
                   <MenuItem disableRipple>
                     <AccountCircleIcon />
-                    <Button >Profile</Button>
+                    <Typography>&nbsp;Profile</Typography>
                   </MenuItem>
                   <Divider sx={{ my: 0.5 }} />
-                  <MenuItem disableRipple>
+                  <MenuItem disableRipple onClick={logout}>
                     <LogoutIcon />
-                    <Button onClick={logout}>Logout</Button>
+                    <Typography>&nbsp;Logout</Typography>
                   </MenuItem>
                 </div>
               ) : (
-                <MenuItem disableRipple>
+                <MenuItem disableRipple onClick={() => navigate("/auth")}>
                 <LoginIcon />
-                <Button component={Link} to="/auth">Sign In</Button>
+                <Typography>&nbsp;Sign In</Typography>
                 </MenuItem>
               )}
           </Menu>

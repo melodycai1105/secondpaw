@@ -71,52 +71,13 @@ const Navbar = () => {
 
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
-      <Link to="/" className={classes.brandContainer}>
-        <img src={SecondPaw} alt="Website Logo" align="left" width="700px" height="900px" />
+      <Link to="/" className={classes.logoContainer}>
+        <img src={SecondPaw} alt='' width="700px" />
       </Link>
-      <Grid container>
-        <Grid item xs={4}>
-          <Container>
-            <TextField
-              // style={{ margin: '12px -30px', marginLeft: '0px', marginRight: '0px', background: 'white', border: '3px light black' }}
-              style={{ margin: '12px -10px 0px -6px', background: 'white', border: '3px light black' }}
-              class="button-54"
-              name="search"
-              variant="outlined"
-              label="Search Sales"
-              fullWidth
-              onKeyPress={handleKeyPress}
-              value={search}
-              onChange={(e) => { setSearch(e.target.value) }}
-            />
-          </Container>
-        </Grid>
-        <Grid item xs={4}>
-          <Container>
-            <ChipInput
-              // style={{ margin: '12px -40px', marginRight: '17px', background: 'white', border: '3px light black' }}
-              style={{ margin: '14px 0px 0px -20px', background: 'white', border: '3px light black' }}
-              class="button-54"
-              value={tags}
-              onAdd={(tag) => handleAdd(tag)}
-              onDelete={(tag) => handleDelete(tag)}
-              label="Search Tags"
-              variant="outlined"
-            />
-          </Container>
-        </Grid>
-        <Grid item xs={2}>
-          <Container >
-            <Button style={{ margin: '30px 0px 0px -30px' }} onClick={searchPost} class="button-54">
-              <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="w-4" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                <path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path>
-              </svg>
-            </Button>
-          </Container>
-        </Grid>
-      </Grid>
-      {/* <Toolbar className={classes.appBarSearch} position="static" color="inherit">
-        <TextField
+      <div className={classes.searchBar}>
+        <TextField 
+          style={{background: 'white', width: '220px', height: '70px', margin: '10px', border: '3px light black'}}
+          class="button-54"
           name="search"
           variant="outlined"
           label="Search Sales"
@@ -126,27 +87,26 @@ const Navbar = () => {
           onChange={(e) => { setSearch(e.target.value) }}
         />
         <ChipInput
-          style={{ margin: '10px 0' }}
+          style={{background: 'white', width: '220px', height: '70px', margin: '10px', border: '3px light black'}}
+          class="button-54"
           value={tags}
           onAdd={(tag) => handleAdd(tag)}
           onDelete={(tag) => handleDelete(tag)}
           label="Search Tags"
           variant="outlined"
         />
-        <Button onClick={searchPost} className={classes.searchButton} variant="contained" color="primary"> Search </Button>
-      </Toolbar> */}
+        <Button onClick={searchPost} class="button-54" style={{margin: '10px', padding: '10px', height: '40px' }}>
+          <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="w-4" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"></path>
+          </svg>
+        </Button>
+      </div>
       <Toolbar className={classes.toolbar}>
-        {/* {
-          (user &&
-            <Button style={{ marginRight: '50px' }} component={Link} to="/editpost" variant="contained" color="primary" size="small" class="button-54">Create Post</Button>
-            // <Button component={Link} to="/editpost" variant="contained" color="primary" size="small">create new sell</Button>
-          )
-        } */}
         {
           user?.result ? (
             <div className={classes.profile}>
               <Avatar style={{ margin: '12px 10px 0px 0px'}} className={classes.purple} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
-              <Typography style={{marginRight: '20px', fontSize: 16}} className={classes.userName} variant='h6'>{user?.result.name}</Typography>
+              {/* <Typography style={{marginRight: '20px', fontSize: 16}} className={classes.userName} variant='h6'>{user?.result.name}</Typography> */}
               <Button style={{ marginRight: '15px' }} component={Link} to="/editpost" variant="contained" color="primary" size="small" class="button-54">Create Post</Button>
               <Button variant="contained" class="button-54" color="primary" onClick={logout}>logout</Button>
             </div>

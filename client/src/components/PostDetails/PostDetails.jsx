@@ -3,7 +3,7 @@ import { Paper, Typography, Divider, CircularProgress } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { useParams, useNavigate, UNSAFE_NavigationContext } from 'react-router-dom';
-
+ 
 import CommentSection from './CommentSection';
 import { getPost, getPostsBySearch } from '../../actions/posts';
 import useStyles from './styles'; 
@@ -14,6 +14,7 @@ const PostDetails = () => {
   const navigate = useNavigate();
   const classes = useStyles();
   const { id } = useParams();
+
   useEffect(() => {
     dispatch(getPost(id));
   }, [id]);
@@ -35,7 +36,7 @@ const PostDetails = () => {
   const recommendedPosts = posts.filter(({ _id }) => _id !== post._id).slice(0, 4);
 
   const openPost = (_id) => navigate(`/posts/${_id}`);
-  console.log(post)
+
   return (
     <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
       <div className={classes.card}>
@@ -54,7 +55,7 @@ const PostDetails = () => {
           <CommentSection post={post} />
           <Divider style={{ margin: '20px 0' }} />
         </div>
-        <div className={classes.imageSection} style={{ maxWidth: '600px' }}>
+        <div className={classes.imageSection}>
           <img className={classes.media} src={post.selectedFile} alt='' />
         </div>
       </div>

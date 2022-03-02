@@ -107,7 +107,7 @@ const Navbar = () => {
             <div className={classes.profile}>
               <Avatar style={{ margin: '12px 10px 0px 0px'}} className={classes.purple} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
               {/* <Typography style={{marginRight: '20px', fontSize: 16}} className={classes.userName} variant='h6'>{user?.result.name}</Typography> */}
-              <Button style={{ marginRight: '15px' }} component={Link} to="/editpost" variant="contained" color="primary" size="small" class="button-54">Create Post</Button>
+              <Button component={Link} to="/editpost" variant="contained" color="primary" size="small" class="button-54">Create Post</Button>
               <Button variant="contained" class="button-54" color="primary" onClick={logout}>logout</Button>
             </div>
           ) : (

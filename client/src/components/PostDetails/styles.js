@@ -5,7 +5,9 @@ export default makeStyles((theme) => ({
     borderRadius: '20px',
     objectFit: 'cover',
     width: '100%',
-    maxHeight: '600px',
+    maxHeight: '800px',
+    maxWidth: '600px',
+    cursor: 'zoom-in',
   },
   card: {
     display: 'flex',

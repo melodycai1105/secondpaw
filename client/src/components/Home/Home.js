@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Grow, Grid, Paper, Divider } from '@material-ui/core';
 import { useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 import Posts from '../Posts/Posts';
 // import Form from '../Form/Form';
@@ -14,8 +13,6 @@ function useQuery() {
 }
 
 const Home = () => {
-  const [currentId, setCurrentId] = useState(null); // should be changed to use redux
-  const dispatch = useDispatch();
   const query = useQuery();
   const page = query.get('page') || 1;
 
@@ -36,7 +33,7 @@ const Home = () => {
         </Grid>
         <Grid style={{ marginTop: '30px'}}container justify="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
           <Grid item xs={12} sm={6} md={10} fullWidth>
-            <Posts setCurrentId={setCurrentId} />
+            <Posts />
           </Grid>
         </Grid>
         <Grid item xs={12} sm={6} md={3}>

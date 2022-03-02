@@ -74,7 +74,6 @@ const Post = ({ post }) => {
             <DeleteIcon fontSize="small" />
           </Button>
         )}
-
       </CardActions>
     </Card>
   );

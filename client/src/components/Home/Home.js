@@ -20,7 +20,7 @@ const Home = () => {
 
   return (
     <Grow in>
-      <Container style={{ marginTop: '30px', marginLeft: '100px' }} maxWidth="xl">
+      <Container maxWidth="xl">
         <Grid container spacing={2} >
           <img src={Trending} alt="Trending Logo" align="left" width="300px" height="400px" />
           <svg style={{ marginTop: '15px', marginLeft: '-30px' }} width="70" height="70" fill="true" viewBox="0 0 24 24">
@@ -31,7 +31,7 @@ const Home = () => {
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.25 8.25V4.75H7.75"></path>
           </svg>
         </Grid>
-        <Grid style={{ marginTop: '30px'}}container justify="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
+        <Grid style={{ marginTop: '30px'}} container justify="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
           <Grid item xs={12} sm={6} md={10} fullWidth>
             <Posts />
           </Grid>

@@ -10,5 +10,6 @@ export default makeStyles((theme) => ({
       flexDirection: 'column-reverse',
     },
     marginBottom: '3rem',
+    justifyContent: 'center'
   },
 }));

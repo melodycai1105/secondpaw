@@ -12,7 +12,7 @@ export default makeStyles((theme) => ({
     background: 'transparent',
     boxShadow: 'none',
     borderRadius: 15,
-    margin: '20px 0',
+    margin: '10px 0',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',

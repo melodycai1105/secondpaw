@@ -29,10 +29,21 @@ export default makeStyles((theme) => ({
   commentsOuterContainer: {
     display: 'flex',
     justifyContent: 'space-between',
+    flexDirection: 'column',
+    width: '100%',
   },
   commentsInnerContainer: {
-    height: '200px',
+    height: '100%',
     overflowY: 'auto',
-    marginRight: '30px',
+    marginRight: '20px',
+  },
+  recommendedPosts: {
+    display: 'flex',
+  },
+  recommendedPost: {
+    padding: '10px', 
+    margin: '15px', 
+    cursor: 'pointer', 
+    width: '250px',
   },
 }));

@@ -60,18 +60,6 @@ const EditPost = ({ currentId, setCurrentId }) => {
     //routeChange();
   }
 
-
-  // if (!user?.result?.name) {
-  //   return (
-  //     <Paper className={classes.paper}>
-  //       <Typography variant='h6' align='center'>
-  //         Please Sign In
-  //       </Typography>
-  //     </Paper>
-  //   )
-  // }
-
-
   const handleAddChip = (tag) => {
     setPostData({ ...postData, tags: [...postData.tags, tag] });
   };
@@ -85,7 +73,7 @@ const EditPost = ({ currentId, setCurrentId }) => {
       <Paper className={classes.paper} elevation={3}>
         <form autoComplete="off" noValidate className={'${classes.root} ${classes.form}'} onSubmit={handleSubmit2}>
           <Typography height="100%" margin="0" align="center" variant="h6">{currentId ? 'Editing' : 'Creating'} a Sell</Typography>
-          <TextField name="creator" variant="outlined" label="Creator" margin="dense" fullWidth value={postData.creator} onChange={(e) => setPostData({ ...postData, creator: e.target.value })} />
+          {/* <TextField name="creator" variant="outlined" label="Creator" margin="dense" fullWidth value={postData.creator} onChange={(e) => setPostData({ ...postData, creator: e.target.value })} /> */}
           <TextField name="title" variant="outlined" label="Title" margin="dense" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
           <TextField name="message" variant="outlined" label="Message" margin="dense" fullWidth value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
           <div style={{ padding: '5px 0', width: '100%' }}>

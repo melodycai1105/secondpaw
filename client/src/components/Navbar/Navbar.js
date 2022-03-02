@@ -10,6 +10,13 @@ import ChipInput from 'material-ui-chip-input';
 import { getPostsBySearch } from '../../actions/posts';
 import '../button.css';
 
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import EditIcon from '@mui/icons-material/Edit';
+import Divider from '@mui/material/Divider';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const Navbar = () => {
 
@@ -56,7 +63,10 @@ const Navbar = () => {
     setUser(null);
   }
 
-  console.log(user);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => setAnchorEl(event.currentTarget);
+  const handleClose = () => setAnchorEl(null);
 
   useEffect(() => {
     const token = user?.token;
@@ -102,18 +112,61 @@ const Navbar = () => {
         </Button>
       </div>
       <Toolbar className={classes.toolbar}>
-        {
-          user?.result ? (
+        {user?.result && (
             <div className={classes.profile}>
               <Avatar style={{ margin: '12px 10px 0px 0px'}} className={classes.purple} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
-              {/* <Typography style={{marginRight: '20px', fontSize: 16}} className={classes.userName} variant='h6'>{user?.result.name}</Typography> */}
-              <Button component={Link} to="/editpost" variant="contained" color="primary" size="small" class="button-54">Create Post</Button>
-              <Button variant="contained" class="button-54" color="primary" onClick={logout}>logout</Button>
+              {/* <Button component={Link} to="/editpost" variant="contained" color="primary" size="small" class="button-54">Create Post</Button> */}
+              {/* <Button variant="contained" class="button-54" color="primary" onClick={logout}>logout</Button> */}
             </div>
-          ) : (
-            <Button component={Link} to="/auth" variant="contained" color="primary" class="button-54" size="small">Sign In</Button>
-          )
-        }
+          )}
+            {/* <Button component={Link} to="/auth" variant="contained" color="primary" class="button-54" size="small">Sign In</Button> */}
+        
+        <div>
+          <Button
+            id="menuButton"
+            aria-controls={open ? 'menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+            variant="contained" color="primary" class="button-54" size="small"
+            onClick={handleClick}
+            style={{marginLeft: '20px'}}
+          >
+            DASHBOARD
+          </Button>
+          <Menu
+            className={classes.menu} 
+            id="menu"
+            MenuListProps={{
+              'aria-labelledby': 'menuButton',
+            }}
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+          >
+            {user?.result ? (
+                <div className={classes.menuList}>
+                  <MenuItem disableRipple>
+                    <EditIcon />
+                    <Button component={Link} to="/editpost" >Create Post</Button>
+                  </MenuItem>
+                  <MenuItem disableRipple>
+                    <AccountCircleIcon />
+                    <Button >Profile</Button>
+                  </MenuItem>
+                  <Divider sx={{ my: 0.5 }} />
+                  <MenuItem disableRipple>
+                    <LogoutIcon />
+                    <Button onClick={logout}>Logout</Button>
+                  </MenuItem>
+                </div>
+              ) : (
+                <MenuItem disableRipple>
+                <LoginIcon />
+                <Button component={Link} to="/auth">Sign In</Button>
+                </MenuItem>
+              )}
+          </Menu>
+        </div>
       </Toolbar>
     </AppBar >
   );

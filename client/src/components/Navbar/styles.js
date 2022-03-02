@@ -30,7 +30,8 @@ export default makeStyles((theme) => ({
   },
   profile: {
     display: 'flex',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     width: '400px',
   },
   userName: {
@@ -49,5 +50,12 @@ export default makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-  }
+  },
+  menu: {
+    marginTop: '20px',
+    background: 'transparent',
+  },
+  menuList: {
+    background: 'transparent',
+  },
 }));

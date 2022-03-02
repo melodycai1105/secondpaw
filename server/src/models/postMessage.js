@@ -4,15 +4,20 @@ const postSchema = mongoose.Schema({
   title: String,
   message: String,
   creator: String,
+  name: String,
   tags: [String],
   selectedFile: String,
   likes: {
     type: [String],
     default: [],
   },
-  createAt: {
+  comments: {
+    type: [String],
+    default: [],
+  },
+  createdAt: {
     type: Date,
-    default: new Date()
+    default: new Date(),
   },
 }); // each post have to have these things
 

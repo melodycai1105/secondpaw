@@ -79,7 +79,7 @@ const Navbar = () => {
           <Container  >
             <TextField
               style={{ marginLeft: '0px', marginTop: '10px', background: 'white', border: '3px light black' }}
-              class="button-54"
+              class="button-54-edited"
               name="search"
               variant="outlined"
               label="Search Sales"
@@ -94,8 +94,7 @@ const Navbar = () => {
           <Container >
             <ChipInput
               style={{ margin: '12px -20px', background: 'white', border: '3px light black' }}
-              class="button-54"
-              value={tags}
+              class="button-54-edited"
               onAdd={(tag) => handleAdd(tag)}
               onDelete={(tag) => handleDelete(tag)}
               label="Search Tags"

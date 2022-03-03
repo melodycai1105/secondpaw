@@ -3,13 +3,13 @@ import express from 'express';
 import mongoose from 'mongoose';
 
 import PostMessage from '../models/postMessage.js';
+import usersModel from '../models/user.js';
 
 const router = express.Router();
 
 export const getPosts = async (req, res) => {
     const { page } = req.query;
     try {
-
         const LIMIT = 8; //number of posts per page
         const startIndex = (Number(page) - 1) * LIMIT; //get the starting index of every page
         const total = await PostMessage.countDocuments({});
@@ -19,6 +19,17 @@ export const getPosts = async (req, res) => {
     }
     catch (error) {
         res.status(404).json({ message: error.message });
+    }
+}
+
+export const getUser = async (req, res) => {
+    const { id } = req.params
+    try {
+        console.log(id);
+        console.log(await usersModel.findById(id));
+    }
+    catch (error) {
+        res.status(410).json({ message: error.message });
     }
 }
 

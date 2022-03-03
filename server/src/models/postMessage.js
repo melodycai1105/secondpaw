@@ -8,22 +8,12 @@ const postSchema = mongoose.Schema({
   price: String, 
   tags: [String],
   selectedFile: String,
-  boughtBy: String, 
-  likes: {
-    type: [String],
-    default: [],
-  },
-  comments: {
-    type: [String],
-    default: [],
-  },
-  createdAt: {
-    type: Date,
-    default: new Date(),
-  },
-  rating: {
-    
-  }
+  likes: { type: [String], default: [] },
+  price: { type: Number, default: -1 },
+  rating: { type: Number, default: null } ,
+  buyer: { type: String, default: null },
+  comments: { type: [String], default: [] },
+  createdAt: { type: Date, default: new Date() },
 }); // each post have to have these things
 
 const PostMessage = mongoose.model('PostMessage', postSchema);

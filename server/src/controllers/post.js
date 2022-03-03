@@ -66,10 +66,8 @@ export const createPost = async (req, res) => {
 
     try {
         const { _id } = await newPost.save();
-        //console.log(req.userId)
         const userobj = await User.findById(req.userId);
         userobj.posts.push(_id);
-        console.log(userobj)
         res.status(201).json(newPost);
     }
     catch (error) {

@@ -10,6 +10,16 @@ import ChipInput from 'material-ui-chip-input';
 import { getPostsBySearch } from '../../actions/posts';
 import '../button.css';
 
+<<<<<<< HEAD
+=======
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import EditIcon from '@mui/icons-material/Edit';
+import Divider from '@mui/material/Divider';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
+>>>>>>> master
 
 const Navbar = () => {
 
@@ -56,7 +66,10 @@ const Navbar = () => {
     setUser(null);
   }
 
-  console.log(user);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => setAnchorEl(event.currentTarget);
+  const handleClose = () => setAnchorEl(null);
 
   useEffect(() => {
     const token = user?.token;
@@ -102,6 +115,7 @@ const Navbar = () => {
         </Button>
       </div>
       <Toolbar className={classes.toolbar}>
+<<<<<<< HEAD
         {
           user?.result ? (
             <div className={classes.profile}>
@@ -114,6 +128,56 @@ const Navbar = () => {
             <Button component={Link} to="/auth" variant="contained" color="primary" class="button-54" size="small">Sign In</Button>
           )
         }
+=======
+        {user?.result && (
+            <Avatar style={{ margin: '12px 20px 0px 0px'}} className={classes.avatar} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
+          )}        
+        <div className={classes.dashboard} >
+          <Button
+            id="menuButton"
+            aria-controls={open ? 'menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+            variant="contained" color="primary" class="button-54" size="small"
+            onClick={handleClick}
+          >
+            DASHBOARD
+          </Button>
+          <Menu
+            className={classes.menu} 
+            id="menu"
+            MenuListProps={{
+              'aria-labelledby': 'menuButton',
+            }}
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+          >
+            {user?.result ? (
+                <div className={classes.menuList}>
+                  <MenuItem disableRipple onClick={() => navigate("/editpost")}>
+                    <EditIcon />
+                    <Typography>&nbsp;Create Post</Typography>
+                  </MenuItem>
+                  <MenuItem disableRipple>
+                    <AccountCircleIcon />
+                    <Typography>&nbsp;Profile</Typography>
+                  </MenuItem>
+                  <Divider sx={{ my: 0.5 }} />
+                  <MenuItem disableRipple onClick={logout}>
+                    <LogoutIcon />
+                    <Typography>&nbsp;Logout</Typography>
+                  </MenuItem>
+                </div>
+              ) : (
+                <MenuItem disableRipple onClick={() => navigate("/auth")}>
+                <LoginIcon />
+                <Typography>&nbsp;Sign In</Typography>
+                </MenuItem>
+              )}
+          </Menu>
+        </div>
+>>>>>>> master
       </Toolbar>
     </AppBar >
   );

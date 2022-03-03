@@ -21,7 +21,11 @@ const Home = () => {
   return (
     <Grow in>
       <Container maxWidth="xl">
+<<<<<<< HEAD
         <Grid container spacing={2} >
+=======
+        <div className={classes.header}>
+>>>>>>> master
           <img src={Trending} alt="Trending Logo" align="left" width="300px" height="400px" />
           <svg style={{ marginTop: '15px', marginLeft: '-30px' }} width="70" height="70" fill="true" viewBox="0 0 24 24">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.75 11.25L10.25 5.75"></path>
@@ -30,10 +34,20 @@ const Home = () => {
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.75 19.2502H18.25C18.8023 19.2502 19.25 18.8025 19.25 18.2502V5.75C19.25 5.19772 18.8023 4.75 18.25 4.75H17.75C17.1977 4.75 16.75 5.19772 16.75 5.75V18.2502C16.75 18.8025 17.1977 19.2502 17.75 19.2502Z"></path>
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.25 8.25V4.75H7.75"></path>
           </svg>
+<<<<<<< HEAD
           <Grid item xs={12} sm={6} md={3}>
             <Paper className={classes.pagination} elevation={6}>
               <Pagination page={page} />
             </Paper>
+=======
+          <div className={classes.pagination}>
+            <Pagination page={page} />
+          </div>
+        </div>
+        <Grid style={{ marginTop: '30px'}} container justify="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
+          <Grid item xs={12} sm={6} md={10} fullWidth>
+            <Posts />
+>>>>>>> master
           </Grid>
         </Grid>
         <Grid style={{ marginTop: '30px'}} container justify="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>

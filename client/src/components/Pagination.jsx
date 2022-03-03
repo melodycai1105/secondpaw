@@ -23,8 +23,13 @@ const Paginate = ({ page }) => {
             classes={{ ul: classes.ul }}
             count={numberOfPages}
             page={Number(page) || 1}
+<<<<<<< HEAD
             variant="outlined"
             color="primary"
+=======
+            variant="outlined" color="secondary" size="large"
+            showFirstButton showLastButton
+>>>>>>> master
             renderItem={(item) => (
                 <PaginationItem {...item} component={Link} to={`/posts?page=${item.page}`} />
             )}

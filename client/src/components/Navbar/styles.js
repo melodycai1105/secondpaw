@@ -23,17 +23,15 @@ export default makeStyles((theme) => ({
     color: 'rgba(0,183,255, 1)',
     textDecoration: 'none',
   },
+<<<<<<< HEAD
   // image: {
   //   marginLeft: '15px',
   // },
+=======
+>>>>>>> master
   toolbar: {
     display: 'flex',
     justifyContent: 'flex-end',
-    width: '400px',
-  },
-  profile: {
-    display: 'flex',
-    justifyContent: 'space-between',
     width: '400px',
   },
   userName: {
@@ -44,7 +42,9 @@ export default makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
   },
-  purple: {
+  avatar: {
+    display: 'flex',
+    alignItems: 'center',
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
   },
@@ -52,5 +52,16 @@ export default makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+<<<<<<< HEAD
   }
+=======
+  },
+  menu: {
+    marginTop: '20px',
+    background: 'transparent',
+  },
+  menuList: {
+    background: 'transparent',
+  },
+>>>>>>> master
 }));

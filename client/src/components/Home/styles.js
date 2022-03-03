@@ -1,11 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
-<<<<<<< HEAD
-  pagination: {
-    borderRadius: 4,
-    marginTop: '1rem',
-=======
   header: {
     display: 'flex',
     flexDirection: 'row',
@@ -17,7 +12,6 @@ export default makeStyles((theme) => ({
     marginLeft: '20px',
     display: 'flex',
     justifyContent: 'flex-end',
->>>>>>> master
   },
   gridContainer: {
     [theme.breakpoints.down('xs')]: {

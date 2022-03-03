@@ -23,12 +23,6 @@ export default makeStyles((theme) => ({
     color: 'rgba(0,183,255, 1)',
     textDecoration: 'none',
   },
-<<<<<<< HEAD
-  // image: {
-  //   marginLeft: '15px',
-  // },
-=======
->>>>>>> master
   toolbar: {
     display: 'flex',
     justifyContent: 'flex-end',
@@ -52,9 +46,6 @@ export default makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-<<<<<<< HEAD
-  }
-=======
   },
   menu: {
     marginTop: '20px',
@@ -63,5 +54,4 @@ export default makeStyles((theme) => ({
   menuList: {
     background: 'transparent',
   },
->>>>>>> master
 }));

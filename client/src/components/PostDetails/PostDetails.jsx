@@ -3,10 +3,7 @@ import { Paper, Typography, Divider, CircularProgress } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { useParams, useNavigate, UNSAFE_NavigationContext } from 'react-router-dom';
-<<<<<<< HEAD
-=======
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
->>>>>>> master
 
 import CommentSection from './CommentSection';
 import { getPost, getPostsBySearch } from '../../actions/posts';
@@ -18,10 +15,6 @@ const PostDetails = () => {
   const navigate = useNavigate();
   const classes = useStyles();
   const { id } = useParams();
-<<<<<<< HEAD
-=======
-
->>>>>>> master
   useEffect(() => {
     dispatch(getPost(id));
   }, [id]);
@@ -36,22 +29,13 @@ const PostDetails = () => {
 
   if (isLoading) {
     return <Paper className={classes.loadingPaper}elevation={6}>
-<<<<<<< HEAD
-      <CircularProgress size='7em' color="secondary" />
-=======
       <CircularProgress size='6em' color="secondary" />
->>>>>>> master
     </Paper>
   }
 
   const recommendedPosts = posts.filter(({ _id }) => _id !== post._id).slice(0, 4);
 
   const openPost = (_id) => navigate(`/posts/${_id}`);
-<<<<<<< HEAD
-  console.log(post)
-=======
-
->>>>>>> master
   return (
     <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
       <div className={classes.card}>
@@ -62,25 +46,15 @@ const PostDetails = () => {
           <Typography variant="h6">Seller: {post.name}</Typography>
           <Typography variant="body1">
             {(moment(post.createdAt).isSame(moment(), 'day')) && (
-<<<<<<< HEAD
-                <strong>NEW!&nbsp;</strong>
-              )}
-            Created {moment(post.createdAt).fromNow()}
-=======
                 <NewReleasesIcon />
               )}
             &nbsp;Created {moment(post.createdAt).fromNow()}
->>>>>>> master
           </Typography>
           <Divider style={{ margin: '20px 0' }} />
           <CommentSection post={post} />
           <Divider style={{ margin: '20px 0' }} />
         </div>
-<<<<<<< HEAD
-        <div className={classes.imageSection} style={{ maxWidth: '600px' }}>
-=======
         <div className={classes.imageSection}>
->>>>>>> master
           <img className={classes.media} src={post.selectedFile} alt='' />
         </div>
       </div>

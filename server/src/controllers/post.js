@@ -3,7 +3,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 
 import PostMessage from '../models/postMessage.js';
-import usersModel from '../models/user.js';
+import User from '../models/user.js';
 
 const router = express.Router();
 
@@ -25,11 +25,12 @@ export const getPosts = async (req, res) => {
 export const getUser = async (req, res) => {
     const { id } = req.params
     try {
-        console.log(id);
-        console.log(await usersModel.findById(id));
+        const { name, email, phone, postsid } = await User.findById(id);
+        const posts = await PostMessage.find().where('_id').in(postsid)
+        res.json({ name, email, phone, posts })
     }
     catch (error) {
-        res.status(410).json({ message: error.message });
+        res.status(418).json({ message: error.message });
     }
 }
 
@@ -64,10 +65,15 @@ export const createPost = async (req, res) => {
     const newPost = new PostMessage({ ...post, creator: req.userId, createdAt: new Date().toISOString() });
 
     try {
-        await newPost.save();
+        const { _id } = await newPost.save();
+        //console.log(req.userId)
+        const userobj = await User.findById(req.userId);
+        userobj.posts.push(_id);
+        console.log(userobj)
         res.status(201).json(newPost);
     }
     catch (error) {
+        console.log(error)
         res.status(409).json({ message: error.message });
     }
     // res.send("Post Created");
@@ -92,6 +98,7 @@ export const deletePost = async (req, res) => {
         return res.status(404).send(`No post with that id ${id}`);
     }
     await PostMessage.findByIdAndRemove(id);
+
     res.json({ message: 'Post deleted' });
 }
 

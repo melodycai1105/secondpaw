@@ -33,7 +33,7 @@ const PostDetails = () => {
   }
 
   const toUser = () => {
-      navigate(post.creator)
+      navigate(`/user/${post.creator}`)
   }
   const recommendedPosts = posts.filter(({ _id }) => _id !== post._id).slice(0, 4);
 

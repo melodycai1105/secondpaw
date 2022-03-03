@@ -4,7 +4,9 @@ const userSchema = mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
-  id: { type: String }
+  id: { type: String },
+  phone_number:{type: String, required: true}, 
+  posts: {type: [String]}
 }); // each post have to have these things
 
 const User = mongoose.model("User", userSchema);

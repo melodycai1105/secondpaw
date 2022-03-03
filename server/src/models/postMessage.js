@@ -5,8 +5,10 @@ const postSchema = mongoose.Schema({
   message: String,
   creator: String,
   name: String,
+  price: String, 
   tags: [String],
   selectedFile: String,
+  boughtBy: String, 
   likes: {
     type: [String],
     default: [],
@@ -19,6 +21,9 @@ const postSchema = mongoose.Schema({
     type: Date,
     default: new Date(),
   },
+  rating: {
+    
+  }
 }); // each post have to have these things
 
 const PostMessage = mongoose.model('PostMessage', postSchema);

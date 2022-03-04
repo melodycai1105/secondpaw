@@ -25,9 +25,8 @@ export const getPosts = async (req, res) => {
 export const getUser = async (req, res) => {
     const { id } = req.params
     try {
-        const { name, email, phone, postsid } = await User.findById(id);
-        const posts = await PostMessage.find().where('_id').in(postsid)
-        res.json({ name, email, phone, posts })
+        const { name, email, phone, posts } =  await User.findById(id);
+        res.status(200).json({ name, email, phone, posts })
     }
     catch (error) {
         res.status(418).json({ message: error.message });
@@ -66,8 +65,9 @@ export const createPost = async (req, res) => {
 
     try {
         const { _id } = await newPost.save();
-        const userobj = await User.findById(req.userId);
-        userobj.posts.push(_id);
+        const userUpdated = await User.findById(req.userId);
+        userUpdated.posts.push(_id);
+        await User.findByIdAndUpdate(req.userId, userUpdated)
         res.status(201).json(newPost);
     }
     catch (error) {

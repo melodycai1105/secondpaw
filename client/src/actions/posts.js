@@ -19,7 +19,8 @@ export const getUser = (id) => async (dispatch) => {
         dispatch({ type: FETCH_USER, payload: { user: data } });
         dispatch({ type: END_LOADING });
     } catch (error) {
-        console.log(error.message);
+        console.log(error);
+        //console.log(error.message);
     }
 }
 

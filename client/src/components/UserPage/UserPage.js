@@ -12,7 +12,8 @@ const UserPage = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const { isLoading, user } = useSelector((state) => state.user);
-    const userPosts = useSelector((state) => state.posts.posts.data);
+    const { isLoadingPost, posts } = useSelector((state) => state.posts);
+    const userPosts = posts.data;
 
     const navigate = useNavigate();
     const classes = useStyles();
@@ -31,7 +32,7 @@ const UserPage = () => {
     if (!user) return null;
 
 
-    if (isLoading) {
+    if (isLoading || isLoadingPost) {
         return <Paper className={classes.loadingPaper}elevation={6}>
         <CircularProgress size='7em'/>
         </Paper>
@@ -39,19 +40,12 @@ const UserPage = () => {
 
     return (
         <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
-        <div className={classes.card}>
-            <div className={classes.section}>
             <Typography variant="h3" component="h2">{user.name}</Typography>
             <Typography variant="h3" component="p">{user.phone}</Typography>
             <Typography variant="h3" component="p">{user.email}</Typography>
             <Typography variant="h3" component="p">`rating: 5`</Typography>
 
-            <Divider style={{ margin: '20px 0' }} />
-            <Divider style={{ margin: '20px 0' }} />
-            </div>
-            <div className={classes.imageSection}>
-            </div>
-            {!!userPosts.length && (
+            {!!userPosts?.length && (
         <div className={classes.section}>
           <Typography gutterBottom variant="h5">Other posts by {user.name}</Typography>
           <div className={classes.recommendedPosts}>
@@ -67,7 +61,6 @@ const UserPage = () => {
           </div>
         </div>
       )}
-        </div>
         </Paper>
 
     );

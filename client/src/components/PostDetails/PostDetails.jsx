@@ -3,7 +3,8 @@ import { Paper, Typography, Divider, CircularProgress } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { useParams, useNavigate, UNSAFE_NavigationContext } from 'react-router-dom';
- 
+import NewReleasesIcon from '@mui/icons-material/NewReleases';
+
 import CommentSection from './CommentSection';
 import { getPost, getPostsBySearch } from '../../actions/posts';
 import useStyles from './styles'; 
@@ -47,9 +48,9 @@ const PostDetails = () => {
           <Typography variant="h6">Seller: {post.name}</Typography>
           <Typography variant="body1">
             {(moment(post.createdAt).isSame(moment(), 'day')) && (
-                <strong>NEW!&nbsp;</strong>
+                <NewReleasesIcon />
               )}
-            Created {moment(post.createdAt).fromNow()}
+            &nbsp;Created {moment(post.createdAt).fromNow()}
           </Typography>
           <Divider style={{ margin: '20px 0' }} />
           <CommentSection post={post} />

@@ -145,7 +145,10 @@ const Navbar = () => {
                     <EditIcon />
                     <Typography>&nbsp;Create Post</Typography>
                   </MenuItem>
-                  <MenuItem disableRipple>
+                  <MenuItem disableRipple onClick={(e) => {
+                e.stopPropagation();
+                navigate(`/user/${user?.result?._id}`);
+            }}>
                     <AccountCircleIcon />
                     <Typography>&nbsp;Profile</Typography>
                   </MenuItem>

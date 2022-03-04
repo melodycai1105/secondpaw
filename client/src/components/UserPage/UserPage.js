@@ -81,9 +81,7 @@ const UserPage = () => {
             margin:"10px 10px"
           }}>
             {userPosts.map(({ title, name, message, likes, selectedFile, _id }) => (
-              <Paper className={classes.recommendedPost} elevation={6} style={{
-                borderRadius: '10px', margin: "5px 0px 0px 5px", width:"100%", height:"100%"
-              }} onClick={() => openPost(_id)} key={_id}>
+              <Paper className={classes.recommendedPost} elevation={6} onClick={() => openPost(_id)} key={_id}>
                 <Typography gutterBottom variant="h6">{title}</Typography>
                 {/* <Typography gutterBottom variant="subtitle2">{name}</Typography> */}
                 {/* <Typography gutterBottom variant="subtitle2">{message}</Typography> */}

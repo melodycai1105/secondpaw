@@ -58,6 +58,17 @@ export const getPostsBySearch = async (req, res) => {
     }
 }
 
+export const getPostsByUser = async (req, res) => {
+    const { id } = req.params;    
+    try {
+        const { posts } = await User.findById(id);
+        const postsobj = await PostMessage.find({ '_id': { $in: posts } });
+        res.status(200).json({ data: postsobj })
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
 
 export const createPost = async (req, res) => {
     const post = req.body;

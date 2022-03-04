@@ -5,27 +5,78 @@ import moment from 'moment';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSearchParams } from "react-router-dom";
 
-import { getUser } from '../../actions/posts';
+import { getUser, getPostsByUser } from '../../actions/posts';
+import useStyles from './styles';
 
 const UserPage = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
-    const obj = useSelector((state) => state);
+    const { isLoading, user } = useSelector((state) => state.user);
+    const userPosts = useSelector((state) => state.posts.posts.data);
 
-    console.log(obj)
+    const navigate = useNavigate();
+    const classes = useStyles();
+    const openPost = (_id) => navigate(`/posts/${_id}`);
+    //const userPosts = posts.filter(({ _id }) => _id !== post._id).slice(0, 4);
 
     useEffect(() => {
         dispatch(getUser(id));
       }, [id]);
 
-    console.log(id)
+    useEffect(() => {
+        dispatch(getPostsByUser(id));
+    }, [id]);
+
+    
+    if (!user) return null;
+
+
+    if (isLoading) {
+        return <Paper className={classes.loadingPaper}elevation={6}>
+        <CircularProgress size='7em'/>
+        </Paper>
+   }
+
     return (
-        <div>
-            Hello
+        <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
+        <div className={classes.card}>
+            <div className={classes.section}>
+            <Typography variant="h3" component="h2">{user.name}</Typography>
+            <Typography variant="h3" component="p">{user.phone}</Typography>
+            <Typography variant="h3" component="p">{user.email}</Typography>
+            <Typography variant="h3" component="p">`rating: 5`</Typography>
+
+            <Divider style={{ margin: '20px 0' }} />
+            <Divider style={{ margin: '20px 0' }} />
+            </div>
+            <div className={classes.imageSection}>
+            </div>
+            {!!userPosts.length && (
+        <div className={classes.section}>
+          <Typography gutterBottom variant="h5">Other posts by {user.name}</Typography>
+          <div className={classes.recommendedPosts}>
+            {userPosts.map(({ title, name, message, likes, selectedFile, _id }) => (
+              <Paper className={classes.recommendedPost} elevation={6} onClick={() => openPost(_id)} key={_id}>
+                <Typography gutterBottom variant="h6">{title}</Typography>
+                <Typography gutterBottom variant="subtitle2">{name}</Typography>
+                <Typography gutterBottom variant="subtitle2">{message}</Typography>
+                <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
+                <img src={selectedFile} alt='' width='230px' />
+              </Paper>
+            ))}
+          </div>
         </div>
-    )
+      )}
+        </div>
+        </Paper>
+
+    );
+
+
 //   const { post, posts, isLoading } = useSelector((state) => state.posts);
 //   const dispatch = useDispatch();
+//            <img className={classes.media} src={post.selectedFile} alt={user.name} />
+
 //   const navigate = useNavigate();
 //   const classes = useStyles();
 //   const { id } = useParams();

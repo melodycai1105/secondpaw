@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Paper, Typography, Divider, CircularProgress } from '@material-ui/core';
+import { Paper, Typography, Divider, CircularProgress, Grid } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { useParams, useNavigate, UNSAFE_NavigationContext } from 'react-router-dom';
@@ -41,7 +41,7 @@ const PostDetails = () => {
   if (!post) return null;
 
   if (isLoading) {
-    return <Paper className={classes.loadingPaper}elevation={6}>
+    return <Paper className={classes.loadingPaper} elevation={6}>
       <CircularProgress size='6em' color="secondary" />
     </Paper>
   }
@@ -114,17 +114,22 @@ const PostDetails = () => {
       {!!recommendedPosts.length && (
         <div className={classes.section}>
           <Typography gutterBottom variant="h5">You May Also Like</Typography>
-          <div className={classes.recommendedPosts}>
-            {recommendedPosts.map(({ title, name, message, likes, selectedFile, _id }) => (
-              <Paper className={classes.recommendedPost} elevation={6} onClick={() => openPost(_id)} key={_id}>
-                <Typography gutterBottom variant="h6">{title}</Typography>
-                <Typography gutterBottom variant="subtitle2">{name}</Typography>
-                <Typography gutterBottom variant="subtitle2">{message}</Typography>
-                <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
-                <img src={selectedFile} alt='' width='230px' />
-              </Paper>
+          <Grid className={classes.recommendedPosts} container alignItems="stretch" spacing={1}>
+            {recommendedPosts.map(({ title, name, price, message, likes, selectedFile, _id }) => (
+              <Grid key={_id} item>
+                <Paper className={classes.recommendedPost} elevation={6} onClick={() => openPost(_id)} key={_id}>
+                  <Typography gutterBottom variant="h6">{title}</Typography>
+                  <Typography gutterBottom variant="subtitle2">{name}</Typography>
+                  <Typography gutterBottom variant="subtitle2">
+                    <NumberFormat value={price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                  </Typography>
+                  <Typography gutterBottom variant="subtitle2">{message}</Typography>
+                  <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
+                  <img src={selectedFile} alt='' width='230px' />
+                </Paper>
+              </Grid>
             ))}
-          </div>
+          </Grid>
         </div>
       )}
   </Paper>

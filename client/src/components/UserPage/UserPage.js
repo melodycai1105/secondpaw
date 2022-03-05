@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Paper, Typography, Divider, CircularProgress, Button } from '@material-ui/core';
+import { Paper, Typography, Divider, CircularProgress, Button, Grid } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSearchParams } from "react-router-dom";
@@ -7,6 +7,7 @@ import Rating from '@mui/material/Rating';
 import MailIcon from '@mui/icons-material/Mail';
 import PhoneIcon from '@mui/icons-material/Phone';
 import Tooltip from '@mui/material/Tooltip';
+import NumberFormat from 'react-number-format';
 
 import { getUser, getPostsByUser } from '../../actions/posts';
 import useStyles from './styles';
@@ -51,15 +52,15 @@ const UserPage = () => {
               <Tooltip title="SEND AN EMAIL" placement="right" arrow>
                 <Button onClick={() => window.open(`mailto:${user.email}?subject=SecondPaw`)} style={{cursor: 'pointer'}}>
                   <MailIcon color="primary"/>
-                  <Typography variant="h7" style={{marginLeft: '10px'}}>{user.email}</Typography>
+                  <Typography variant="subtitle1" style={{marginLeft: '10px'}}>{user.email}</Typography>
                 </Button>
               </Tooltip>
               <div disabled style={{margin: '5px 0 10px 10px'}}>
                 <PhoneIcon color="secondary"/>
-                <Typography variant="h7" style={{marginLeft: '10px'}}>{user.phone}</Typography>
+                <Typography variant="subtitle1" style={{marginLeft: '10px'}}>{user.phone}</Typography>
               </div>
               <div className={classes.rating}>
-                <Typography variant="h7"><strong>Rating:  </strong></Typography>
+                <Typography variant="subtitle1"><strong>Rating:  </strong></Typography>
                 <Rating value={5} readOnly />
               </div>
             </div>
@@ -68,18 +69,23 @@ const UserPage = () => {
           <Divider style={{ margin: '20px 0' }} />
           {!!userPosts?.length && (
             <div className={classes.section}>
-              <Typography gutterBottom variant="h5">Your Posts: </Typography>
-              <div className={classes.userPosts}>
-                {userPosts.map(({ title, name, message, likes, selectedFile, _id }) => (
-                  <Paper className={classes.userPost} elevation={6} onClick={() => openPost(_id)} key={_id}>
-                    <Typography gutterBottom variant="h6">{title}</Typography>
-                    <Typography gutterBottom variant="subtitle2">{name}</Typography>
-                    <Typography gutterBottom variant="subtitle2">{message}</Typography>
-                    <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
-                    <img src={selectedFile} alt='' width='230px' />
-                  </Paper>
+              <Typography gutterBottom variant="h5" style={{marginLeft: '20px'}}>Your Posts: </Typography>
+              <Grid className={classes.userPosts} container alignItems="stretch" spacing={1}>
+                {userPosts.map(({ title, name, price, message, likes, selectedFile, _id }) => (
+                  <Grid key={_id} item>
+                    <Paper className={classes.userPost} elevation={6} onClick={() => openPost(_id)} key={_id}>
+                      <Typography gutterBottom variant="h6">{title}</Typography>
+                      <Typography gutterBottom variant="subtitle2">{name}</Typography>
+                      <Typography gutterBottom variant="subtitle2">
+                        <NumberFormat value={price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                      </Typography>
+                      <Typography gutterBottom variant="subtitle2">{message}</Typography>
+                      <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
+                      <img src={selectedFile} alt='' width='230px' />
+                    </Paper>
+                  </Grid>
                 ))}
-              </div>
+              </Grid>
             </div>
           )}
       </Paper>

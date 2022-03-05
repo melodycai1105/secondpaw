@@ -31,7 +31,7 @@ const EditPost = () => {
     e.preventDefault();
 
     if (!currentId) {
-      dispatch(createPost({ ...postData, name: user?.result?.name, price: parseInt(postData.price) }, history));
+      dispatch(createPost({ ...postData, name: user?.result?.name, price: postData.price }, history));
       clear();
     } else {
       dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
@@ -62,10 +62,9 @@ const EditPost = () => {
             displayType='input' prefix={'$'} thousandSeparator={true} decimalSeparator='.' allowNegative={false} allowLeadingZeros={false} decimalScale={2}
             onValueChange={(values) => {  
               const { floatValue } = values;
-              setPostData({ ...postData, price: floatValue })
+              setPostData({ ...postData, price: floatValue });
             }} />
-            {/* <TextField name="price" type="number" variant="outlined" label="Price" margin="dense" fullWidth value={postData.price} onChange={(e) => setPostData({ ...postData, price: e.target.value })} /> */}
-        <TextField name="message" variant="outlined" label="Message" margin="dense" fullWidth value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
+          <TextField name="message" variant="outlined" label="Message" margin="dense" fullWidth value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
           <div style={{ padding: '5px 0', width: '100%' }}>
             <ChipInput
               name="tags"

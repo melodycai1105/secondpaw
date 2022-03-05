@@ -6,20 +6,21 @@ export default makeStyles((theme) => ({
     borderRadius: '15px', 
   },
   card: {
-    display: 'flex',
     width: '100%',
-    [theme.breakpoints.down('sm')]: {
-      flexWrap: 'wrap',
-      flexDirection: 'column',
-    },
+    display:"flex",
+    justifyContent: 'center',
+    // [theme.breakpoints.down('sm')]: {
+    //   flexWrap: 'wrap',
+    //   flexDirection: 'column',
+    // },
   },
   profileContent: {
-    display:"flex",
-    margin:"0px 25px",
     padding: '20px',
+    display: 'flex',
+    flexDirection: 'row',
   },
   profileInfo: {
-    margin: "30px 10px 10px 45px",
+    marginLeft: '50px',
     display: 'flex',
     flexDirection: 'column',
   },
@@ -28,15 +29,13 @@ export default makeStyles((theme) => ({
     height: '160px', 
     borderRadius: '100px',
   },
-  userPosts: {
-    margin: '10px 10px',
-  },
   rating: {
     display: 'flex',
     flexDirection: 'row',
   },
   userPosts: {
     display: 'flex',
+    margin: '10px 10px',
   },
   userPost: {
     padding: '10px', 

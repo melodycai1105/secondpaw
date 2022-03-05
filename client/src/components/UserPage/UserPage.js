@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
-import { Paper, Typography, Divider, CircularProgress } from '@material-ui/core';
+import { Paper, Typography, Divider, CircularProgress, Button } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSearchParams } from "react-router-dom";
 import Rating from '@mui/material/Rating';
+import MailIcon from '@mui/icons-material/Mail';
+import PhoneIcon from '@mui/icons-material/Phone';
+import Tooltip from '@mui/material/Tooltip';
 
 import { getUser, getPostsByUser } from '../../actions/posts';
 import useStyles from './styles';
@@ -44,9 +47,17 @@ const UserPage = () => {
               <img className={classes.media} src="https://ci.xiaohongshu.com/e9214814-9bd7-c815-91a2-e8fe078918f5?imageView2/2/w/540/format/jpg"/>
             </div>
             <div className={classes.profileInfo}>
-              <Typography variant="h3">{user.name}</Typography>
-              <Typography variant="h7"><strong>Phone: </strong>{user.phone}</Typography>
-              <Typography variant="h7"><strong>Email: </strong>{user.email}</Typography>
+              <Typography variant="h3" >{user.name}</Typography>
+              <Tooltip title="SEND AN EMAIL" placement="right" arrow>
+                <Button onClick={() => window.open(`mailto:${user.email}?subject=SecondPaw`)} style={{cursor: 'pointer'}}>
+                  <MailIcon color="primary"/>
+                  <Typography variant="h7" style={{marginLeft: '10px'}}>{user.email}</Typography>
+                </Button>
+              </Tooltip>
+              <div disabled style={{margin: '5px 0 10px 10px'}}>
+                <PhoneIcon color="secondary"/>
+                <Typography variant="h7" style={{marginLeft: '10px'}}>{user.phone}</Typography>
+              </div>
               <div className={classes.rating}>
                 <Typography variant="h7"><strong>Rating:  </strong></Typography>
                 <Rating value={5} readOnly />

@@ -86,11 +86,7 @@ const PostDetails = () => {
           <Typography gutterBottom variant="h6" onClick={toUser}>Seller: {post.name}</Typography>
           <Typography gutterBottom variant="body1" style={{display: 'flex', flexDirection: 'row'}}>
             {(moment(post.createdAt).isSame(moment(), 'day')) && (
-                <div>
-                  <NewReleasesIcon style={{paddingBottom: '5px'}} />
-                  <strong>NEW</strong>
-                  &nbsp;&nbsp;
-                </div>
+                <strong><NewReleasesIcon style={{paddingBottom: '5px'}} />NEW&nbsp;&nbsp;</strong>
               )}
             Created {moment(post.createdAt).fromNow()}
           </Typography>

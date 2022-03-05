@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Typography, TextField, Button, Divider } from '@material-ui/core/';
 import { useDispatch } from 'react-redux';
+import CommentIcon from '@mui/icons-material/Comment';
 
 import { commentPost } from '../../actions/posts';
 import useStyles from './styles';
@@ -40,7 +41,7 @@ const CommentSection = ({post}) => {
             </div>
             {user?.result?.name && (
                 <div>
-                    <Typography gutterBottom variant="h6">Write a review</Typography>
+                    <Typography gutterBottom variant="h6"><CommentIcon />&nbsp;Write a review</Typography>
                     <TextField style={{ maxWidth: '600px' }} fullWidth rows={4} variant="outlined" label="Comment" multiline value={comment} onChange={(e) => setComment(e.target.value)} />
                     <br />
                     <Button style={{ marginTop: '10px', maxWidth: '600px' }} fullWidth disabled={!comment.length} color="primary" variant="contained" onClick={handleClick}>

@@ -1,16 +1,19 @@
-import React, { useEffect } from 'react';
-import { Paper, Typography, Divider, CircularProgress } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { Paper, Typography, Divider, CircularProgress, Button} from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { useParams, useNavigate, UNSAFE_NavigationContext } from 'react-router-dom';
+import Rating from '@mui/material/Rating';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
 
 import CommentSection from './CommentSection';
-import { getPost, getPostsBySearch } from '../../actions/posts';
+import { getPost, getPostsBySearch, makePurchase } from '../../actions/posts';
 import useStyles from './styles'; 
 
 const PostDetails = () => {
   const { post, posts, isLoading } = useSelector((state) => state.posts);
+  const user = JSON.parse(localStorage.getItem('profile'));
+  const [rate, setRate] = useState(5);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const classes = useStyles();
@@ -26,6 +29,11 @@ const PostDetails = () => {
     }
   }, [post]);
 
+  const purchase = () => {
+    const userId = user?.result?._id;
+    dispatch(makePurchase(userId, id));
+  }
+
   if (!post) return null;
 
   if (isLoading) {
@@ -33,6 +41,10 @@ const PostDetails = () => {
       <CircularProgress size='6em' color="secondary" />
     </Paper>
   }
+
+  const rating = user?.result ? <Rating  value={rate} onChange={(event, newValue) => {setRate(newValue);}} /> :
+  <Rating  value={rate} readOnly/>
+
 
   const toUser = () => {
       navigate(`/user/${post.creator}`)
@@ -48,7 +60,9 @@ const PostDetails = () => {
         <div className={classes.section}>
           <Typography variant="h3" component="h2">{post.title}</Typography>
           <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
+          {rating}
           <Typography gutterBottom variant="body1" component="p">{post.message}</Typography>
+          {!!user?.result?._id && <Button onClick={purchase}> Purchase </Button>}
           <Typography variant="h6" onClick={toUser}>Seller: {post.name}</Typography>
           <Typography variant="body1">
             {(moment(post.createdAt).isSame(moment(), 'day')) && (

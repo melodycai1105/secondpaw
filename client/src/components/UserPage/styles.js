@@ -4,8 +4,6 @@ export default makeStyles((theme) => ({
   profilePaper: {
     padding: '20px', 
     borderRadius: '15px', 
-    width: 'fit-content', 
-    margin: '0px auto',
   },
   card: {
     display: 'flex',
@@ -32,5 +30,18 @@ export default makeStyles((theme) => ({
   },
   userPosts: {
     margin: '10px 10px',
+  },
+  rating: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  userPosts: {
+    display: 'flex',
+  },
+  userPost: {
+    padding: '10px', 
+    margin: '15px', 
+    cursor: 'pointer', 
+    width: '250px',
   },
 }));

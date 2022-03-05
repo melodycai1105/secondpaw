@@ -3,6 +3,7 @@ import { Paper, Typography, Divider, CircularProgress } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSearchParams } from "react-router-dom";
+import Rating from '@mui/material/Rating';
 
 import { getUser, getPostsByUser } from '../../actions/posts';
 import useStyles from './styles';
@@ -47,26 +48,29 @@ const UserPage = () => {
               <Typography variant="h7"><strong>Phone: </strong>{user.phone}</Typography>
               <Typography variant="h7"><strong>Email: </strong>{user.email}</Typography>
               <div className={classes.rating}>
-                <Typography variant="h7">`rating: 5`</Typography>
+                <Typography variant="h7"><strong>Rating:  </strong></Typography>
+                <Rating value={5} readOnly />
               </div>
             </div>
           </div>
+        </div>
           <Divider style={{ margin: '20px 0' }} />
           {!!userPosts?.length && (
             <div className={classes.section}>
               <Typography gutterBottom variant="h5">Your Posts: </Typography>
-              {userPosts.map(({ title, name, message, likes, selectedFile, _id }) => (
-                <Paper className={classes.userPosts} elevation={6} onClick={() => openPost(_id)} key={_id}>
-                  <Typography gutterBottom variant="h6">{title}</Typography>
-                  <Typography gutterBottom variant="subtitle2">{name}</Typography>
-                  <Typography gutterBottom variant="subtitle2">{message}</Typography>
-                  <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
-                  <img src={selectedFile} alt='' width='230px' />
-                </Paper>
-              ))}
+              <div className={classes.userPosts}>
+                {userPosts.map(({ title, name, message, likes, selectedFile, _id }) => (
+                  <Paper className={classes.userPost} elevation={6} onClick={() => openPost(_id)} key={_id}>
+                    <Typography gutterBottom variant="h6">{title}</Typography>
+                    <Typography gutterBottom variant="subtitle2">{name}</Typography>
+                    <Typography gutterBottom variant="subtitle2">{message}</Typography>
+                    <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
+                    <img src={selectedFile} alt='' width='230px' />
+                  </Paper>
+                ))}
+              </div>
             </div>
           )}
-        </div>
       </Paper>
     );
 };

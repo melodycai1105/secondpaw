@@ -1,13 +1,14 @@
 import React from 'react';
 import { Card, CardActions, CardContent, CardMedia, CardActionArea, Button, Typography } from '@material-ui/core';
-import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Favorite from '@mui/icons-material/Favorite';
 import DeleteIcon from '@material-ui/icons/Delete';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import ThumbUpAltOutlined from '@material-ui/icons/ThumbUpAltOutlined';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import moment from 'moment'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import default_bruin from '../../images/secondpaw.png'
+import NumberFormat from 'react-number-format';
 
 import { getPost, likePost, deletePost } from '../../../actions/posts';
 import useStyles from './styles'
@@ -22,13 +23,13 @@ const Post = ({ post }) => {
     if (post?.likes?.length > 0) {
       return post.likes.find((like) => like === (user?.result?._id || user?.result?.googleId))
         ? (
-          <><ThumbUpAltIcon fontSize="small" />&nbsp;{post.likes.length > 2 ? `You and ${post.likes.length - 1} others` : `${post.likes.length} like${post.likes.length > 1 ? 's' : ''}`}</>
+          <div style={{color: '#ff6d75'}}><Favorite style={{color: '#ff6d75'}} fontSize="small" />&nbsp;{post.likes.length > 2 ? `You and ${post.likes.length - 1} others` : `${post.likes.length} like${post.likes.length > 1 ? 's' : ''}`}</div>
         ) : (
-          <><ThumbUpAltOutlined fontSize="small" />&nbsp;{post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}</>
+          <div><FavoriteBorder fontSize="small" />&nbsp;{post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}</div>
         );
     }
 
-    return <><ThumbUpAltOutlined fontSize="small" />&nbsp;Like</>;
+    return <div><FavoriteBorder fontSize="small" />&nbsp;Like</div>;
   };
 
   const openPost = () => {
@@ -53,14 +54,21 @@ const Post = ({ post }) => {
               style={{ color: 'white' }}
               size="small"
             >
-              <MoreHorizIcon fontSize="default" />
+              <MoreVertIcon fontSize="default" />
             </Button>
           </div>
         )}
         <div className={classes.details}>
           <Typography variant="body2" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
         </div>
-        <Typography className={classes.title} variant="h5" gutterBottom>{post.title}</Typography>
+        <Typography style={{padding: '0 16px'}} variant="h6">{post.title}</Typography>
+        {(post?.price) && (
+          <Typography style={{padding: '0 16px'}} variant="subtitle1" gutterBottom>
+            <NumberFormat value={post.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+          </Typography>
+        ) || (
+          <Typography style={{padding: '0 16px'}} color="textSecondary" variant="h7" gutterBottom>Price not labeled</Typography>
+        )}
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">{post.message.split(' ').splice(0, 20).join(' ')}...</Typography>
         </CardContent>

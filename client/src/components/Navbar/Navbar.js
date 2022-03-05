@@ -15,6 +15,7 @@ import MenuItem from '@mui/material/MenuItem';
 import EditIcon from '@mui/icons-material/Edit';
 import Divider from '@mui/material/Divider';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 
@@ -143,19 +144,23 @@ const Navbar = () => {
                 <div className={classes.menuList}>
                   <MenuItem disableRipple onClick={() => navigate("/editpost")}>
                     <EditIcon />
-                    <Typography>&nbsp;Create Post</Typography>
+                    <Typography>&nbsp;&nbsp;Create Post</Typography>
                   </MenuItem>
                   <MenuItem disableRipple onClick={(e) => {
-                e.stopPropagation();
-                navigate(`/user/${user?.result?._id}`);
-            }}>
+                      e.stopPropagation();
+                      navigate(`/user/${user?.result?._id}`);
+                    }}>
                     <AccountCircleIcon />
-                    <Typography>&nbsp;Profile</Typography>
+                    <Typography>&nbsp;&nbsp;Profile</Typography>
+                  </MenuItem>
+                  <MenuItem>
+                    <BookmarkIcon />
+                    <Typography>&nbsp;&nbsp;Reservation</Typography>
                   </MenuItem>
                   <Divider sx={{ my: 0.5 }} />
                   <MenuItem disableRipple onClick={logout}>
                     <LogoutIcon />
-                    <Typography>&nbsp;Logout</Typography>
+                    <Typography>&nbsp;&nbsp;Logout</Typography>
                   </MenuItem>
                 </div>
               ) : (

@@ -115,7 +115,7 @@ const Navbar = () => {
                 e.stopPropagation();
                 navigate(`/user/${user?.result?._id}`);
             }}>
-                <Avatar style={{ margin: '12px 20px 0px 0px'}} className={classes.avatar} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
+                <Avatar className={classes.avatar} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
             </div>
           )}        
         <div className={classes.dashboard} >

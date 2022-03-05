@@ -1,13 +1,11 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
-  media: {
-    borderRadius: '20px',
-    objectFit: 'cover',
-    width: '100%',
-    maxHeight: '800px',
-    maxWidth: '600px',
-    cursor: 'zoom-in',
+  profilePaper: {
+    padding: '20px', 
+    borderRadius: '15px', 
+    width: 'fit-content', 
+    margin: '0px auto',
   },
   card: {
     display: 'flex',
@@ -17,35 +15,22 @@ export default makeStyles((theme) => ({
       flexDirection: 'column',
     },
   },
-  section: {
-    borderRaduis: '20px',
-    margin: '10px',
-    flex: 1,
+  profileContent: {
+    display:"flex",
+    margin:"0px 25px",
+    padding: '20px',
   },
-  imageSection: {
-    marginLeft: '20px',
-    [theme.breakpoints.down('sm')]: {
-      marginLeft: 0,
-    },
-  }, 
-  commentsOuterContainer: {
+  profileInfo: {
+    margin: "30px 10px 10px 45px",
     display: 'flex',
-    justifyContent: 'space-between',
     flexDirection: 'column',
-    width: '100%',
   },
-  commentsInnerContainer: {
-    height: '100%',
-    overflowY: 'auto',
-    marginRight: '20px',
+  media: {
+    width: '160px', 
+    height: '160px', 
+    borderRadius: '100px',
   },
-  recommendedPosts: {
-    display: 'flex',
-  },
-  recommendedPost: {
-    padding: '10px', 
-    margin: '15px', 
-    cursor: 'pointer', 
-    width: '250px',
+  userPosts: {
+    margin: '10px 10px',
   },
 }));

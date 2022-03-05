@@ -41,6 +41,8 @@ export default makeStyles((theme) => ({
     alignItems: 'center',
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
+    margin: '12px 20px 0px 0px',
+    cursor: 'pointer',
   },
   searchBar: {
     display: 'flex',

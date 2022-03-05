@@ -24,3 +24,4 @@ https://nodejs.org/
     - npm install @mui/material @emotion/react @emotion/styled
     - npm install jwt-decode
     - npm install react-google-login
+    - npm install @mui/icons-material

@@ -12,7 +12,7 @@ import default_bruin from '../../images/secondpaw.png'
 import { getPost, likePost, deletePost } from '../../../actions/posts';
 import useStyles from './styles'
 
-const Post = ({ post, setCurrentId }) => {
+const Post = ({ post }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -48,7 +48,7 @@ const Post = ({ post, setCurrentId }) => {
             <Button
               onClick={(e) => {
                 e.stopPropagation();
-                setCurrentId(post._id);
+                navigate(`/editpost/${post._id}`);
               }}
               style={{ color: 'white' }}
               size="small"
@@ -70,7 +70,7 @@ const Post = ({ post, setCurrentId }) => {
           <Likes />
         </Button>
         {(user?.result?._id === post?.creator || user?.result?.googleId === post?.creator) && (
-          <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
+          <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id, user?.result?._id))}>
             <DeleteIcon fontSize="small" />
           </Button>
         )}

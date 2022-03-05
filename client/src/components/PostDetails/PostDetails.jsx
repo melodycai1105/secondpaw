@@ -3,6 +3,7 @@ import { Paper, Typography, Divider, CircularProgress } from '@material-ui/core'
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { useParams, useNavigate, UNSAFE_NavigationContext } from 'react-router-dom';
+import NewReleasesIcon from '@mui/icons-material/NewReleases';
 
 import CommentSection from './CommentSection';
 import { getPost, getPostsBySearch } from '../../actions/posts';
@@ -14,6 +15,7 @@ const PostDetails = () => {
   const navigate = useNavigate();
   const classes = useStyles();
   const { id } = useParams();
+
   useEffect(() => {
     dispatch(getPost(id));
   }, [id]);
@@ -28,13 +30,17 @@ const PostDetails = () => {
 
   if (isLoading) {
     return <Paper className={classes.loadingPaper}elevation={6}>
-      <CircularProgress size='7em'/>
+      <CircularProgress size='6em' color="secondary" />
     </Paper>
   }
 
-  const recommendedPosts = posts.filter(({ _id }) => _id !== post._id).slice(0, 4);
-
+  const toUser = () => {
+      navigate(`/user/${post.creator}`)
+  }
   const openPost = (_id) => navigate(`/posts/${_id}`);
+
+  const recommendedPosts = Array.isArray(posts) ? posts.filter(({ _id }) => _id !== post._id).slice(0, 4) : [];
+
 
   return (
     <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
@@ -43,18 +49,18 @@ const PostDetails = () => {
           <Typography variant="h3" component="h2">{post.title}</Typography>
           <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
           <Typography gutterBottom variant="body1" component="p">{post.message}</Typography>
-          <Typography variant="h6">Seller: {post.name}</Typography>
+          <Typography variant="h6" onClick={toUser}>Seller: {post.name}</Typography>
           <Typography variant="body1">
             {(moment(post.createdAt).isSame(moment(), 'day')) && (
-                <strong>NEW!&nbsp;</strong>
+                <NewReleasesIcon />
               )}
-            Created {moment(post.createdAt).fromNow()}
+            &nbsp;Created {moment(post.createdAt).fromNow()}
           </Typography>
           <Divider style={{ margin: '20px 0' }} />
           <CommentSection post={post} />
           <Divider style={{ margin: '20px 0' }} />
         </div>
-        <div className={classes.imageSection} style={{ maxWidth: '600px' }}>
+        <div className={classes.imageSection}>
           <img className={classes.media} src={post.selectedFile} alt='' />
         </div>
       </div>

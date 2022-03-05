@@ -19,7 +19,8 @@ export const getUser = (id) => async (dispatch) => {
         dispatch({ type: FETCH_USER, payload: { user: data } });
         dispatch({ type: END_LOADING });
     } catch (error) {
-        console.log(error.message);
+        console.log(error);
+        //console.log(error.message);
     }
 }
 
@@ -33,6 +34,17 @@ export const getPosts = (page) => async (dispatch) => {
     console.log(error.message);
   }
 };
+
+export const getPostsByUser = (userId) => async (dispatch) => {
+    try{
+        dispatch({ type: START_LOADING });
+        const { data } = await api.fetchPostsByUser(userId);
+        dispatch({ type: FETCH_BY_SEARCH, payload: { data } });
+        dispatch({ type: END_LOADING });
+    } catch(error) {
+        console.log(error.message);
+    }
+}
 
 export const getPostsBySearch = (searchQuery) => async (dispatch) => {
   try {
@@ -67,9 +79,9 @@ export const updatePost = (id, post) => async (dispatch) => {
   }
 }
 
-export const deletePost = (id) => async (dispatch) => {
+export const deletePost = (id, userId) => async (dispatch) => {
   try {
-    await api.deletePost(id);
+    await api.deletePost(id, userId);
     dispatch({ type: DELETE, payload: id });
   } catch (error) {
     console.log(error);

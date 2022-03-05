@@ -1,60 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Typography, Paper, Container } from '@material-ui/core';
+import { TextField, Button, Typography, Paper, Container, Input } from '@material-ui/core';
 import FileBase from 'react-file-base64';
 import useStyles from './styles';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createPost, updatePost } from '../../actions/posts';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ChipInput from 'material-ui-chip-input';
 
-const EditPost = ({ currentId, setCurrentId }) => {
-  const [postData, setPostData] = useState({
-    creator: '',
-    title: '',
-    message: '',
-    tags: [],
-    selectedFile: ''
-  });
-  const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null);
-  const classes = useStyles();
+const EditPost = () => {
+  const [postData, setPostData] = useState({ title: '', message: '', tags: [], selectedFile: '' });
+  const { id } = useParams();
+  const currentId = id
+  const post = useSelector((state) => (currentId ? state.posts.posts.find((message) => message._id === currentId) : null));
   const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem('profile'))
-  const navigate = useNavigate();
-
+  const classes = useStyles();
+  const user = JSON.parse(localStorage.getItem('profile'));
+  const history = useNavigate();
 
   const clear = () => {
-    setCurrentId(0);
-    setPostData({
-      creator: '',
-      title: '',
-      tags: [],
-      message: '',
-      selectedFile: ''
-    })
-  }
+    setPostData({ title: '', message: '', tags: [], selectedFile: '', price: '' });
+  };
 
   useEffect(() => {
-    if (post)
-      setPostData(post);
-  }, [post]) // when post changes, set the post data to be the editted data 
+    if (!post?.title) clear();
+    if (post) setPostData(post);
+  }, [post]);
 
-  //   let navigate = useNavigate();
-  //   const routeChange = () =>{ 
-  //     let path = '/posts'; 
-  //     navigate(path);
-  //   }
-
-  const handleSubmit2 = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(currentId)
-    if (currentId) {
-      dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
+    if (!currentId) {
+      dispatch(createPost({ ...postData, name: user?.result?.name, price: parseInt(postData.price) }, history));
       clear();
     } else {
-      dispatch(createPost({ ...postData, name: user?.result?.name }, navigate));
+      dispatch(updatePost(currentId, { ...postData, name: user?.result?.name }));
       clear();
+      history(`/posts/${currentId}`)
     }
     clear();
     //routeChange();
@@ -64,18 +45,18 @@ const EditPost = ({ currentId, setCurrentId }) => {
     setPostData({ ...postData, tags: [...postData.tags, tag] });
   };
 
-  const handleDeleteChip = (tagToDelete) => {
-    setPostData({ ...postData, tags: postData.tags.filter((tag) => tag !== tagToDelete) });
+  const handleDeleteChip = (chipToDelete) => {
+    setPostData({ ...postData, tags: postData.tags.filter((tag) => tag !== chipToDelete) });
   };
 
   return (
     <Container component="main" maxWidth="xs">
       <Paper className={classes.paper} elevation={3}>
-        <form autoComplete="off" noValidate className={'${classes.root} ${classes.form}'} onSubmit={handleSubmit2}>
+        <form autoComplete="off" noValidate className={'${classes.root} ${classes.form}'} onSubmit={handleSubmit}>
           <Typography height="100%" margin="0" align="center" variant="h6">{currentId ? 'Editing' : 'Creating'} a Sell</Typography>
-          {/* <TextField name="creator" variant="outlined" label="Creator" margin="dense" fullWidth value={postData.creator} onChange={(e) => setPostData({ ...postData, creator: e.target.value })} /> */}
           <TextField name="title" variant="outlined" label="Title" margin="dense" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
-          <TextField name="message" variant="outlined" label="Message" margin="dense" fullWidth value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
+          <TextField name="price" type="number" variant="outlined" label="Price" margin="dense" fullWidth value={postData.price} onChange={(e) => setPostData({ ...postData, price: e.target.value })} />
+        <TextField name="message" variant="outlined" label="Message" margin="dense" fullWidth value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
           <div style={{ padding: '5px 0', width: '100%' }}>
             <ChipInput
               name="tags"
@@ -90,7 +71,7 @@ const EditPost = ({ currentId, setCurrentId }) => {
           <div className={classes.fileInput}>
             <FileBase type="file" multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} />
             <div class="flex justify-center items-center space-x-6">
-              <Button className={classes.buttonSubmit} onClick={handleSubmit2} variant="contained" type="submit" size="large" class="button-55" >
+              <Button className={classes.buttonSubmit} onClick={handleSubmit} variant="contained" type="submit" size="large" class="button-55" >
                 Submit
               </Button>
               <Button variant="contained" size="small" onClick={clear} type="clear" class="button-55" >
@@ -102,6 +83,6 @@ const EditPost = ({ currentId, setCurrentId }) => {
       </Paper>
     </Container>
   );
-}
+};
 
 export default EditPost;

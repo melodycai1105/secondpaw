@@ -25,12 +25,11 @@ export const getPosts = async (req, res) => {
 export const makePurchase = async (req, res) => {
     const userId = req.query.uid;
     const postId = req.query.pid; 
-    console.log(userId);
     try {
         const post = await PostMessage.findById(postId);
         post.buyer = userId;
         await PostMessage.findByIdAndUpdate(postId, post);
-        const user = User.findById(userId);
+        const user = await User.findById(userId);
         user.purchased.push(postId);
         await User.findByIdAndUpdate(userId, user);
         res.status(200).json({ data: post });

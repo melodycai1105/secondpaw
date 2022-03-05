@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Paper, Typography, Divider, CircularProgress, Button} from '@material-ui/core';
+import { Paper, Typography, Divider, CircularProgress, Grid, Button } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { useParams, useNavigate, UNSAFE_NavigationContext } from 'react-router-dom';
-import Rating from '@mui/material/Rating';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import PropTypes from 'prop-types';
 import Rating from '@mui/material/Rating';
@@ -24,7 +23,6 @@ import useStyles from './styles';
 const PostDetails = () => {
   const user = JSON.parse(localStorage.getItem('profile'));
   const { post, posts, isLoading } = useSelector((state) => state.posts);
-  const [rate, setRate] = useState(5);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const classes = useStyles();
@@ -52,9 +50,6 @@ const PostDetails = () => {
       <CircularProgress size='6em' color="secondary" />
     </Paper>
   }
-
-  const rating = user?.result ? <Rating  value={rate} onChange={(event, newValue) => {setRate(newValue);}} /> :
-  <Rating  value={rate} readOnly/>
 
 
   const toUser = () => {
@@ -92,6 +87,7 @@ const PostDetails = () => {
           <Typography variant="h6" gutterBottom>
             <NumberFormat value={post.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
           </Typography>
+          <Button onClick={purchase}>Reserve</Button>
           <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
           <Typography gutterBottom variant="subtitle1" component="p">{post.message}</Typography>
           <Typography gutterBottom variant="h6" onClick={toUser}>Seller: {post.name}</Typography>

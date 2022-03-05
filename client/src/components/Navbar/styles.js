@@ -2,12 +2,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { deepPurple } from '@material-ui/core/colors';
 
 export default makeStyles((theme) => ({
-  // appBarSearch: {
-  //   borderRadius: 4,
-  //   marginBottom: '1rem',
-  //   display: 'flex',
-  //   padding: '16px',
-  // },
   appBar: {
     background: 'transparent',
     boxShadow: 'none',
@@ -41,6 +35,8 @@ export default makeStyles((theme) => ({
     alignItems: 'center',
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: deepPurple[500],
+    margin: '12px 20px 0px 0px',
+    cursor: 'pointer',
   },
   searchBar: {
     display: 'flex',

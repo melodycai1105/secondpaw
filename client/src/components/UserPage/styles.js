@@ -1,48 +1,43 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
-  media: {
-    borderRadius: '20px',
-    objectFit: 'cover',
-    width: '100%',
-    maxHeight: '800px',
-    maxWidth: '600px',
-    cursor: 'zoom-in',
+  profilePaper: {
+    padding: '20px', 
+    borderRadius: '15px', 
   },
   card: {
-    display: 'flex',
     width: '100%',
-    [theme.breakpoints.down('sm')]: {
-      flexWrap: 'wrap',
-      flexDirection: 'column',
-    },
+    display:"flex",
+    justifyContent: 'center',
+    // [theme.breakpoints.down('sm')]: {
+    //   flexWrap: 'wrap',
+    //   flexDirection: 'column',
+    // },
   },
-  section: {
-    borderRaduis: '20px',
-    margin: '10px',
-    flex: 1,
-  },
-  imageSection: {
-    marginLeft: '20px',
-    [theme.breakpoints.down('sm')]: {
-      marginLeft: 0,
-    },
-  }, 
-  commentsOuterContainer: {
+  profileContent: {
+    padding: '20px',
     display: 'flex',
-    justifyContent: 'space-between',
+    flexDirection: 'row',
+  },
+  profileInfo: {
+    marginLeft: '50px',
+    display: 'flex',
     flexDirection: 'column',
-    width: '100%',
   },
-  commentsInnerContainer: {
-    height: '100%',
-    overflowY: 'auto',
-    marginRight: '20px',
+  media: {
+    width: '160px', 
+    height: '160px', 
+    borderRadius: '100px',
   },
-  recommendedPosts: {
+  rating: {
     display: 'flex',
+    flexDirection: 'row',
   },
-  recommendedPost: {
+  userPosts: {
+    display: 'flex',
+    margin: '10px 10px',
+  },
+  userPost: {
     padding: '10px', 
     margin: '15px', 
     cursor: 'pointer', 

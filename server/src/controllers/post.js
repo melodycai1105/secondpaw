@@ -22,6 +22,24 @@ export const getPosts = async (req, res) => {
     }
 }
 
+export const makePurchase = async (req, res) => {
+    const userId = req.query.uid;
+    const postId = req.query.pid; 
+    console.log(userId);
+    try {
+        const post = await PostMessage.findById(postId);
+        post.buyer = userId;
+        await PostMessage.findByIdAndUpdate(postId, post);
+        const user = User.findById(userId);
+        user.purchased.push(postId);
+        await User.findByIdAndUpdate(userId, user);
+        res.status(200).json({ data: post });
+    }
+    catch (error) {
+        res.status(413).json({ message: error.message });
+    }
+}
+
 export const getUser = async (req, res) => {
     const { id } = req.params
     try {
@@ -52,7 +70,7 @@ export const getPostsBySearch = async (req, res) => {
 
         const posts = await PostMessage.find({ $or: [{ title }, { tags: { $in: tags.split(',') } }] });
 
-        res.json({ data: posts });
+        res.status(200).json({ data: posts });
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
@@ -95,7 +113,7 @@ export const updatePost = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id))
         return res.status(404).send(`No post with id: ${id}`);
 
-    const updatedPost = await { creator, title, message, tags, selectedFile, _id: id };
+    const updatedPost = { creator, title, message, tags, selectedFile, _id: id };
 
     await PostMessage.findByIdAndUpdate( id, updatedPost, { new: true });
     res.json(updatedPost);

@@ -5,14 +5,25 @@ import moment from 'moment';
 import { useParams, useNavigate, UNSAFE_NavigationContext } from 'react-router-dom';
 import Rating from '@mui/material/Rating';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
+import PropTypes from 'prop-types';
+import Rating from '@mui/material/Rating';
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
+import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
+import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
+import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
+import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
+import NumberFormat from 'react-number-format';
+import Checkbox from '@mui/material/Checkbox';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 import CommentSection from './CommentSection';
 import { getPost, getPostsBySearch, makePurchase } from '../../actions/posts';
 import useStyles from './styles'; 
 
 const PostDetails = () => {
-  const { post, posts, isLoading } = useSelector((state) => state.posts);
   const user = JSON.parse(localStorage.getItem('profile'));
+  const { post, posts, isLoading } = useSelector((state) => state.posts);
   const [rate, setRate] = useState(5);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -37,7 +48,7 @@ const PostDetails = () => {
   if (!post) return null;
 
   if (isLoading) {
-    return <Paper className={classes.loadingPaper}elevation={6}>
+    return <Paper className={classes.loadingPaper} elevation={6}>
       <CircularProgress size='6em' color="secondary" />
     </Paper>
   }
@@ -53,23 +64,56 @@ const PostDetails = () => {
 
   const recommendedPosts = Array.isArray(posts) ? posts.filter(({ _id }) => _id !== post._id).slice(0, 4) : [];
 
+  const customIcons = {
+    1: { icon: <SentimentVeryDissatisfiedIcon />, label: 'Very Dissatisfied', },
+    2: { icon: <SentimentDissatisfiedIcon />, label: 'Dissatisfied', },
+    3: { icon: <SentimentSatisfiedIcon />, label: 'Neutral', },
+    4: { icon: <SentimentSatisfiedAltIcon />, label: 'Satisfied', },
+    5: { icon: <SentimentVerySatisfiedIcon />, label: 'Very Satisfied', },
+  };
+
+  const IconContainer = (props) => {
+    const { value, ...other } = props;
+    return <span {...other}>{customIcons[value].icon}</span>;
+  }
+
+  IconContainer.propTypes = {
+    value: PropTypes.number.isRequired,
+  };
 
   return (
     <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
       <div className={classes.card}>
         <div className={classes.section}>
-          <Typography variant="h3" component="h2">{post.title}</Typography>
-          <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
-          {rating}
-          <Typography gutterBottom variant="body1" component="p">{post.message}</Typography>
-          {!!user?.result?._id && <Button onClick={purchase}> Purchase </Button>}
-          <Typography variant="h6" onClick={toUser}>Seller: {post.name}</Typography>
-          <Typography variant="body1">
-            {(moment(post.createdAt).isSame(moment(), 'day')) && (
-                <NewReleasesIcon />
-              )}
-            &nbsp;Created {moment(post.createdAt).fromNow()}
+          <div style={{display: 'flex', flexDirection: 'row'}}>
+            <Typography gutterBottom variant="h4" component="h2">{post.title}</Typography>
+            <Checkbox size='large' icon={<BookmarkBorderIcon />} checkedIcon={<BookmarkIcon />}/>
+          </div>
+          <Typography variant="h6" gutterBottom>
+            <NumberFormat value={post.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
           </Typography>
+          <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
+          <Typography gutterBottom variant="subtitle1" component="p">{post.message}</Typography>
+          <Typography gutterBottom variant="h6" onClick={toUser}>Seller: {post.name}</Typography>
+          <Typography gutterBottom variant="body1" style={{display: 'flex', flexDirection: 'row'}}>
+            {(moment(post.createdAt).isSame(moment(), 'day')) && (
+                <strong><NewReleasesIcon style={{paddingBottom: '5px'}} />NEW&nbsp;&nbsp;</strong>
+              )}
+            Created {moment(post.createdAt).fromNow()}
+          </Typography>
+          <div className={classes.ratingContainer} style={{marginTop: '10px'}}>
+            {user?.result?.name && (
+              <div style={{display: 'flex', flexDirection: 'row',}}>
+                <Rating defaultValue={2} IconContainerComponent={IconContainer} highlightSelectedOnly/>
+                <Typography gutterBottom variant="subtitle1" >&nbsp;&nbsp;from 0 customers</Typography>
+              </div>
+            ) || (
+              <div>
+                <Rating defaultValue={2} IconContainerComponent={IconContainer} readOnly/>
+                <Typography gutterBottom variant="subtitle1">You are logged out. Login to rate.</Typography>
+              </div>
+            )}
+          </div>
           <Divider style={{ margin: '20px 0' }} />
           <CommentSection post={post} />
           <Divider style={{ margin: '20px 0' }} />
@@ -81,17 +125,22 @@ const PostDetails = () => {
       {!!recommendedPosts.length && (
         <div className={classes.section}>
           <Typography gutterBottom variant="h5">You May Also Like</Typography>
-          <div className={classes.recommendedPosts}>
-            {recommendedPosts.map(({ title, name, message, likes, selectedFile, _id }) => (
-              <Paper className={classes.recommendedPost} elevation={6} onClick={() => openPost(_id)} key={_id}>
-                <Typography gutterBottom variant="h6">{title}</Typography>
-                <Typography gutterBottom variant="subtitle2">{name}</Typography>
-                <Typography gutterBottom variant="subtitle2">{message}</Typography>
-                <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
-                <img src={selectedFile} alt='' width='230px' />
-              </Paper>
+          <Grid className={classes.recommendedPosts} container alignItems="stretch" spacing={1}>
+            {recommendedPosts.map(({ title, name, price, message, likes, selectedFile, _id }) => (
+              <Grid key={_id} item>
+                <Paper className={classes.recommendedPost} elevation={6} onClick={() => openPost(_id)} key={_id}>
+                  <Typography gutterBottom variant="h6">{title}</Typography>
+                  <Typography gutterBottom variant="subtitle2">{name}</Typography>
+                  <Typography gutterBottom variant="subtitle2">
+                    <NumberFormat value={price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                  </Typography>
+                  <Typography gutterBottom variant="subtitle2">{message}</Typography>
+                  <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
+                  <img src={selectedFile} alt='' width='230px' />
+                </Paper>
+              </Grid>
             ))}
-          </div>
+          </Grid>
         </div>
       )}
   </Paper>

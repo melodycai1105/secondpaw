@@ -6,7 +6,8 @@ const userSchema = mongoose.Schema({
   phone: { type: String, default: null },
   password: { type: String, required: true },
   id: { type: String },
-  posts: { type: [String], default: [] }
+  posts: { type: [String], default: [] },
+  purchased: { type: [String], default: []}
 }); // each post have to have these things
 
 const User = mongoose.model("User", userSchema);

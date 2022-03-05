@@ -3,13 +3,13 @@ import express from 'express';
 import mongoose from 'mongoose';
 
 import PostMessage from '../models/postMessage.js';
+import User from '../models/user.js';
 
 const router = express.Router();
 
 export const getPosts = async (req, res) => {
     const { page } = req.query;
     try {
-
         const LIMIT = 8; //number of posts per page
         const startIndex = (Number(page) - 1) * LIMIT; //get the starting index of every page
         const total = await PostMessage.countDocuments({});
@@ -19,6 +19,17 @@ export const getPosts = async (req, res) => {
     }
     catch (error) {
         res.status(404).json({ message: error.message });
+    }
+}
+
+export const getUser = async (req, res) => {
+    const { id } = req.params
+    try {
+        const { name, email, phone, posts } =  await User.findById(id);
+        res.status(200).json({ name, email, phone, posts })
+    }
+    catch (error) {
+        res.status(418).json({ message: error.message });
     }
 }
 
@@ -47,16 +58,31 @@ export const getPostsBySearch = async (req, res) => {
     }
 }
 
+export const getPostsByUser = async (req, res) => {
+    const { id } = req.params;    
+    try {
+        const { posts } = await User.findById(id);
+        const postsobj = await PostMessage.find({ '_id': { $in: posts } });
+        res.status(200).json({ data: postsobj })
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
 
 export const createPost = async (req, res) => {
     const post = req.body;
     const newPost = new PostMessage({ ...post, creator: req.userId, createdAt: new Date().toISOString() });
 
     try {
-        await newPost.save();
+        const { _id } = await newPost.save();
+        const userUpdated = await User.findById(req.userId);
+        userUpdated.posts.push(_id);
+        await User.findByIdAndUpdate(req.userId, userUpdated)
         res.status(201).json(newPost);
     }
     catch (error) {
+        console.log(error)
         res.status(409).json({ message: error.message });
     }
     // res.send("Post Created");
@@ -77,10 +103,15 @@ export const updatePost = async (req, res) => {
 
 export const deletePost = async (req, res) => {
     const { id } = req.params;
+    const userId = req.userId;
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).send(`No post with that id ${id}`);
     }
     await PostMessage.findByIdAndRemove(id);
+    const userUpdated = await User.findById(userId);
+    userUpdated.posts = userUpdated.posts.filter((postid) => postid !== id)
+    await User.findByIdAndUpdate( userId, userUpdated );
+
     res.json({ message: 'Post deleted' });
 }
 

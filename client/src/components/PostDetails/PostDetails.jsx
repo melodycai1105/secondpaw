@@ -34,9 +34,13 @@ const PostDetails = () => {
     </Paper>
   }
 
-  const recommendedPosts = posts.filter(({ _id }) => _id !== post._id).slice(0, 4);
-
+  const toUser = () => {
+      navigate(`/user/${post.creator}`)
+  }
   const openPost = (_id) => navigate(`/posts/${_id}`);
+
+  const recommendedPosts = Array.isArray(posts) ? posts.filter(({ _id }) => _id !== post._id).slice(0, 4) : [];
+
 
   return (
     <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
@@ -45,7 +49,7 @@ const PostDetails = () => {
           <Typography variant="h3" component="h2">{post.title}</Typography>
           <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
           <Typography gutterBottom variant="body1" component="p">{post.message}</Typography>
-          <Typography variant="h6">Seller: {post.name}</Typography>
+          <Typography variant="h6" onClick={toUser}>Seller: {post.name}</Typography>
           <Typography variant="body1">
             {(moment(post.createdAt).isSame(moment(), 'day')) && (
                 <NewReleasesIcon />

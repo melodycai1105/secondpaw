@@ -12,8 +12,8 @@ const app = express();
 app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
-app.use('/user', userRoutes);
 
+app.use('/user', userRoutes);
 app.use('/posts', postRoutes); // localhost:5000/posts
 // Use Mongodb cloud atlas
 const CONNECTION_URL = 'mongodb+srv://danny_zyh:bruin-on-sale@cluster0.dhu6d.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';

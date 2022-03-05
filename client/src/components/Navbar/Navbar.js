@@ -27,7 +27,6 @@ const Navbar = () => {
   const classes = useStyles();
   const navigate = useNavigate();
   const location = useLocation();
-  const [currentId, setCurrentId] = useState(0); // should be changed to use redux
   const dispatch = useDispatch();
 
   const query = useQuery();
@@ -56,7 +55,6 @@ const Navbar = () => {
   const handleDelete = (tagToDelete) => setTags(tags.filter((tag) => tag !== tagToDelete));
 
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-
   const logout = () => {
     dispatch({ type: actionType.LOGOUT });
     navigate('/');
@@ -113,7 +111,12 @@ const Navbar = () => {
       </div>
       <Toolbar className={classes.toolbar}>
         {user?.result && (
-            <Avatar style={{ margin: '12px 20px 0px 0px'}} className={classes.avatar} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
+            <div onClick={(e) => {
+                e.stopPropagation();
+                navigate(`/user/${user?.result?._id}`);
+            }}>
+                <Avatar style={{ margin: '12px 20px 0px 0px'}} className={classes.avatar} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
+            </div>
           )}        
         <div className={classes.dashboard} >
           <Button

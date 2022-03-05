@@ -54,7 +54,7 @@ const Post = ({ post }) => {
               style={{ color: 'white' }}
               size="small"
             >
-              <MoreVertIcon fontSize="default" />
+              <MoreVertIcon fontSize="medium" />
             </Button>
           </div>
         )}
@@ -62,13 +62,9 @@ const Post = ({ post }) => {
           <Typography variant="body2" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
         </div>
         <Typography style={{padding: '0 16px'}} variant="h6">{post.title}</Typography>
-        {(post?.price) && (
-          <Typography style={{padding: '0 16px'}} variant="subtitle1" gutterBottom>
-            <NumberFormat value={post.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
-          </Typography>
-        ) || (
-          <Typography style={{padding: '0 16px'}} color="textSecondary" variant="h7" gutterBottom>Price not labeled</Typography>
-        )}
+        <Typography style={{padding: '0 16px'}} variant="subtitle1" gutterBottom>
+          <NumberFormat value={post.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+        </Typography>
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">{post.message.split(' ').splice(0, 20).join(' ')}...</Typography>
         </CardContent>

@@ -15,7 +15,7 @@ import MenuItem from '@mui/material/MenuItem';
 import EditIcon from '@mui/icons-material/Edit';
 import Divider from '@mui/material/Divider';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
+import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 
@@ -154,7 +154,7 @@ const Navbar = () => {
                     <Typography>&nbsp;&nbsp;Profile</Typography>
                   </MenuItem>
                   <MenuItem>
-                    <BookmarkIcon />
+                    <BookmarksIcon />
                     <Typography>&nbsp;&nbsp;Reservation</Typography>
                   </MenuItem>
                   <Divider sx={{ my: 0.5 }} />

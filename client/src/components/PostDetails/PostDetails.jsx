@@ -78,13 +78,9 @@ const PostDetails = () => {
             <Typography gutterBottom variant="h4" component="h2">{post.title}</Typography>
             <Checkbox size='large' icon={<BookmarkBorderIcon />} checkedIcon={<BookmarkIcon />}/>
           </div>
-          {(post?.price) && (
-            <Typography variant="h6" gutterBottom>
-              <NumberFormat value={post.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
-            </Typography>
-          ) || (
-            <Typography variant="h6" gutterBottom>Price not labeled, contact seller for more information.</Typography>
-          )}
+          <Typography variant="h6" gutterBottom>
+            <NumberFormat value={post.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+          </Typography>
           <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
           <Typography gutterBottom variant="subtitle1" component="p">{post.message}</Typography>
           <Typography gutterBottom variant="h6" onClick={toUser}>Seller: {post.name}</Typography>

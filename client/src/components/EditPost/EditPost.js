@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createPost, updatePost } from '../../actions/posts';
 import { useNavigate, useParams } from "react-router-dom";
 import ChipInput from 'material-ui-chip-input';
+import NumberFormat from "react-number-format";
 
 const EditPost = () => {
   const [postData, setPostData] = useState({ title: '', message: '', tags: [], selectedFile: '' });
@@ -55,7 +56,15 @@ const EditPost = () => {
         <form autoComplete="off" noValidate className={'${classes.root} ${classes.form}'} onSubmit={handleSubmit}>
           <Typography height="100%" margin="0" align="center" variant="h6">{currentId ? 'Editing' : 'Creating'} a Sell</Typography>
           <TextField name="title" variant="outlined" label="Title" margin="dense" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} />
-          <TextField name="price" type="number" variant="outlined" label="Price" margin="dense" fullWidth value={postData.price} onChange={(e) => setPostData({ ...postData, price: e.target.value })} />
+          <NumberFormat
+            customInput={TextField} 
+            name="price" variant="outlined" label="Price" margin="dense" fullWidth value={postData.price}
+            displayType='input' prefix={'$'} thousandSeparator={true} decimalSeparator='.' allowNegative={false} allowLeadingZeros={false} decimalScale={2}
+            onValueChange={(values) => {  
+              const { floatValue } = values;
+              setPostData({ ...postData, price: floatValue })
+            }} />
+            {/* <TextField name="price" type="number" variant="outlined" label="Price" margin="dense" fullWidth value={postData.price} onChange={(e) => setPostData({ ...postData, price: e.target.value })} /> */}
         <TextField name="message" variant="outlined" label="Message" margin="dense" fullWidth value={postData.message} onChange={(e) => setPostData({ ...postData, message: e.target.value })} />
           <div style={{ padding: '5px 0', width: '100%' }}>
             <ChipInput

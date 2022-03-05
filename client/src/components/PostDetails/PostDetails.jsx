@@ -36,9 +36,11 @@ const PostDetails = () => {
   const toUser = () => {
       navigate(`/user/${post.creator}`)
   }
-  const recommendedPosts = posts.filter(({ _id }) => _id !== post._id).slice(0, 4);
-
   const openPost = (_id) => navigate(`/posts/${_id}`);
+
+  const recommendedPosts = Array.isArray(posts) ? posts.filter(({ _id }) => _id !== post._id).slice(0, 4) : [];
+
+
   return (
     <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
       <div className={classes.card}>

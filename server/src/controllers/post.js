@@ -25,9 +25,8 @@ export const getPosts = async (req, res) => {
 export const getUser = async (req, res) => {
     const { id } = req.params
     try {
-        const { name, email, phone, postsid } = await User.findById(id);
-        const posts = await PostMessage.find().where('_id').in(postsid)
-        res.json({ name, email, phone, posts })
+        const { name, email, phone, posts } =  await User.findById(id);
+        res.status(200).json({ name, email, phone, posts })
     }
     catch (error) {
         res.status(418).json({ message: error.message });
@@ -59,6 +58,17 @@ export const getPostsBySearch = async (req, res) => {
     }
 }
 
+export const getPostsByUser = async (req, res) => {
+    const { id } = req.params;    
+    try {
+        const { posts } = await User.findById(id);
+        const postsobj = await PostMessage.find({ '_id': { $in: posts } });
+        res.status(200).json({ data: postsobj })
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
 
 export const createPost = async (req, res) => {
     const post = req.body;
@@ -66,8 +76,9 @@ export const createPost = async (req, res) => {
 
     try {
         const { _id } = await newPost.save();
-        const userobj = await User.findById(req.userId);
-        userobj.posts.push(_id);
+        const userUpdated = await User.findById(req.userId);
+        userUpdated.posts.push(_id);
+        await User.findByIdAndUpdate(req.userId, userUpdated)
         res.status(201).json(newPost);
     }
     catch (error) {
@@ -92,10 +103,14 @@ export const updatePost = async (req, res) => {
 
 export const deletePost = async (req, res) => {
     const { id } = req.params;
+    const userId = req.userId;
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).send(`No post with that id ${id}`);
     }
     await PostMessage.findByIdAndRemove(id);
+    const userUpdated = await User.findById(userId);
+    userUpdated.posts = userUpdated.posts.filter((postid) => postid !== id)
+    await User.findByIdAndUpdate( userId, userUpdated );
 
     res.json({ message: 'Post deleted' });
 }

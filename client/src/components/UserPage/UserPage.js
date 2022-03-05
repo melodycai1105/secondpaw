@@ -39,21 +39,52 @@ const UserPage = () => {
    }
 
     return (
-        <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
-            <Typography variant="h3" component="h2">{user.name}</Typography>
-            <Typography variant="h3" component="p">{user.phone}</Typography>
-            <Typography variant="h3" component="p">{user.email}</Typography>
-            <Typography variant="h3" component="p">`rating: 5`</Typography>
+      <Paper style={{ padding: '20px', borderRadius: '15px', maxWidth:"550px", margin: "0px auto"}} elevation={6}>
+        <div>
+          <div style={{
+            display:"flex",
+            // justifyContent:"space-around",
+            margin:"0px 25px",
+            padding: '20px',
+            // borderRadius: '15px',
+            borderBottom: "1px solid grey"
+          }}>
+            <div>
+              <img style={{width:"160px",height:"160px",borderRadius:"80px"}}
+                src="https://ci.xiaohongshu.com/e9214814-9bd7-c815-91a2-e8fe078918f5?imageView2/2/w/540/format/jpg"
+              />
+            </div>
+            <div style={{
+              margin:"30px 10px 10px 45px"
+            }}>
+              <Typography variant="h3" style={{margin:"0px 0px 10px 0px"}}>{user.name}</Typography>
+              <div style={{}}>
+                {/* <Typography variant="h7">{user.phone}</Typography> */}
+                <Typography variant="h7">{user.email}</Typography>
+              </div>
+              <div>
+                <Typography variant="h7">`rating: 5`</Typography>
+              </div>
+            </div>
+          </div>
 
             {!!userPosts?.length && (
         <div className={classes.section}>
-          <Typography gutterBottom variant="h5">Other posts by {user.name}</Typography>
-          <div className={classes.recommendedPosts}>
+          {/* <Typography gutterBottom variant="h6" style={{
+            display:"flex",
+            // justifyContent:"space-around",
+            margin:"10px 25px"
+          }}>Other posts by {user.name}</Typography> */}
+          <div className={classes.recommendedPosts} style={{
+            // display:"flex",
+            // justifyContent:"space-around",
+            margin:"10px 10px"
+          }}>
             {userPosts.map(({ title, name, message, likes, selectedFile, _id }) => (
               <Paper className={classes.recommendedPost} elevation={6} onClick={() => openPost(_id)} key={_id}>
                 <Typography gutterBottom variant="h6">{title}</Typography>
-                <Typography gutterBottom variant="subtitle2">{name}</Typography>
-                <Typography gutterBottom variant="subtitle2">{message}</Typography>
+                {/* <Typography gutterBottom variant="subtitle2">{name}</Typography> */}
+                {/* <Typography gutterBottom variant="subtitle2">{message}</Typography> */}
                 <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
                 <img src={selectedFile} alt='' width='230px' />
               </Paper>
@@ -61,6 +92,7 @@ const UserPage = () => {
           </div>
         </div>
       )}
+        </div>
         </Paper>
 
     );

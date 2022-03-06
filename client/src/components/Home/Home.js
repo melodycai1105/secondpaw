@@ -7,6 +7,7 @@ import Posts from '../Posts/Posts';
 import Pagination from '../Pagination';
 import useStyles from './styles';
 import Trending from '../images/Trending.svg';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);

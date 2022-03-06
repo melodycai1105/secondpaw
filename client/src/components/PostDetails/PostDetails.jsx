@@ -143,7 +143,7 @@ const PostDetails = () => {
           </div>
           <Typography gutterBottom variant="subtitle1" component="p" style={{margin:'15px 0px 15px 0px'}}>Descriptions: {post.message}</Typography>
           {/* <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography> */}
-          <Chip icon={<AutoAwesomeIcon/>} style={{fontSize:12}} gutterBottom variant="h6" color="default" size="medium" component="h2" label={post.tags.map((tag) => `${tag} `)}></Chip>
+          <Chip icon={<AutoAwesomeIcon style={{color:'#6a5acd'}}/>} style={{fontSize:12}} gutterBottom variant="h6" color="default" size="medium" component="h2" label={post.tags.map((tag) => `${tag} `)} style={{color:'#6a5acd'}}></Chip>
           {/* <Typography gutterBottom variant="body1" style={{display: 'flex', flexDirection: 'row'}}>
             {(moment(post.createdAt).isSame(moment(), 'day')) && (
                 <strong><NewReleasesIcon style={{paddingBottom: '5px'}} />NEW&nbsp;&nbsp;</strong>
@@ -174,8 +174,8 @@ const PostDetails = () => {
       {!!recommendedPosts.length && (
         <div className={classes.section}>
           <div className={classes.section} style={{display:'flex'}}>
-            <AddReactionIcon/>
-            <Typography gutterBottom variant="h5" style={{fontSize:18, margin:"5px 0px 0px 10px"}}>You May Also Like:</Typography>
+            <AddReactionIcon style={{color:'#6a5acd'}}/>
+            <Typography gutterBottom variant="h5" style={{fontSize:18, margin:"5px 0px 0px 10px", color: '#6a5acd'}}>You May Also Like:</Typography>
           </div>
           <Grid className={classes.recommendedPosts} container alignItems="stretch" spacing={1}>
             {recommendedPosts.map(({ title, name, price, message, likes, selectedFile, _id }) => (

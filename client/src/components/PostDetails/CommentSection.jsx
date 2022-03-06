@@ -27,7 +27,7 @@ const CommentSection = ({post}) => {
     return (
         <div className={classes.commentsOuterContainer}>
             <div className={classes.commentsInnerContainer}>
-                <Typography gutterBottom variant="h6" style={{fontSize:16}}>{comments.length} Reviews</Typography>
+                <Typography gutterBottom variant="h6" style={{fontSize:16, margin:'0px 0px 15px 0px'}}>{comments.length} Reviews</Typography>
                 {comments?.map((c, i) => (
                     <Typography key={i} gutterBottom variant="subtitle1">
                         <strong>{c.split(': ')[0]}</strong>
@@ -39,6 +39,7 @@ const CommentSection = ({post}) => {
                 )}
                 <div ref={commentsRef} />
             </div>
+            <div className={classes.section} style={{margin:'20px 0px 0px 0px'}}>
             {user?.result?.name && (
                 <div>
                     <Typography gutterBottom variant="h6" style={{fontSize:16}}><CommentIcon />&nbsp;Write a review</Typography>
@@ -50,7 +51,7 @@ const CommentSection = ({post}) => {
                 </div>
             ) || (
                 <Typography gutterBottom variant="subtitle1" style={{fontSize:10}}>You are logged out. Login to write a review.</Typography>
-            )}
+            )}</div>
         </div>
     );
 }

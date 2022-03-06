@@ -3,8 +3,9 @@ import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 
 const options = [
-  "Popularity",
-  "Chronological",
+  "Sort By Date",
+  "Sort By Popularity",
+  "Sort By Price",
 ]
 
 function classNames(...classes) {

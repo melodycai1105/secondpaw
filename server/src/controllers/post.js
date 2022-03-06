@@ -8,13 +8,17 @@ import User from '../models/user.js';
 const router = express.Router();
 
 export const getPosts = async (req, res) => {
-    const { page } = req.query;
+    const { page, sortType } = req.query;
+    console.log(req.query);
     try {
+        console.log(sortType);
         const LIMIT = 8; //number of posts per page
         const startIndex = (Number(page) - 1) * LIMIT; //get the starting index of every page
         const total = await PostMessage.countDocuments({});
 
-        const posts = await PostMessage.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
+        const searchTerm = sortType === "Sort By Price" ? { price: -1 } : { _id: -1 };
+        const posts = await PostMessage.find().sort(searchTerm).limit(LIMIT).skip(startIndex);
+
         res.json({ data: posts, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT) });
     }
     catch (error) {
@@ -24,7 +28,7 @@ export const getPosts = async (req, res) => {
 
 export const makePurchase = async (req, res) => {
     const userId = req.query.uid;
-    const postId = req.query.pid; 
+    const postId = req.query.pid;
     try {
         const post = await PostMessage.findById(postId);
         post.buyer = userId;
@@ -42,7 +46,7 @@ export const makePurchase = async (req, res) => {
 export const getUser = async (req, res) => {
     const { id } = req.params
     try {
-        const { name, email, phone, posts } =  await User.findById(id);
+        const { name, email, phone, posts } = await User.findById(id);
         res.status(200).json({ name, email, phone, posts })
     }
     catch (error) {
@@ -76,7 +80,7 @@ export const getPostsBySearch = async (req, res) => {
 }
 
 export const getPostsByUser = async (req, res) => {
-    const { id } = req.params;    
+    const { id } = req.params;
     try {
         const { posts } = await User.findById(id);
         const postsobj = await PostMessage.find({ '_id': { $in: posts } });
@@ -114,7 +118,7 @@ export const updatePost = async (req, res) => {
 
     const updatedPost = { creator, title, message, tags, selectedFile, _id: id };
 
-    await PostMessage.findByIdAndUpdate( id, updatedPost, { new: true });
+    await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
     res.json(updatedPost);
 }
 
@@ -127,7 +131,7 @@ export const deletePost = async (req, res) => {
     await PostMessage.findByIdAndRemove(id);
     const userUpdated = await User.findById(userId);
     userUpdated.posts = userUpdated.posts.filter((postid) => postid !== id)
-    await User.findByIdAndUpdate( userId, userUpdated );
+    await User.findByIdAndUpdate(userId, userUpdated);
 
     res.json({ message: 'Post deleted' });
 }

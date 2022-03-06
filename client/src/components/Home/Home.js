@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 import Posts from '../Posts/Posts';
 // import Form from '../Form/Form';
 import Pagination from '../Pagination';
+import Sort from '../Sort'
 import useStyles from './styles';
 import Trending from '../images/Trending.svg';
 
@@ -15,6 +16,12 @@ function useQuery() {
 const Home = () => {
   const query = useQuery();
   const page = query.get('page') || 1;
+  const options = [
+    "Sort By Date",
+    "Sort By Popularity",
+    "Sort By Price",
+  ]
+  const [sortType, setSortType] = useState(options[2]);
 
   const classes = useStyles();
 
@@ -22,6 +29,7 @@ const Home = () => {
     <Grow in>
       <Container maxWidth="xl">
         <div className={classes.header}>
+          <Sort />
           <img src={Trending} alt="Trending Logo" align="left" width="300px" height="400px" />
           <svg style={{ marginTop: '15px', marginLeft: '-30px' }} width="70" height="70" fill="true" viewBox="0 0 24 24">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.75 11.25L10.25 5.75"></path>
@@ -31,10 +39,10 @@ const Home = () => {
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.25 8.25V4.75H7.75"></path>
           </svg>
           <div className={classes.pagination}>
-            <Pagination page={page} />
+            <Pagination page={page} sortType={sortType} />
           </div>
         </div>
-        <Grid style={{ marginTop: '30px'}} container justifyContent="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
+        <Grid style={{ marginTop: '30px' }} container justifyContent="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
           <Grid item xs={12} sm={6} md={10} fullWidth>
             <Posts />
           </Grid>

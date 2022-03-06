@@ -7,14 +7,15 @@ import { getPosts } from '../actions/posts';
 
 import useStyles from './styles';
 
-const Paginate = ({ page }) => {
+const Paginate = ({ page, sortType }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const { numberOfPages } = useSelector((state) => state.posts);
 
     useEffect(() => {
         if (page) {
-        dispatch(getPosts(page));
+            console.log(page);
+            dispatch(getPosts(page, sortType));
         }
     }, [dispatch, page]);
 

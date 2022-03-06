@@ -25,3 +25,4 @@ https://nodejs.org/
     - npm install jwt-decode
     - npm install react-google-login
     - npm install @mui/icons-material
+    - npm install react-number-format

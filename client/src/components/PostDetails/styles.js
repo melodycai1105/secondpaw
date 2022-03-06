@@ -1,14 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
-  media: {
-    borderRadius: '20px',
-    objectFit: 'cover',
-    width: '100%',
-    maxHeight: '800px',
-    maxWidth: '600px',
-    cursor: 'zoom-in',
-  },
   card: {
     display: 'flex',
     width: '100%',
@@ -28,6 +20,14 @@ export default makeStyles((theme) => ({
       marginLeft: 0,
     },
   }, 
+  media: {
+    borderRadius: '20px',
+    objectFit: 'cover',
+    width: '100%',
+    maxHeight: '800px',
+    maxWidth: '600px',
+    cursor: 'zoom-in',
+  },
   commentsOuterContainer: {
     display: 'flex',
     justifyContent: 'space-between',

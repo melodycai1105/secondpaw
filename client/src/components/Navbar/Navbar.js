@@ -15,6 +15,7 @@ import MenuItem from '@mui/material/MenuItem';
 import EditIcon from '@mui/icons-material/Edit';
 import Divider from '@mui/material/Divider';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import BookmarksIcon from '@mui/icons-material/Bookmarks';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 
@@ -115,7 +116,7 @@ const Navbar = () => {
                 e.stopPropagation();
                 navigate(`/user/${user?.result?._id}`);
             }}>
-                <Avatar style={{ margin: '12px 20px 0px 0px'}} className={classes.avatar} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
+                <Avatar className={classes.avatar} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
             </div>
           )}        
         <div className={classes.dashboard} >
@@ -143,19 +144,23 @@ const Navbar = () => {
                 <div className={classes.menuList}>
                   <MenuItem disableRipple onClick={() => navigate("/editpost")}>
                     <EditIcon />
-                    <Typography>&nbsp;Create Post</Typography>
+                    <Typography>&nbsp;&nbsp;Create Post</Typography>
                   </MenuItem>
                   <MenuItem disableRipple onClick={(e) => {
-                e.stopPropagation();
-                navigate(`/user/${user?.result?._id}`);
-            }}>
+                      e.stopPropagation();
+                      navigate(`/user/${user?.result?._id}`);
+                    }}>
                     <AccountCircleIcon />
-                    <Typography>&nbsp;Profile</Typography>
+                    <Typography>&nbsp;&nbsp;Profile</Typography>
+                  </MenuItem>
+                  <MenuItem>
+                    <BookmarksIcon />
+                    <Typography>&nbsp;&nbsp;Reservation</Typography>
                   </MenuItem>
                   <Divider sx={{ my: 0.5 }} />
                   <MenuItem disableRipple onClick={logout}>
                     <LogoutIcon />
-                    <Typography>&nbsp;Logout</Typography>
+                    <Typography>&nbsp;&nbsp;Logout</Typography>
                   </MenuItem>
                 </div>
               ) : (

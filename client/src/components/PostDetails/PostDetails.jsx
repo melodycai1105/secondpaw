@@ -37,22 +37,21 @@ const PostDetails = () => {
     }
   }, [post]);
 
-  const purchase = () => {
-    const userId = user?.result?._id;
+  const userId = user?.result?._id || user?.result?.googleId;
+  // const hasReserved = user?.result?.purchased?.find((purchased) => purchased === post._id);
+  const hasReserved = post?.buyer === userId;
+
+  const handleReserve = () => {
     dispatch(makePurchase(userId, id));
   }
 
   const Reservation = () => {
-    console.log(user.result);
-    if (user?.result?.name) {
-      return user?.result?.purchased?.find((purchased) => purchased === post._id)
-      ? (
-        <Button disabled><BookmarkIcon fontSize='large' />Reserved</Button>
-      ) : (
-        <Button color='primary' onClick={purchase}><BookmarkBorderIcon fontSize='large' />Reserve</Button>
-      );
-    }
-    return <Button disabled ><BookmarkBorderIcon fontSize='large' />Login to Reserve</Button>;
+    return (hasReserved)
+    ? (
+      <Button disabled><BookmarkIcon fontSize='large' />Reserved</Button>
+    ) : (
+      <Button color='primary' onClick={handleReserve}><BookmarkBorderIcon fontSize='large' />Reserve</Button>
+    );
   };
 
   if (!post) return null;
@@ -93,7 +92,11 @@ const PostDetails = () => {
         <div className={classes.section}>
           <div style={{display: 'flex', flexDirection: 'row'}}>
             <Typography gutterBottom variant="h4" component="h2">{post.title}</Typography>
-            <Reservation />
+            {user?.result?.name && (
+              <Reservation />
+            ) || (
+              <Button disabled><BookmarkBorderIcon fontSize='large' />Login to Reserve</Button>
+            )}
           </div>
           <Typography variant="h6" gutterBottom>
             <NumberFormat value={post.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />

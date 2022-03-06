@@ -15,7 +15,8 @@ import NumberFormat from 'react-number-format';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
-import default_bruin from '../images/secondpaw.png'
+import default_bruin from '../images/secondpaw.png';
+import default_profile_pic from '../images/bruin_logo.jpeg'; 
 
 import CommentSection from './CommentSection';
 import { getPost, getPostsBySearch, makePurchase } from '../../actions/posts';
@@ -31,7 +32,6 @@ const PostDetails = () => {
   const navigate = useNavigate();
   const classes = useStyles();
   const { id } = useParams();
-
   useEffect(() => {
     dispatch(getPost(id));
   }, [id]);
@@ -142,7 +142,7 @@ const PostDetails = () => {
           </div>
           <div className={classes.section} style={{ display: 'flex', margin:'15px 0px 0px 0px'}}>
             <Typography gutterBottom variant="subtitle1" style={{margin:'5px 0px 0px 0px'}}>Seller:</Typography>
-            <Chip color='secondary' avatar={<Avatar src="https://ci.xiaohongshu.com/e9214814-9bd7-c815-91a2-e8fe078918f5?imageView2/2/w/540/format/jpg" />} 
+            <Chip color='secondary' avatar={<Avatar src={user.profile_pic || default_profile_pic} />} 
               label= {post.name} onClick={toUser} style={{margin:'5px 0px 0px 5px'}}>
             </Chip>
           </div>

@@ -7,8 +7,9 @@ const userSchema = mongoose.Schema({
   password: { type: String, required: true },
   id: { type: String },
   posts: { type: [String], default: [] },
-  purchased: { type: [String], default: []}
-}); // each post have to have these things
+  purchased: { type: [String], default: []},
+  profile_pic: {type: String, default: ""}
+}); // each post has to have these things
 
 const User = mongoose.model("User", userSchema);
 export default User;

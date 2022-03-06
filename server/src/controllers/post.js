@@ -42,8 +42,8 @@ export const makePurchase = async (req, res) => {
 export const getUser = async (req, res) => {
     const { id } = req.params
     try {
-        const { name, email, phone, posts } =  await User.findById(id);
-        res.status(200).json({ name, email, phone, posts })
+        const { name, email, phone, posts, profile_pic } =  await User.findById(id);
+        res.status(200).json({ name, email, phone, posts, profile_pic })
     }
     catch (error) {
         res.status(418).json({ message: error.message });

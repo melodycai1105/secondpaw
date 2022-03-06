@@ -27,7 +27,7 @@ const CommentSection = ({post}) => {
     return (
         <div className={classes.commentsOuterContainer}>
             <div className={classes.commentsInnerContainer}>
-                <Typography gutterBottom variant="h6">{comments.length} Reviews</Typography>
+                <Typography gutterBottom variant="h6" style={{fontSize:16}}>{comments.length} Reviews</Typography>
                 {comments?.map((c, i) => (
                     <Typography key={i} gutterBottom variant="subtitle1">
                         <strong>{c.split(': ')[0]}</strong>
@@ -35,13 +35,13 @@ const CommentSection = ({post}) => {
                     </Typography>
                 ))}
                 {!comments.length && (
-                    <Typography gutterBottom variant="subtitle1">Be the first to write a review for this product!</Typography>
+                    <Typography gutterBottom variant="subtitle1" style={{fontSize:13}}>Be the first to write a review for this product!</Typography>
                 )}
                 <div ref={commentsRef} />
             </div>
             {user?.result?.name && (
                 <div>
-                    <Typography gutterBottom variant="h6"><CommentIcon />&nbsp;Write a review</Typography>
+                    <Typography gutterBottom variant="h6" style={{fontSize:16}}><CommentIcon />&nbsp;Write a review</Typography>
                     <TextField style={{ maxWidth: '600px' }} fullWidth rows={4} variant="outlined" label="Comment" multiline value={comment} onChange={(e) => setComment(e.target.value)} />
                     <br />
                     <Button style={{ marginTop: '10px', maxWidth: '600px' }} fullWidth disabled={!comment.length} color="primary" variant="contained" onClick={handleClick}>
@@ -49,7 +49,7 @@ const CommentSection = ({post}) => {
                     </Button>
                 </div>
             ) || (
-                <Typography gutterBottom variant="subtitle1">You are logged out. Login to write a review.</Typography>
+                <Typography gutterBottom variant="subtitle1" style={{fontSize:10}}>You are logged out. Login to write a review.</Typography>
             )}
         </div>
     );

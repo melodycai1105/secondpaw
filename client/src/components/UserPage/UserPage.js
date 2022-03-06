@@ -56,10 +56,14 @@ const UserPage = () => {
             <div style={{
               margin:"30px 10px 30px 45px"
             }}>
-              <Typography variant="h4" component="h2">{user.name}</Typography>
-              <Typography variant="h6" component="p">{user.phone}</Typography>
-              <Typography variant="h6" component="p">{user.email}</Typography>
-              <Typography variant="h6" component="p">`rating: 5`</Typography>
+              <Typography variant="h4" style={{margin:"0px 0px 10px 0px"}}>{user.name}</Typography>
+              <div style={{}}>
+                {/* <Typography variant="h7">{user.phone}</Typography> */}
+                <Typography variant="h7">{user.email}</Typography>
+              </div>
+              <div>
+                <Typography variant="h7">`rating: 5`</Typography>
+              </div>
             </div>
           </div>
 

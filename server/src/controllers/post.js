@@ -42,8 +42,8 @@ export const makePurchase = async (req, res) => {
 export const getUser = async (req, res) => {
     const { id } = req.params
     try {
-        const { name, email, phone, posts } =  await User.findById(id);
-        res.status(200).json({ name, email, phone, posts })
+        const { name, email, phone, posts, purchased } =  await User.findById(id);
+        res.status(200).json({ name, email, phone, posts, purchased })
     }
     catch (error) {
         res.status(418).json({ message: error.message });
@@ -86,6 +86,16 @@ export const getPostsByUser = async (req, res) => {
     }
 }
 
+export const getReservationByUser = async (req, res) => {
+    const { id } = req.params;    
+    try {
+        const { purchased } = await User.findById(id);
+        const postsobj = await PostMessage.find({ '_id': { $in: purchased } });
+        res.status(200).json({ data: postsobj })
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
 
 export const createPost = async (req, res) => {
     const post = req.body;

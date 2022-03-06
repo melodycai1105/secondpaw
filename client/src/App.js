@@ -9,7 +9,8 @@ import Form from './components/Form/Form';
 import EditPost from './components/EditPost/EditPost';
 import Posts from './components/Posts/Posts';
 import PostDetails from './components/PostDetails/PostDetails';
-import UserPage from './components/UserPage/UserPage'
+import UserPage from './components/UserPage/UserPage';
+import Reservation from './components/Reservation/Reservation';
 
 const App = () => {
   const user = JSON.parse(localStorage.getItem('profile'));
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="/editpost/:id" element={<EditPost />} />
           <Route path="/details" element={<Posts />} />
           <Route path="/posts/:id" element={<PostDetails />} />
+          <Route path="/user/:id/reservation" element={<Reservation />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/user/:id" element={<UserPage />} />
           {/* {user ? (

@@ -46,6 +46,17 @@ export const getPostsByUser = (userId) => async (dispatch) => {
     }
 }
 
+export const getReservationByUser = (userId) => async (dispatch) => {
+  try{
+      dispatch({ type: START_LOADING });
+      const { data } = await api.fetchReservationByUser(userId);
+      dispatch({ type: FETCH_BY_SEARCH, payload: { data } });
+      dispatch({ type: END_LOADING });
+  } catch(error) {
+      console.log(error.message);
+  }
+}
+
 export const makePurchase = (userId, postId) => async(dispatch) => {
     try {
         dispatch({ type: START_LOADING });

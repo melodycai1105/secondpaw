@@ -65,7 +65,7 @@ const PostDetails = () => {
 
   if (isLoading) {
     return <Paper className={classes.loadingPaper} elevation={6}>
-      <CircularProgress size='6em' color="secondary" />
+      <CircularProgress size='7em' color="secondary" />
     </Paper>
   }
 
@@ -190,7 +190,7 @@ const PostDetails = () => {
                   </Typography>
                   <Typography gutterBottom variant="subtitle2">{message}</Typography>
                   <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
-                  <img src={selectedFile} alt='' width='230px' />
+                  <div className={classes.imgContainer}><img src={selectedFile} alt='' width='230px' /></div>
                 </Paper>
               </Grid>
             ))}

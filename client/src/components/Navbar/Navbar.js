@@ -153,7 +153,7 @@ const Navbar = () => {
                     <AccountCircleIcon />
                     <Typography>&nbsp;&nbsp;Profile</Typography>
                   </MenuItem>
-                  <MenuItem>
+                  <MenuItem disableRipple onClick={() => navigate(`/user/${user?.result?._id}/reservation/`)}>
                     <BookmarksIcon />
                     <Typography>&nbsp;&nbsp;Reservation</Typography>
                   </MenuItem>

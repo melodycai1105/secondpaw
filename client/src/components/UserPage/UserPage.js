@@ -34,7 +34,7 @@ const UserPage = () => {
     if (!user) return null;
 
     if (isLoading || isLoadingPost) {
-        return <Paper className={classes.loadingPaper}elevation={6}>
+        return <Paper className={classes.loadingPaper} elevation={6}>
         <CircularProgress size='7em'/>
         </Paper>
    }
@@ -68,8 +68,8 @@ const UserPage = () => {
           <Divider style={{ margin: '20px 0' }} />
           {!!userPosts?.length && (
             <div className={classes.section}>
-              <Typography gutterBottom variant="h5" style={{marginLeft: '20px'}}>Your Posts: </Typography>
-              <Grid className={classes.userPosts} container alignItems="stretch" spacing={1}>
+              <Typography gutterBottom variant="h5" style={{marginLeft: '20px', marginBottom: '20px'}}>Your Posts: </Typography>
+              <Grid className={classes.userPosts} container alignItems="stretch" spacing={3}>
                 {userPosts.map(({ title, name, price, message, likes, selectedFile, _id }) => (
                   <Grid key={_id} item>
                     <Paper className={classes.userPost} elevation={6} onClick={() => openPost(_id)} key={_id}>
@@ -80,7 +80,7 @@ const UserPage = () => {
                       </Typography>
                       <Typography gutterBottom variant="subtitle2">{message}</Typography>
                       <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
-                      <img src={selectedFile} alt='' width='230px' />
+                      <div className={classes.imgContainer}><img src={selectedFile} alt='' width='230px' /></div>
                     </Paper>
                   </Grid>
                 ))}

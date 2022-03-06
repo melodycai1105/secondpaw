@@ -8,7 +8,7 @@ const userSchema = mongoose.Schema({
   id: { type: String },
   posts: { type: [String], default: [] },
   purchased: { type: [String], default: []},
-  profile_pic: String
+  profile_pic: {type: String, default: ""}
 }); // each post has to have these things
 
 const User = mongoose.model("User", userSchema);

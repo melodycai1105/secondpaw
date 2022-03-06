@@ -8,7 +8,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import PhoneIcon from '@mui/icons-material/Phone';
 import Tooltip from '@mui/material/Tooltip';
 import NumberFormat from 'react-number-format';
-
+import default_profile_pic from '../images/bruin_logo.jpeg'; 
 import { getUser, getPostsByUser } from '../../actions/posts';
 import useStyles from './styles';
 
@@ -16,9 +16,9 @@ const UserPage = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const { isLoading, user } = useSelector((state) => state.user);
+    console.log(user);
     const { isLoadingPost, posts } = useSelector((state) => state.posts);
     const userPosts = posts.data;
-
     const navigate = useNavigate();
     const classes = useStyles();
     const openPost = (_id) => navigate(`/posts/${_id}`);
@@ -38,14 +38,12 @@ const UserPage = () => {
         <CircularProgress size='7em'/>
         </Paper>
    }
-
+    console.log(user);
     return (
       <Paper className={classes.profilePaper} elevation={6}>
         <div className={classes.card}>
           <div className={classes.profileContent}>
-            <div className={classes.profilepic}>
-              <img className={classes.media} src="https://ci.xiaohongshu.com/e9214814-9bd7-c815-91a2-e8fe078918f5?imageView2/2/w/540/format/jpg"/>
-            </div>
+              <img className={classes.media} src={user.profile_pic || default_profile_pic} />
             <div className={classes.profileInfo}>
               <Typography variant="h3" >{user.name}</Typography>
               <Tooltip title="SEND AN EMAIL" placement="right" arrow>

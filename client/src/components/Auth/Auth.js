@@ -16,7 +16,8 @@ const initialState = {
   lastName: '',
   email: '',
   password: '',
-  confirmPassword: ''
+  confirmPassword: '',
+  profile_pic: ''
 }
 
 const Auth = () => {
@@ -29,8 +30,7 @@ const Auth = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData)
-    if (isSignup) {
+      if (isSignup) {
       dispatch(signup(formData, navigate));
     } else {
       dispatch(signin(formData, navigate));
@@ -50,12 +50,13 @@ const Auth = () => {
     }
   };
 
+
   const googleFail = () => {
     alert('Could not log in with your Google account. Please try again later.');
   }
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const switchMode = () => {
@@ -88,7 +89,7 @@ const Auth = () => {
               <>
               <Typography component="h1" variant="body1">{"Upload a profile picture"}</Typography>
               <div className={classes.fileInput}></div>
-              <FileBase type="file" multiple={false} onDone={({ base64 }) => handleChange({formData, profilepic: base64 })} />
+              <FileBase type="file" multiple={false} onDone={({ base64 }) => setFormData({...formData, profile_pic: base64 })} />
               </>
             )}
           </Grid>

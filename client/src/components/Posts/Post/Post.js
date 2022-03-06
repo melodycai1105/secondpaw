@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardActions, CardContent, CardMedia, CardActionArea, Button, Typography } from '@material-ui/core';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import default_bruin from '../../images/secondpaw.png'
 import NumberFormat from 'react-number-format';
 
-import { getPost, likePost, deletePost } from '../../../actions/posts';
+import { likePost, deletePost } from '../../../actions/posts';
 import useStyles from './styles'
 
 const Post = ({ post }) => {
@@ -18,17 +18,30 @@ const Post = ({ post }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('profile'));
+  const [likes, setLikes] = useState(post?.likes);
+
+  const userId = user?.result?._id || user?.result?.googleId;
+  const hasLikedPost = post.likes.find((like) => like === userId);
+
+  const handleLike = async () => {
+    dispatch(likePost(post._id));
+
+    if (hasLikedPost) {
+      setLikes(post.likes.filter((id) => id !== userId));
+    } else {
+      setLikes([ ...post.likes, userId]);
+    }
+  };
 
   const Likes = () => {
-    if (post?.likes?.length > 0) {
-      return post.likes.find((like) => like === (user?.result?._id || user?.result?.googleId))
+    if (likes.length > 0) {
+      return likes.find((like) => like === userId)
         ? (
-          <div style={{color: '#ff6d75'}}><Favorite style={{color: '#ff6d75'}} fontSize="small" />&nbsp;{post.likes.length > 2 ? `You and ${post.likes.length - 1} others` : `${post.likes.length} like${post.likes.length > 1 ? 's' : ''}`}</div>
+          <div style={{color: '#ff6d75'}}><Favorite style={{color: '#ff6d75'}} fontSize="small" />&nbsp;{likes.length > 2 ? `You and ${likes.length - 1} others` : `${likes.length} like${likes.length > 1 ? 's' : ''}`}</div>
         ) : (
-          <div><FavoriteBorder fontSize="small" />&nbsp;{post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}</div>
+          <div><FavoriteBorder fontSize="small" />&nbsp;{likes.length} {likes.length === 1 ? 'Like' : 'Likes'}</div>
         );
     }
-
     return <div><FavoriteBorder fontSize="small" />&nbsp;Like</div>;
   };
 
@@ -70,7 +83,7 @@ const Post = ({ post }) => {
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.cardActions}>
-        <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likePost(post._id))}>
+        <Button size="small" color="primary" disabled={!user?.result} onClick={handleLike}>
           <Likes />
         </Button>
         {(user?.result?._id === post?.creator || user?.result?.googleId === post?.creator) && (

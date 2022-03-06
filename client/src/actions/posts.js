@@ -1,5 +1,5 @@
 import * as api from '../api';
-import { FETCH_ALL, FETCH_POST, FETCH_BY_SEARCH, START_LOADING, END_LOADING, CREATE, UPDATE, DELETE, LIKE, COMMENT, FETCH_USER } from '../constants/actionTypes';
+import { FETCH_ALL, FETCH_POST, FETCH_BY_SEARCH, START_LOADING, END_LOADING, CREATE, UPDATE, DELETE, LIKE, COMMENT, FETCH_USER, PURCHASE } from '../constants/actionTypes';
 
 export const getPost = (id) => async (dispatch) => {
   try {
@@ -33,7 +33,7 @@ export const getPosts = (page) => async (dispatch) => {
   } catch (error) {
     console.log(error.message);
   }
-};
+}
 
 export const getPostsByUser = (userId) => async (dispatch) => {
     try{
@@ -46,6 +46,17 @@ export const getPostsByUser = (userId) => async (dispatch) => {
     }
 }
 
+export const makePurchase = (userId, postId) => async(dispatch) => {
+    try {
+        dispatch({ type: START_LOADING });
+        const { data } = await api.purchase(userId, postId);
+        dispatch({ type: PURCHASE, payload: { data } });
+        dispatch({ type: END_LOADING });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const getPostsBySearch = (searchQuery) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });
@@ -55,7 +66,7 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
   } catch (error) {
     console.log(error);
   }
-};
+}
 
 
 export const createPost = (post, navigate) => async (dispatch) => {

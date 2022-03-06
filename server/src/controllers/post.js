@@ -16,7 +16,16 @@ export const getPosts = async (req, res) => {
         const startIndex = (Number(page) - 1) * LIMIT; //get the starting index of every page
         const total = await PostMessage.countDocuments({});
 
-        const searchTerm = sortType === "Sort By Price" ? { price: -1 } : { _id: -1 };
+        let searchTerm = { _id: -1 };
+        switch (sortType) {
+            case "Sort By Price":
+                searchTerm = { price: -1 };
+                break;
+            case "Sort By Popularity":
+                searchTerm = { likeCount: -1 };
+        }
+
+        // let searchTerm = sortType === "Sort By Price" ? { likeCount: -1 } : { _id: -1 };
         const posts = await PostMessage.find().sort(searchTerm).limit(LIMIT).skip(startIndex);
 
         res.json({ data: posts, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT) });
@@ -147,6 +156,9 @@ export const likePost = async (req, res) => {
     const index = post.likes.findIndex((id) => id === String(req.userId));
     if (index === -1) {
         post.likes.push(req.userId);
+        post.likeCount = post.likes.length;
+        console.log(post.likeCount)
+        console.log(post.likes.length)
     } else {
         post.likes = post.likes.filter((id) => id !== String(req.userId));
     }

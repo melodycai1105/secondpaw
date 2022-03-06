@@ -20,4 +20,8 @@ export default makeStyles((theme) => ({
     marginBottom: '3rem',
     justifyContent: 'center'
   },
+  sort:{
+    width: '200%',
+    maxWidth:600
+  },
 }));

@@ -25,8 +25,6 @@ export const getUser = (id) => async (dispatch) => {
 }
 
 export const getPosts = (page, sortType) => async (dispatch) => {
-  console.log(page);
-  console.log(sortType);
   try {
     dispatch({ type: START_LOADING });
     const { data: { data, currentPage, numberOfPages } } = await api.fetchPosts(page, sortType);

@@ -14,7 +14,6 @@ const Paginate = ({ page, sortType }) => {
 
     useEffect(() => {
         if (page) {
-            console.log(page);
             dispatch(getPosts(page, sortType));
         }
     }, [dispatch, page]);

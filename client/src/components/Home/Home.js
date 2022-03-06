@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { Container, Grow, Grid, Paper, Divider } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { Container, Grow, Grid, Button } from '@material-ui/core';
 import { useLocation } from 'react-router-dom';
+// import { Listbox, Transition } from '@headlessui/react'
+// import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 
 import Posts from '../Posts/Posts';
 // import Form from '../Form/Form';
 import Pagination from '../Pagination';
-import Sort from '../Sort'
+// import Sort from '../Sort'
 import useStyles from './styles';
 import Trending from '../images/Trending.svg';
 
@@ -16,20 +18,31 @@ function useQuery() {
 const Home = () => {
   const query = useQuery();
   const page = query.get('page') || 1;
-  const options = [
-    "Sort By Date",
-    "Sort By Popularity",
-    "Sort By Price",
-  ]
-  const [sortType, setSortType] = useState(options[2]);
-
   const classes = useStyles();
+  const [sortType, setSortType] = useState('Sort By Date');
+  // function handleClick(e) {
+  //   console.log(sortType);
+  //   setSortType(e);
+  //   console.log(sortType);
+  // }
+  // try {
+  //   setSortType('Sort By Date');
+  // } catch (error) {
+  //   console.log(error);
+  // }
+
 
   return (
     <Grow in>
       <Container maxWidth="xl">
+        <Button onClick={() => { setSortType("Sort By Type"); console.log(sortType) }}>CLICK</Button>
+        {/* <Button onClick={() => { setSortType("Sort By Date"); setSortType("Sort By Date") }}>Sort By Date</Button>
+        <Button onClick={() => { setSortType("Sort By Popularity"); setSortType("Sort By Popularity"); console.log(sortType) }}>Sort By Popularity</Button>
+        <Button onClick={() => setSortType("Sort By Price")}>Sort By Price</Button> */}
         <div className={classes.header}>
-          <Sort />
+          {/* <select onChange={(e) => { sortType = e.target.value; }}> */}
+          {/* </select> */}
+
           <img src={Trending} alt="Trending Logo" align="left" width="300px" height="400px" />
           <svg style={{ marginTop: '15px', marginLeft: '-30px' }} width="70" height="70" fill="true" viewBox="0 0 24 24">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.75 11.25L10.25 5.75"></path>
@@ -39,7 +52,7 @@ const Home = () => {
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.25 8.25V4.75H7.75"></path>
           </svg>
           <div className={classes.pagination}>
-            <Pagination page={page} sortType={sortType} />
+            <Pagination page={page} sortType={"Sort By Popularity"} />
           </div>
         </div>
         <Grid style={{ marginTop: '30px' }} container justifyContent="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
@@ -48,7 +61,7 @@ const Home = () => {
           </Grid>
         </Grid>
       </Container>
-    </Grow>
+    </Grow >
   );
 }
 

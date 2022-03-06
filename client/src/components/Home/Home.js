@@ -34,7 +34,7 @@ const Home = () => {
             <Pagination page={page} />
           </div>
         </div>
-        <Grid style={{ marginTop: '30px'}} container justify="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
+        <Grid style={{ marginTop: '30px'}} container justifyContent="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
           <Grid item xs={12} sm={6} md={10} fullWidth>
             <Posts />
           </Grid>

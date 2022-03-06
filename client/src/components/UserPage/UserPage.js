@@ -22,7 +22,6 @@ const UserPage = () => {
     const navigate = useNavigate();
     const classes = useStyles();
     const openPost = (_id) => navigate(`/posts/${_id}`);
-    // const userPosts = posts.filter(({ _id }) => _id !== post._id).slice(0, 4);
 
     useEffect(() => {
         dispatch(getUser(id));

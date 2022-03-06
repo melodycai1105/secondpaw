@@ -12,7 +12,6 @@ import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
 import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 import NumberFormat from 'react-number-format';
-import Checkbox from '@mui/material/Checkbox';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 
@@ -43,6 +42,19 @@ const PostDetails = () => {
     dispatch(makePurchase(userId, id));
   }
 
+  const Reservation = () => {
+    console.log(user.result);
+    if (user?.result?.name) {
+      return user?.result?.purchased?.find((purchased) => purchased === post._id)
+      ? (
+        <Button disabled><BookmarkIcon fontSize='large' />Reserved</Button>
+      ) : (
+        <Button color='primary' onClick={purchase}><BookmarkBorderIcon fontSize='large' />Reserve</Button>
+      );
+    }
+    return <Button disabled ><BookmarkBorderIcon fontSize='large' />Login to Reserve</Button>;
+  };
+
   if (!post) return null;
 
   if (isLoading) {
@@ -51,13 +63,12 @@ const PostDetails = () => {
     </Paper>
   }
 
-
   const toUser = () => {
       navigate(`/user/${post.creator}`)
   }
   const openPost = (_id) => navigate(`/posts/${_id}`);
 
-  const recommendedPosts = Array.isArray(posts) ? posts.filter(({ _id }) => _id !== post._id).slice(0, 4) : [];
+  const recommendedPosts = Array.isArray(posts) ? posts.filter(({ _id }) => _id !== post._id) : [];
 
   const customIcons = {
     1: { icon: <SentimentVeryDissatisfiedIcon />, label: 'Very Dissatisfied', },
@@ -82,12 +93,11 @@ const PostDetails = () => {
         <div className={classes.section}>
           <div style={{display: 'flex', flexDirection: 'row'}}>
             <Typography gutterBottom variant="h4" component="h2">{post.title}</Typography>
-            <Checkbox size='large' icon={<BookmarkBorderIcon />} checkedIcon={<BookmarkIcon />}/>
+            <Reservation />
           </div>
           <Typography variant="h6" gutterBottom>
             <NumberFormat value={post.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
           </Typography>
-          <Button onClick={purchase}>Reserve</Button>
           <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
           <Typography gutterBottom variant="subtitle1" component="p">{post.message}</Typography>
           <Typography gutterBottom variant="h6" onClick={toUser}>Seller: {post.name}</Typography>

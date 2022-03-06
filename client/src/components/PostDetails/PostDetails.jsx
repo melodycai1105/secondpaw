@@ -26,6 +26,7 @@ const PostDetails = () => {
   const navigate = useNavigate();
   const classes = useStyles();
   const { id } = useParams();
+  const [reserved, setReserved] = useState(false);
 
   useEffect(() => {
     dispatch(getPost(id));
@@ -39,9 +40,10 @@ const PostDetails = () => {
 
   const userId = user?.result?._id || user?.result?.googleId;
   // const hasReserved = user?.result?.purchased?.find((purchased) => purchased === post._id);
-  const hasReserved = post?.buyer === userId;
+  const hasReserved = post?.buyer;
 
   const handleReserve = () => {
+    setReserved(true);
     dispatch(makePurchase(userId, id));
   }
 
@@ -50,7 +52,7 @@ const PostDetails = () => {
     ? (
       <Button disabled><BookmarkIcon fontSize='large' />Reserved</Button>
     ) : (
-      <Button color='primary' onClick={handleReserve}><BookmarkBorderIcon fontSize='large' />Reserve</Button>
+      <Button color='primary' disabled={reserved} onClick={handleReserve}><BookmarkBorderIcon fontSize='large' />Reserve</Button>
     );
   };
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
+import FileBase from 'react-file-base64';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +16,8 @@ const initialState = {
   lastName: '',
   email: '',
   password: '',
-  confirmPassword: ''
+  confirmPassword: '',
+  profile_pic: ''
 }
 
 const Auth = () => {
@@ -28,8 +30,7 @@ const Auth = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData)
-    if (isSignup) {
+      if (isSignup) {
       dispatch(signup(formData, navigate));
     } else {
       dispatch(signin(formData, navigate));
@@ -49,12 +50,13 @@ const Auth = () => {
     }
   };
 
+
   const googleFail = () => {
     alert('Could not log in with your Google account. Please try again later.');
   }
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const switchMode = () => {
@@ -83,6 +85,13 @@ const Auth = () => {
             <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
             <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? 'password' : 'text'} handleShowPassword={handleShowPassword} />
             {isSignup && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password" />}
+            {isSignup && (
+              <>
+              <Typography component="h1" variant="body1">{"Upload a profile picture"}</Typography>
+              <div className={classes.fileInput}></div>
+              <FileBase type="file" multiple={false} onDone={({ base64 }) => setFormData({...formData, profile_pic: base64 })} />
+              </>
+            )}
           </Grid>
           <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
             {isSignup ? 'Sign Up' : 'Sign In'}

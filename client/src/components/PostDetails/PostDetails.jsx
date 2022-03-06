@@ -15,7 +15,8 @@ import NumberFormat from 'react-number-format';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
-import default_bruin from '../images/secondpaw.png'
+import default_bruin from '../images/secondpaw.png';
+import default_profile_pic from '../images/bruin_logo.jpeg'; 
 
 import CommentSection from './CommentSection';
 import { getPost, getPostsBySearch, makePurchase } from '../../actions/posts';
@@ -25,7 +26,8 @@ import TagIcon from '@mui/icons-material/Tag';
 import AddReactionIcon from '@mui/icons-material/AddReaction';
 
 const PostDetails = () => {
-  const user = JSON.parse(localStorage.getItem('profile'));
+  //const user = JSON.parse(localStorage.getItem('profile'));
+  const { user } = useSelector((state) => state.user);
   const { post, posts, isLoading } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -72,6 +74,11 @@ const PostDetails = () => {
   const toUser = () => {
       navigate(`/user/${post.creator}`)
   }
+
+  const toTag = () => {
+    navigate(`/posts/search`)
+}
+
   const openPost = (_id) => navigate(`/posts/${_id}`);
 
   const recommendedPosts = Array.isArray(posts) ? posts.filter(({ _id }) => _id !== post._id) : [];
@@ -139,13 +146,14 @@ const PostDetails = () => {
           </div>
           <div className={classes.section} style={{ display: 'flex', margin:'15px 0px 0px 0px'}}>
             <Typography gutterBottom variant="subtitle1" style={{margin:'5px 0px 0px 0px'}}>Seller:</Typography>
-            <Chip color='secondary' avatar={<Avatar src="https://ci.xiaohongshu.com/e9214814-9bd7-c815-91a2-e8fe078918f5?imageView2/2/w/540/format/jpg" />} 
+            <Chip color='secondary' avatar={<Avatar src={user.profile_pic || default_profile_pic} />} 
+                          //<img className={classes.media} src={user.profile_pic || default_profile_pic} />
               label= {post.name} onClick={toUser} style={{margin:'5px 0px 0px 5px'}}>
             </Chip>
           </div>
           <Typography gutterBottom variant="subtitle1" component="p" style={{margin:'15px 0px 15px 0px'}}>Descriptions: {post.message}</Typography>
           {/* <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography> */}
-          <Chip icon={<AutoAwesomeIcon/>} style={{fontSize:12}} gutterBottom variant="h6" color="default" size="medium" component="h2" label={post.tags.map((tag) => `${tag} `)}></Chip>
+          <Chip icon={<AutoAwesomeIcon style={{color:'#6a5acd'}}/>} onClick={toTag} style={{fontSize:12, color:'#6a5acd'}} gutterBottom variant="h6" size="medium" component="h2" label={post.tags.map((tag) => `${tag} `)}></Chip>
           {/* <Typography gutterBottom variant="body1" style={{display: 'flex', flexDirection: 'row'}}>
             {(moment(post.createdAt).isSame(moment(), 'day')) && (
                 <strong><NewReleasesIcon style={{paddingBottom: '5px'}} />NEW&nbsp;&nbsp;</strong>
@@ -176,8 +184,8 @@ const PostDetails = () => {
       {!!recommendedPosts.length && (
         <div className={classes.section}>
           <div className={classes.section} style={{display:'flex'}}>
-            <AddReactionIcon/>
-            <Typography gutterBottom variant="h5" style={{fontSize:18, margin:"5px 0px 0px 10px"}}>You May Also Like:</Typography>
+            <AddReactionIcon style={{color:'#6a5acd'}}/>
+            <Typography gutterBottom variant="h5" style={{fontSize:18, margin:"5px 0px 0px 10px", color: '#6a5acd'}}>You May Also Like:</Typography>
           </div>
           <Grid className={classes.recommendedPosts} container alignItems="stretch" spacing={1}>
             {recommendedPosts.map(({ title, name, price, message, likes, selectedFile, _id }) => (

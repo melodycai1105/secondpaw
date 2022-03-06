@@ -7,6 +7,7 @@ import Posts from '../Posts/Posts';
 import Pagination from '../Pagination';
 import useStyles from './styles';
 import Trending from '../images/Trending.svg';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -38,6 +39,9 @@ const Home = () => {
           <Grid item xs={12} sm={6} md={10} fullWidth>
             <Posts />
           </Grid>
+        </Grid>
+        <Grid item xs={12} sm={6} md={3}>
+          {/* <Form currentId={currentId} setCurrentId={setCurrentId} /> */}
         </Grid>
       </Container>
     </Grow>

@@ -148,7 +148,7 @@ const PostDetails = () => {
           </div>
           <Typography gutterBottom variant="subtitle1" component="p" style={{margin:'15px 0px 15px 0px'}}>Descriptions: {post.message}</Typography>
           {/* <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography> */}
-          <Chip icon={<AutoAwesomeIcon style={{color:'#6a5acd'}}/>} onClick={toTag} style={{fontSize:12}} gutterBottom variant="h6" color="default" size="medium" component="h2" label={post.tags.map((tag) => `${tag} `)} style={{color:'#6a5acd'}}></Chip>
+          <Chip icon={<AutoAwesomeIcon style={{color:'#6a5acd'}}/>} onClick={toTag} style={{fontSize:12}} gutterBottom variant="h6" size="medium" component="h2" style={{color:'#6a5acd'}} label={post.tags.map((tag) => `${tag} `)}></Chip>
           {/* <Typography gutterBottom variant="body1" style={{display: 'flex', flexDirection: 'row'}}>
             {(moment(post.createdAt).isSame(moment(), 'day')) && (
                 <strong><NewReleasesIcon style={{paddingBottom: '5px'}} />NEW&nbsp;&nbsp;</strong>

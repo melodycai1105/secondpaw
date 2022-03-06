@@ -42,7 +42,7 @@ const PostDetails = () => {
   }
 
   const Reservation = () => {
-    console.log(user.result);
+    //console.log(user.result);
     if (user?.result?.name) {
       return user?.result?.purchased?.find((purchased) => purchased === post._id)
       ? (

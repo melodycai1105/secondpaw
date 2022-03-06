@@ -43,7 +43,7 @@ const UserPage = () => {
       <Paper className={classes.profilePaper} elevation={6}>
         <div className={classes.card}>
           <div className={classes.profileContent}>
-            <div className={classes.profileImg}>
+            <div className={classes.profilepic}>
               <img className={classes.media} src="https://ci.xiaohongshu.com/e9214814-9bd7-c815-91a2-e8fe078918f5?imageView2/2/w/540/format/jpg"/>
             </div>
             <div className={classes.profileInfo}>

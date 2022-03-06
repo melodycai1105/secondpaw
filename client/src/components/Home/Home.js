@@ -39,11 +39,6 @@ const Home = () => {
             <Posts />
           </Grid>
         </Grid>
-        <Grid style={{ marginTop: '30px'}} container justify="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>
-          <Grid item xs={12} sm={6} md={10} fullWidth>
-            <Posts />
-          </Grid>
-        </Grid>
         <Grid item xs={12} sm={6} md={3}>
           {/* <Form currentId={currentId} setCurrentId={setCurrentId} /> */}
         </Grid>

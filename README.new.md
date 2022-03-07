@@ -26,3 +26,4 @@ https://nodejs.org/
     - npm install react-google-login
     - npm install @mui/icons-material
     - npm install react-number-format
+    - npm install react-img-zoom

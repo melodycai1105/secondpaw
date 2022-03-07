@@ -17,6 +17,7 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import default_bruin from '../images/secondpaw.png';
 import default_profile_pic from '../images/bruin_logo.jpeg';
+import Zoom from 'react-img-zoom';
 
 import CommentSection from './CommentSection';
 import { getPost, getPostsBySearch, makePurchase } from '../../actions/posts';
@@ -109,15 +110,11 @@ const PostDetails = () => {
   return (
     <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
       <div className={classes.card}>
-        <div className={classes.imageSection}>
-          <img className={classes.media} src={post.selectedFile || default_bruin}
-            style={{
-              height: '450px', width: '450px', borderRadius: '0px',
-              margin: '50px 20px 20px 30px'
-            }}
-            alt='' />
+        <div className={classes.imageContainer}>
+          <Zoom className={classes.media} img={post.selectedFile || default_bruin}
+            zoomScale={2.5} width={500} height={500} />
         </div>
-        <div className={classes.section} style={{ margin: '40px 0px 0px 40px' }}>
+        <div className={classes.section}>
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <Typography gutterBottom variant="h4" component="h2">{post.title}</Typography>
             {user?.result?.name && (
@@ -126,11 +123,11 @@ const PostDetails = () => {
                 <Button disabled><BookmarkBorderIcon fontSize='large' />Login to Reserve</Button>
               )}
           </div>
-          <div className={classes.ratingContainer} style={{ marginTop: '0px' }}>
+          <div className={classes.ratingContainer}>
             {user?.result?.name && (
               <div style={{ display: 'flex', flexDirection: 'row', }}>
                 <Rating defaultValue={2} IconContainerComponent={IconContainer} highlightSelectedOnly />
-                <Typography gutterBottom variant="subtitle1" >&nbsp;&nbsp;5 ratings</Typography>
+                <Typography gutterBottom variant="subtitle1" >&nbsp;&nbsp;0 ratings</Typography>
               </div>
             ) || (
                 <div>
@@ -138,21 +135,21 @@ const PostDetails = () => {
                   <Typography gutterBottom variant="subtitle1" style={{ fontSize: 10 }}>You are logged out. Login to rate.</Typography>
                 </div>
               )}
-            <Typography gutterBottom variant="body1" style={{ flexDirection: 'row', fontSize: 14, color: '#dc143c', fontWeight: 'bold' }}>
-              {(moment(post.createdAt).isSame(moment(), 'day')) && (
-                <strong style={{ color: 'red' }}><LocalFireDepartmentIcon style={{ color: 'red', paddingBottom: '5px' }} />NEW&nbsp;&nbsp;</strong>
-              )}
-              Created {moment(post.createdAt).fromNow()}
-            </Typography>
           </div>
+          <Typography className={classes.createDate} gutterBottom variant="body1">
+            {(moment(post.createdAt).isSame(moment(), 'day')) && (
+              <strong style={{ color: 'red' }}><LocalFireDepartmentIcon style={{ color: 'red', paddingBottom: '5px' }} />NEW&nbsp;&nbsp;</strong>
+            )}
+            Created {moment(post.createdAt).fromNow()}
+          </Typography>
           <Divider style={{ margin: '10px 0' }} />
-          <div className={classes.section} style={{ display: 'flex', margin: '0px 0px -15px 0px' }}>
+          <div style={{ display: 'flex', margin: '0px 0px -15px 0px' }}>
             <Typography gutterBottom variant="subtitle1" component="p" style={{ margin: '2px 0px 0px 0px' }}>Price:</Typography>
             <Typography variant="h6" gutterBottom>
               <NumberFormat value={post.price} style={{ color: '#dc143c', margin: '0px 0px 0px 5px', fontSize: 25 }} displayType={'text'} thousandSeparator={true} prefix={'$'} />
             </Typography>
           </div>
-          <div className={classes.section} style={{ display: 'flex', margin: '15px 0px 0px 0px' }}>
+          <div style={{ display: 'flex', margin: '15px 0px 0px 0px' }}>
             <Typography gutterBottom variant="subtitle1" style={{ margin: '5px 0px 0px 0px' }}>Seller:</Typography>
             {/* <Chip color='secondary' avatar={<Avatar src={user.profile_pic || default_profile_pic} />}
               // <img className={classes.media} src={user.profile_pic || default_profile_pic} />
@@ -161,38 +158,19 @@ const PostDetails = () => {
           </div>
           <Typography gutterBottom variant="subtitle1" component="p" style={{ margin: '15px 0px 15px 0px' }}>Descriptions: {post.message}</Typography>
           {/* <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography> */}
-          <Chip icon={<AutoAwesomeIcon style={{ color: '#6a5acd' }} />} onClick={() => toTag(post.tags)} style={{ fontSize: 12, color: '#6a5acd' }} gutterBottom variant="h6" size="medium" component="h2" label={post.tags.map((tag) => `${tag} `)}></Chip>
-          {/* <Typography gutterBottom variant="body1" style={{display: 'flex', flexDirection: 'row'}}>
-            {(moment(post.createdAt).isSame(moment(), 'day')) && (
-                <strong><NewReleasesIcon style={{paddingBottom: '5px'}} />NEW&nbsp;&nbsp;</strong>
-              )}
-            Created {moment(post.createdAt).fromNow()}
-          </Typography> */}
-          {/* <div className={classes.ratingContainer} style={{marginTop: '10px'}}>
-            {user?.result?.name && (
-              <div style={{display: 'flex', flexDirection: 'row',}}>
-                <Rating defaultValue={2} IconContainerComponent={IconContainer} highlightSelectedOnly/>
-                <Typography gutterBottom variant="subtitle1" >&nbsp;&nbsp;ratings</Typography>
-              </div>
-            ) || (
-              <div>
-                <Rating defaultValue={2} IconContainerComponent={IconContainer} readOnly/>
-                <Typography gutterBottom variant="subtitle1">You are logged out. Login to rate.</Typography>
-              </div>
-            )}
-          </div> */}
+          <Chip icon={<AutoAwesomeIcon style={{ color: '#6a5acd' }} />} onClick={() => toTag(post.tags)} 
+            style={{ fontSize: 12, color: '#6a5acd' }} gutterBottom variant="h6" size="medium" component="h2" 
+            label={post.tags.map((tag) => `${tag} `)}>
+          </Chip>
           <Divider style={{ margin: '10px 0' }} />
           <CommentSection post={post} />
-          {/* <Divider style={{ margin: '10px 0' }} /> */}
         </div>
-        {/* <div className={classes.imageSection}>
-          <img className={classes.media} src={post.selectedFile} alt='' />
-        </div> */}
       </div>
       {
         !!recommendedPosts.length && (
-          <div className={classes.section}>
-            <div className={classes.section} style={{ display: 'flex' }}>
+          <div>
+            <Divider style={{ margin: '20px 0' }} />
+            <div className={classes.section} style={{ display: 'flex'}}>
               <AddReactionIcon style={{ color: '#6a5acd' }} />
               <Typography gutterBottom variant="h5" style={{ fontSize: 18, margin: "5px 0px 0px 10px", color: '#6a5acd' }}>You May Also Like:</Typography>
             </div>

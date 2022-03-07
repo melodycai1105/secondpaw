@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Grow, Grid, Button } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-// import { Listbox, Transition } from '@headlessui/react'
-// import { CheckIcon, SelectorIcon } from '@heroicons/react/solid'
 
 import Posts from '../Posts/Posts';
 // import Form from '../Form/Form';
 import Pagination from '../Pagination';
-// import Sort from '../Sort'
+import Sort from '../Sort'
 import useStyles from './styles';
 import Trending from '../images/Trending.svg';
+import HotDeal from '../images/hot-deal.png';
+import { getPosts } from '../../actions/posts';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -19,40 +20,46 @@ const Home = () => {
   const query = useQuery();
   const page = query.get('page') || 1;
   const classes = useStyles();
-  const [sortType, setSortType] = useState('Sort By Date');
-  // function handleClick(e) {
-  //   console.log(sortType);
-  //   setSortType(e);
-  //   console.log(sortType);
-  // }
-  // try {
-  //   setSortType('Sort By Date');
-  // } catch (error) {
-  //   console.log(error);
-  // }
+  const dispatch = useDispatch();
+  const options = [
+    "Sort By Popularity",
+    "Sort By Date",
+    "Sort By Price",
+  ]
+  const [sortType, setSortType] = useState(options[0]);
+  var display = false;
 
+  if (sortType === options[0]) {
+    display = true;
+  } else {
+    display = false;
+  }
+
+  useEffect(() => {
+    if (page) {
+      dispatch(getPosts(page, sortType));
+    }
+  }, [dispatch, sortType])
+
+  function onChangeSortType(value) {
+    setSortType(value);
+  };
 
   return (
     <Grow in>
       <Container maxWidth="xl">
-        <Button onClick={() => { setSortType("Sort By Type"); console.log(sortType) }}>CLICK</Button>
-        {/* <Button onClick={() => { setSortType("Sort By Date"); setSortType("Sort By Date") }}>Sort By Date</Button>
-        <Button onClick={() => { setSortType("Sort By Popularity"); setSortType("Sort By Popularity"); console.log(sortType) }}>Sort By Popularity</Button>
-        <Button onClick={() => setSortType("Sort By Price")}>Sort By Price</Button> */}
         <div className={classes.header}>
-          {/* <select onChange={(e) => { sortType = e.target.value; }}> */}
-          {/* </select> */}
-
-          <img src={Trending} alt="Trending Logo" align="left" width="300px" height="400px" />
-          <svg style={{ marginTop: '15px', marginLeft: '-30px' }} width="70" height="70" fill="true" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.75 11.25L10.25 5.75"></path>
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5.75 19.2502H6.25C6.80229 19.2502 7.25 18.8025 7.25 18.2502V15.75C7.25 15.1977 6.80229 14.75 6.25 14.75H5.75C5.19772 14.75 4.75 15.1977 4.75 15.75V18.2502C4.75 18.8025 5.19772 19.2502 5.75 19.2502Z"></path>
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.75 19.2502H12.25C12.8023 19.2502 13.25 18.8025 13.25 18.2502V12.75C13.25 12.1977 12.8023 11.75 12.25 11.75H11.75C11.1977 11.75 10.75 12.1977 10.75 12.75V18.2502C10.75 18.8025 11.1977 19.2502 11.75 19.2502Z"></path>
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.75 19.2502H18.25C18.8023 19.2502 19.25 18.8025 19.25 18.2502V5.75C19.25 5.19772 18.8023 4.75 18.25 4.75H17.75C17.1977 4.75 16.75 5.19772 16.75 5.75V18.2502C16.75 18.8025 17.1977 19.2502 17.75 19.2502Z"></path>
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11.25 8.25V4.75H7.75"></path>
-          </svg>
+          {display && (
+            <>
+              <img src={Trending} alt="Trending Logo" align="left" width="300px" height="400px" />
+              <img src={HotDeal} style={{ marginTop: '20px', marginLeft: '-20px'}} alt="Hot Icon" align="left" width="70px" height="70px" />
+            </>
+          )}
           <div className={classes.pagination}>
-            <Pagination page={page} sortType={"Sort By Popularity"} />
+            <Pagination page={page} sortType={sortType} />
+          </div>
+          <div className={classes.sort}>
+            <Sort selected={sortType} options={options} onChange={onChangeSortType} />
           </div>
         </div>
         <Grid style={{ marginTop: '30px' }} container justifyContent="space-between" alignItems="stretch" spacing={3} className={classes.gridContainer}>

@@ -25,7 +25,6 @@ export const getPosts = async (req, res) => {
                 searchTerm = { likeCount: -1 };
         }
 
-        // let searchTerm = sortType === "Sort By Price" ? { likeCount: -1 } : { _id: -1 };
         const posts = await PostMessage.find().sort(searchTerm).limit(LIMIT).skip(startIndex);
 
         res.json({ data: posts, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT) });

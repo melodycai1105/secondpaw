@@ -24,17 +24,23 @@ import useStyles from './styles';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import TagIcon from '@mui/icons-material/Tag';
 import AddReactionIcon from '@mui/icons-material/AddReaction';
+import { getUser, getPostsByUser } from '../../actions/posts';
 
 const PostDetails = () => {
   //const user = JSON.parse(localStorage.getItem('profile'));
-  const { user } = useSelector((state) => state.user);
-  const { post, posts, isLoading } = useSelector((state) => state.posts);
+  // const dispatch = useDispatch();
+  const { post, posts } = useSelector((state) => state.posts);
+  const { user, isLoading } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const classes = useStyles();
   const { id } = useParams();
   useEffect(() => {
     dispatch(getPost(id));
+  }, [id]);
+
+  useEffect(() => {
+    dispatch(getUser(id));
   }, [id]);
 
   useEffect(() => {

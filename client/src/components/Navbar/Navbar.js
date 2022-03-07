@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AppBar, Avatar, Toolbar, Typography, TextField, Grid, Container, Button } from '@material-ui/core';
 import useStyles from './styles';
-import SecondPaw from '../images/SecondPaw5.svg';
+import SecondPaw9 from '../images/SecondPaw5.svg';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
 import * as actionType from '../../constants/actionTypes';
@@ -81,7 +81,7 @@ const Navbar = () => {
   return (
     <AppBar className={classes.appBar} position="static" color="inherit">
       <Link to="/" className={classes.logoContainer}>
-        <img src={SecondPaw} alt='' width="700px" />
+        <img src={SecondPaw9} alt='' width="700px" />
       </Link>
       <div className={classes.searchBar}>
         <TextField 
@@ -116,7 +116,7 @@ const Navbar = () => {
                 e.stopPropagation();
                 navigate(`/user/${user?.result?._id}`);
             }}>
-                <Avatar className={classes.avatar} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
+                <Avatar className={classes.avatar} alt={user?.result.name} src={user?.result.imageUrl} style={{margin:'0px 15px 0px 0px'}}>{user?.result.name.charAt(0)}</Avatar>
             </div>
           )}        
         <div className={classes.dashboard} >
@@ -153,7 +153,7 @@ const Navbar = () => {
                     <AccountCircleIcon />
                     <Typography>&nbsp;&nbsp;Profile</Typography>
                   </MenuItem>
-                  <MenuItem>
+                  <MenuItem disableRipple onClick={() => navigate(`/user/${user?.result?._id}/reservation/`)}>
                     <BookmarksIcon />
                     <Typography>&nbsp;&nbsp;Reservation</Typography>
                   </MenuItem>

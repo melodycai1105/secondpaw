@@ -37,7 +37,7 @@ const Home = () => {
 
   useEffect(() => {
     if (page) {
-      dispatch(getPosts(page, sortType));
+      dispatch(getPosts(page, sortType)); 
     }
   }, [dispatch, sortType])
 
@@ -66,6 +66,9 @@ const Home = () => {
           <Grid item xs={12} sm={6} md={10} fullWidth>
             <Posts />
           </Grid>
+        </Grid>
+        <Grid item xs={12} sm={6} md={3}>
+          {/* <Form currentId={currentId} setCurrentId={setCurrentId} /> */}
         </Grid>
       </Container>
     </Grow >

@@ -9,9 +9,7 @@ const router = express.Router();
 
 export const getPosts = async (req, res) => {
     const { page, sortType } = req.query;
-    console.log(req.query);
     try {
-        console.log(sortType);
         const LIMIT = 8; //number of posts per page
         const startIndex = (Number(page) - 1) * LIMIT; //get the starting index of every page
         const total = await PostMessage.countDocuments({});
@@ -24,7 +22,6 @@ export const getPosts = async (req, res) => {
             case "Sort By Popularity":
                 searchTerm = { likeCount: -1 };
         }
-
         const posts = await PostMessage.find().sort(searchTerm).limit(LIMIT).skip(startIndex);
 
         res.json({ data: posts, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT) });
@@ -54,8 +51,8 @@ export const makePurchase = async (req, res) => {
 export const getUser = async (req, res) => {
     const { id } = req.params
     try {
-        const { name, email, phone, posts } = await User.findById(id);
-        res.status(200).json({ name, email, phone, posts })
+        const { name, email, phone, posts, purchased, profile_pic } = await User.findById(id);
+        res.status(200).json({ name, email, phone, posts, purchased, profile_pic })
     }
     catch (error) {
         res.status(418).json({ message: error.message });
@@ -98,6 +95,16 @@ export const getPostsByUser = async (req, res) => {
     }
 }
 
+export const getReservationByUser = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const { purchased } = await User.findById(id);
+        const postsobj = await PostMessage.find({ '_id': { $in: purchased } });
+        res.status(200).json({ data: postsobj })
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
 
 export const createPost = async (req, res) => {
     const post = req.body;
@@ -156,8 +163,6 @@ export const likePost = async (req, res) => {
     if (index === -1) {
         post.likes.push(req.userId);
         post.likeCount = post.likes.length;
-        console.log(post.likeCount)
-        console.log(post.likes.length)
     } else {
         post.likes = post.likes.filter((id) => id !== String(req.userId));
     }

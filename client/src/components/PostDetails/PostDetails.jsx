@@ -212,7 +212,7 @@ const PostDetails = () => {
               <AddReactionIcon style={{ color: '#6a5acd' }} />
               <Typography gutterBottom variant="h5" style={{ fontSize: 18, margin: "5px 0px 0px 10px", color: '#6a5acd' }}>You May Also Like:</Typography>
             </div>
-            <Grid className={classes.recommendedPosts} container alignItems="stretch" spacing={1}>
+            <Grid className={classes.recommendedPosts} container alignItems="stretch" spacing={1} style={{marginBottom:"50px"}}>
               {recommendedPosts.map(({ title, name, price, message, likes, selectedFile, _id }) => (
                 <Grid key={_id} item>
                   <Paper className={classes.recommendedPost} elevation={6} onClick={() => openPost(_id)} key={_id}>

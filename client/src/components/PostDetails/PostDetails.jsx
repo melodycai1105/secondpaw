@@ -29,7 +29,7 @@ import { getUser, getPostsByUser } from '../../actions/posts';
 
 const PostDetails = () => {
   const user = JSON.parse(localStorage.getItem('profile'));
-  // const { user } = useSelector((state) => state.user);
+  const postCreator = useSelector((state) => state.user.user);
   const { post, posts, isLoading } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -42,8 +42,10 @@ const PostDetails = () => {
   }, [id]);
 
   useEffect(() => {
-    dispatch(getUser(id));
-  }, [id]);
+    if (post?.creator){
+        dispatch(getUser(post?.creator));
+    }
+  }, [post?.creator]);
 
   useEffect(() => {
     if (post) {
@@ -112,6 +114,37 @@ const PostDetails = () => {
     value: PropTypes.number.isRequired,
   };
 
+  const ratingModule = () => {
+    if (!user?.result?.name)
+    {
+        return (
+            <div>
+                <Rating defaultValue={2} IconContainerComponent={IconContainer} readOnly />
+                <Typography gutterBottom variant="subtitle1" style={{ fontSize: 10 }}>You are logged out. Login to rate.</Typography>
+            </div>
+        )
+    } else if (user?.result.name !== post.buyer) {
+        return (
+            <div style={{ display: 'flex', flexDirection: 'row', }}>
+                <Rating defaultValue={2} IconContainerComponent={IconContainer} highlightSelectedOnly />
+                <Typography gutterBottom variant="subtitle1" >&nbsp;&nbsp;0 ratings</Typography>
+            </div>
+        )
+    }
+
+    // {user?.result?.name && (
+    //     <div style={{ display: 'flex', flexDirection: 'row', }}>
+    //       <Rating defaultValue={2} IconContainerComponent={IconContainer} highlightSelectedOnly />
+    //       <Typography gutterBottom variant="subtitle1" >&nbsp;&nbsp;0 ratings</Typography>
+    //     </div>
+    //   ) || (
+    //       <div>
+    //         <Rating defaultValue={2} IconContainerComponent={IconContainer} readOnly />
+    //         <Typography gutterBottom variant="subtitle1" style={{ fontSize: 10 }}>You are logged out. Login to rate.</Typography>
+    //       </div>
+    //     )}
+  }  
+
   return (
     <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
       <div className={classes.card}>
@@ -156,7 +189,7 @@ const PostDetails = () => {
           </div>
           <div style={{ display: 'flex', margin: '15px 0px 0px 0px' }}>
             <Typography gutterBottom variant="subtitle1" style={{ margin: '5px 0px 0px 0px' }}>Seller:</Typography>
-            <Chip color='secondary' avatar={<Avatar src={default_profile_pic} />}
+            <Chip color='secondary' avatar={<Avatar src={postCreator?.profile_pic || default_profile_pic} />}
               // <img className={classes.media} src={user.profile_pic || default_profile_pic} />
               label={post.name} onClick={toUser} style={{ margin: '5px 0px 0px 5px' }}>
             </Chip>

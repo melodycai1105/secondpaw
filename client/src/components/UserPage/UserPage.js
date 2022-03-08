@@ -66,10 +66,10 @@ const UserPage = () => {
           <Divider style={{ margin: '20px 0' }} />
           {!!userPosts?.length && (
             <div className={classes.section}>
-              <Typography gutterBottom variant="h5" style={{marginLeft: '20px', marginBottom: '20px'}}>Your Posts: </Typography>
+              <Typography gutterBottom variant="h5" style={{marginLeft: '20px', marginBottom: '20px'}}>{user.name}'s Posts: </Typography>
               <Grid className={classes.userPosts} container alignItems="stretch" spacing={3}>
                 {userPosts.map(({ title, name, price, message, likes, selectedFile, _id }) => (
-                  <Grid key={_id} item>
+                  <Grid key={_id} item style={{marginBottom : "20px"}}>
                     <Paper className={classes.userPost} elevation={6} onClick={() => openPost(_id)} key={_id}>
                       <Typography gutterBottom variant="h6">{title}</Typography>
                       <Typography gutterBottom variant="subtitle2">{name}</Typography>

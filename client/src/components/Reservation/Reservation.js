@@ -43,6 +43,9 @@ const Reservation = () => {
 
     return (
       <Paper className={classes.paperContainer} elevation={6}>
+        {!!!posts?.data?.length && (
+          <Typography gutterBottom variant="h6">You haven't reserved anything! Go check it out:)</Typography>
+        )}
         {!!posts?.data?.length && (
           <div className={classes.content}>
             <Typography gutterBottom variant="h5" style={{marginLeft: '20px', marginBottom: '20px'}}>Your Reservations: </Typography>

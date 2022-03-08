@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AppBar, Avatar, Toolbar, Typography, TextField, Grid, Container, Button } from '@material-ui/core';
 import useStyles from './styles';
 import SecondPaw9 from '../images/SecondPaw5.svg';
+import logo from '../images/footprint.png';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
 import * as actionType from '../../constants/actionTypes';
@@ -85,7 +86,7 @@ const Navbar = () => {
       </Link>
       <div className={classes.searchBar}>
         <TextField 
-          style={{background: 'white', width: '220px', height: '70px', margin: '10px', border: '3px light black'}}
+          style={{background: 'white', width: '220px', height: '70px', margin: '10px 10px 10px 50px', border: '3px light black'}}
           class="button-54-edited"
           name="search"
           variant="outlined"

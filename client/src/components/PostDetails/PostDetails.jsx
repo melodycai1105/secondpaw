@@ -147,11 +147,11 @@ const PostDetails = () => {
               <NumberFormat value={post.price} style={{color: '#dc143c', margin:'0px 0px 0px 5px', fontSize:25}} displayType={'text'} thousandSeparator={true} prefix={'$'} />
             </Typography>
           </div>
-          <div className={classes.section} style={{ display: 'flex', margin:'15px 0px 0px 0px'}}>
-            <Typography gutterBottom variant="subtitle1" style={{margin:'5px 0px 0px 0px'}}>Seller:</Typography>
-            <Chip color='secondary' avatar={<Avatar src={user.profile_pic || default_profile_pic} />} 
-                          //<img className={classes.media} src={user.profile_pic || default_profile_pic} />
-              label= {post.name} onClick={toUser} style={{margin:'5px 0px 0px 5px'}}>
+          <div style={{ display: 'flex', margin: '15px 0px 0px 0px' }}>
+            <Typography gutterBottom variant="subtitle1" style={{ margin: '5px 0px 0px 0px' }}>Seller:</Typography>
+            <Chip color='secondary' avatar={<Avatar src={user.profile_pic || default_profile_pic} />}
+              // <img className={classes.media} src={user.profile_pic || default_profile_pic} />
+              label={post.name} onClick={toUser} style={{ margin: '5px 0px 0px 5px' }}>
             </Chip>
           </div>
           <Typography gutterBottom variant="subtitle1" component="p" style={{margin:'15px 0px 15px 0px'}}>Descriptions: {post.message}</Typography>

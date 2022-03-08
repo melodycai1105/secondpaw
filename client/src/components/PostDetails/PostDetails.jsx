@@ -107,6 +107,39 @@ const PostDetails = () => {
     value: PropTypes.number.isRequired,
   };
 
+  const ratingModule = () => {
+    if (!user?.result?.name)
+    {
+        return (
+            <div>
+                <Rating defaultValue={2} IconContainerComponent={IconContainer} readOnly />
+                <Typography gutterBottom variant="subtitle1" style={{ fontSize: 10 }}>You are logged out. Login to rate.</Typography>
+            </div>
+        )
+    } else if (user?.result.name !== post.buyer) {
+        return (
+            <div style={{ display: 'flex', flexDirection: 'row', }}>
+                <Rating defaultValue={2} IconContainerComponent={IconContainer} highlightSelectedOnly />
+                <Typography gutterBottom variant="subtitle1" >&nbsp;&nbsp;0 ratings</Typography>
+            </div>
+        )
+    }
+
+    // {user?.result?.name && (
+    //     <div style={{ display: 'flex', flexDirection: 'row', }}>
+    //       <Rating defaultValue={2} IconContainerComponent={IconContainer} highlightSelectedOnly />
+    //       <Typography gutterBottom variant="subtitle1" >&nbsp;&nbsp;0 ratings</Typography>
+    //     </div>
+    //   ) || (
+    //       <div>
+    //         <Rating defaultValue={2} IconContainerComponent={IconContainer} readOnly />
+    //         <Typography gutterBottom variant="subtitle1" style={{ fontSize: 10 }}>You are logged out. Login to rate.</Typography>
+    //       </div>
+    //     )}
+  }
+
+  
+
   return (
     <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
       <div className={classes.card}>

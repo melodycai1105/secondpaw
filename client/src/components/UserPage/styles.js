@@ -1,6 +1,9 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
+  loadingPaper: {
+    borderRadius: '15px',
+  },
   profilePaper: {
     padding: '20px', 
     borderRadius: '15px', 
@@ -35,12 +38,16 @@ export default makeStyles((theme) => ({
   },
   userPosts: {
     display: 'flex',
-    margin: '10px 10px',
+    justifyContent: 'center',
   },
   userPost: {
     padding: '10px', 
-    margin: '15px', 
     cursor: 'pointer', 
     width: '250px',
+    height: '100%',
+  },
+  imgContainer: {
+    maxHeight: '200px',
+    overflow: 'hidden',
   },
 }));

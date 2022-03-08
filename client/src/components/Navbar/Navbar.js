@@ -86,7 +86,7 @@ const Navbar = () => {
       <div className={classes.searchBar}>
         <TextField 
           style={{background: 'white', width: '220px', height: '70px', margin: '10px', border: '3px light black'}}
-          class="button-54"
+          class="button-54-edited"
           name="search"
           variant="outlined"
           label="Search Sales"
@@ -97,7 +97,7 @@ const Navbar = () => {
         />
         <ChipInput
           style={{background: 'white', width: '220px', height: '70px', margin: '10px', border: '3px light black'}}
-          class="button-54"
+          class="button-54-edited"
           value={tags}
           onAdd={(tag) => handleAdd(tag)}
           onDelete={(tag) => handleDelete(tag)}
@@ -153,7 +153,7 @@ const Navbar = () => {
                     <AccountCircleIcon />
                     <Typography>&nbsp;&nbsp;Profile</Typography>
                   </MenuItem>
-                  <MenuItem>
+                  <MenuItem disableRipple onClick={() => navigate(`/user/${user?.result?._id}/reservation/`)}>
                     <BookmarksIcon />
                     <Typography>&nbsp;&nbsp;Reservation</Typography>
                   </MenuItem>

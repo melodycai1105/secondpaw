@@ -8,13 +8,22 @@ import User from '../models/user.js';
 const router = express.Router();
 
 export const getPosts = async (req, res) => {
-    const { page } = req.query;
+    const { page, sortType } = req.query;
     try {
         const LIMIT = 8; //number of posts per page
         const startIndex = (Number(page) - 1) * LIMIT; //get the starting index of every page
         const total = await PostMessage.countDocuments({});
 
-        const posts = await PostMessage.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
+        let searchTerm = { _id: -1 };
+        switch (sortType) {
+            case "Sort By Price":
+                searchTerm = { price: -1 };
+                break;
+            case "Sort By Popularity":
+                searchTerm = { likeCount: -1 };
+        }
+        const posts = await PostMessage.find().sort(searchTerm).limit(LIMIT).skip(startIndex);
+
         res.json({ data: posts, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT) });
     }
     catch (error) {
@@ -24,7 +33,7 @@ export const getPosts = async (req, res) => {
 
 export const makePurchase = async (req, res) => {
     const userId = req.query.uid;
-    const postId = req.query.pid; 
+    const postId = req.query.pid;
     try {
         const post = await PostMessage.findById(postId);
         post.buyer = userId;
@@ -42,8 +51,8 @@ export const makePurchase = async (req, res) => {
 export const getUser = async (req, res) => {
     const { id } = req.params
     try {
-        const { name, email, phone, posts, profile_pic } =  await User.findById(id);
-        res.status(200).json({ name, email, phone, posts, profile_pic })
+        const { name, email, phone, posts, purchased, profile_pic } = await User.findById(id);
+        res.status(200).json({ name, email, phone, posts, purchased, profile_pic })
     }
     catch (error) {
         res.status(418).json({ message: error.message });
@@ -76,7 +85,7 @@ export const getPostsBySearch = async (req, res) => {
 }
 
 export const getPostsByUser = async (req, res) => {
-    const { id } = req.params;    
+    const { id } = req.params;
     try {
         const { posts } = await User.findById(id);
         const postsobj = await PostMessage.find({ '_id': { $in: posts } });
@@ -86,6 +95,16 @@ export const getPostsByUser = async (req, res) => {
     }
 }
 
+export const getReservationByUser = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const { purchased } = await User.findById(id);
+        const postsobj = await PostMessage.find({ '_id': { $in: purchased } });
+        res.status(200).json({ data: postsobj })
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
 
 export const createPost = async (req, res) => {
     const post = req.body;
@@ -114,7 +133,7 @@ export const updatePost = async (req, res) => {
 
     const updatedPost = { creator, title, message, tags, selectedFile, _id: id };
 
-    await PostMessage.findByIdAndUpdate( id, updatedPost, { new: true });
+    await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
     res.json(updatedPost);
 }
 
@@ -127,7 +146,7 @@ export const deletePost = async (req, res) => {
     await PostMessage.findByIdAndRemove(id);
     const userUpdated = await User.findById(userId);
     userUpdated.posts = userUpdated.posts.filter((postid) => postid !== id)
-    await User.findByIdAndUpdate( userId, userUpdated );
+    await User.findByIdAndUpdate(userId, userUpdated);
 
     res.json({ message: 'Post deleted' });
 }
@@ -143,6 +162,7 @@ export const likePost = async (req, res) => {
     const index = post.likes.findIndex((id) => id === String(req.userId));
     if (index === -1) {
         post.likes.push(req.userId);
+        post.likeCount = post.likes.length;
     } else {
         post.likes = post.likes.filter((id) => id !== String(req.userId));
     }

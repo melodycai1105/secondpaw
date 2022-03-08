@@ -5,6 +5,7 @@ export default makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    marginLeft: '50px',
   },
   pagination: {
     borderRadius: 4,
@@ -20,4 +21,8 @@ export default makeStyles((theme) => ({
     marginBottom: '3rem',
     justifyContent: 'center'
   },
+  sort:{
+    marginTop: '10px',
+    marginLeft: '20px',
+  }
 }));

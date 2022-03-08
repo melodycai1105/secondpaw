@@ -25,6 +25,7 @@ import useStyles from './styles';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import TagIcon from '@mui/icons-material/Tag';
 import AddReactionIcon from '@mui/icons-material/AddReaction';
+import { getUser, getPostsByUser } from '../../actions/posts';
 
 const PostDetails = () => {
   const user = JSON.parse(localStorage.getItem('profile'));
@@ -38,6 +39,10 @@ const PostDetails = () => {
 
   useEffect(() => {
     dispatch(getPost(id));
+  }, [id]);
+
+  useEffect(() => {
+    dispatch(getUser(id));
   }, [id]);
 
   useEffect(() => {
@@ -184,10 +189,10 @@ const PostDetails = () => {
           </div>
           <div style={{ display: 'flex', margin: '15px 0px 0px 0px' }}>
             <Typography gutterBottom variant="subtitle1" style={{ margin: '5px 0px 0px 0px' }}>Seller:</Typography>
-            {/* <Chip color='secondary' avatar={<Avatar src={user.profile_pic || default_profile_pic} />}
+            <Chip color='secondary' avatar={<Avatar src={default_profile_pic} />}
               // <img className={classes.media} src={user.profile_pic || default_profile_pic} />
               label={post.name} onClick={toUser} style={{ margin: '5px 0px 0px 5px' }}>
-            </Chip> */}
+            </Chip>
           </div>
           <Typography gutterBottom variant="subtitle1" component="p" style={{ margin: '15px 0px 15px 0px' }}>Descriptions: {post.message}</Typography>
           {/* <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography> */}

@@ -8,8 +8,12 @@ import Posts from '../Posts/Posts';
 import Pagination from '../Pagination';
 import Sort from '../Sort'
 import useStyles from './styles';
-import Trending from '../images/Trending.svg';
-import HotDeal from '../images/hot-deal.png';
+import Trending from '../images/Trending5.svg';
+import NewestArrivals from '../images/NewestArrivals.svg';
+import Price from '../images/Price2.svg';
+import HotDeal from '../images/fire.png';
+import New from '../images/new2.png';
+import Tag from '../images/tag.png';
 import { getPosts } from '../../actions/posts';
 
 function useQuery() {
@@ -22,17 +26,30 @@ const Home = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const options = [
-    "Sort By Popularity",
-    "Sort By Date",
-    "Sort By Price",
+    "Sort By: Popularity",
+    "Sort By: Newest Arrivals",
+    "Sort By: Price",
   ]
   const [sortType, setSortType] = useState(options[0]);
   var display = false;
+  var display2 = false;
+  var display3 = false;
 
   if (sortType === options[0]) {
     display = true;
-  } else {
+    display2 = false;
+    display3 = false;
+  } 
+  else if (sortType === options[1])
+  {
     display = false;
+    display2 = true;
+    display3 = false;
+  }
+  else{
+    display = false;
+    display2 = false;
+    display3 = true;
   }
 
   useEffect(() => {
@@ -51,8 +68,25 @@ const Home = () => {
         <div className={classes.header}>
           {display && (
             <>
-              <img src={Trending} alt="Trending Logo" align="left" width="300px" height="400px" />
-              <img src={HotDeal} style={{ marginTop: '20px', marginLeft: '-20px'}} alt="Hot Icon" align="left" width="70px" height="70px" />
+              <img src={HotDeal} style={{ margin : "-25px 0px 0px 170px"}} alt="Hot Icon" align="left" width="50px" height="50px" />
+              <img src={Trending} alt="Trending Logo" align="left" width="250px" height="400px" 
+              style={{ margin : "0px 0px 0px -240px"}}/>
+              {/* <img src={Trending} alt="Trending Logo" align="left" width="250px" height="400px" /> */}
+              {/* <img src={HotDeal} style={{ marginTop: '-20px', marginLeft: '-60px'}} alt="Hot Icon" align="left" width="50px" height="50px" /> */}
+            </>
+          )}
+          {display2 && (
+            <>
+              <img src={NewestArrivals} alt="Trending Logo" align="left" width="350px" height="400px" 
+              style={{margin : "10px 0px 0px -30px"}} />
+              <img src={New} style={{margin: "10px 0px 0px -40px"}} alt="Hot Icon" align="left" width="50px" height="50px" />
+            </>
+          )}
+          {display3 && (
+            <>
+              <img src={Price} alt="Trending Logo" align="left" width="350px" height="400px" 
+              style={{margin : "10px 0px 0px -30px"}} />
+              <img src={Tag} style={{margin: "10px 0px 0px -35px"}} alt="Hot Icon" align="left" width="50px" height="50px" />
             </>
           )}
           <div className={classes.pagination}>

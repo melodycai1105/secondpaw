@@ -24,6 +24,18 @@ export const getUser = (id) => async (dispatch) => {
   }
 }
 
+export const updateRating = (id, rating) => async (dispatch) => {
+  try {
+    dispatch({ type: START_LOADING });
+    const { data } = await api.updateRating(id, rating);
+    dispatch({ type: UPDATE, payload: { user: data } });
+    dispatch({ type: END_LOADING });
+  } catch (error) {
+    console.log(error);
+  //console.log(error.message);
+  }
+}
+
 export const getPosts = (page, sortType) => async (dispatch) => {
   try {
     dispatch({ type: START_LOADING });

@@ -25,7 +25,7 @@ import useStyles from './styles';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import TagIcon from '@mui/icons-material/Tag';
 import AddReactionIcon from '@mui/icons-material/AddReaction';
-import { getUser, getPostsByUser } from '../../actions/posts';
+import { getUser, updateRating } from '../../actions/posts';
 
 const PostDetails = () => {
   const user = JSON.parse(localStorage.getItem('profile'));
@@ -36,6 +36,8 @@ const PostDetails = () => {
   const classes = useStyles();
   const { id } = useParams();
   const [reserved, setReserved] = useState(false);
+  const [rateVal, setRate] = useState(0);
+  console.log(post?.rating);
 
   useEffect(() => {
     dispatch(getPost(id));
@@ -52,6 +54,12 @@ const PostDetails = () => {
       dispatch(getPostsBySearch({ search: 'none', tags: post?.tags.join(',') }));
     }
   }, [post]);
+
+  useEffect(() => {
+    if (rateVal){
+      dispatch(updateRating(id, rateVal));
+    }
+  }, [rateVal])
 
   const userId = user?.result?._id || user?.result?.googleId;
   // const hasReserved = user?.result?.purchased?.find((purchased) => purchased === post._id);
@@ -83,7 +91,7 @@ const PostDetails = () => {
     navigate(`/user/${post.creator}`)
   }
 
-  function toTag(tags) {
+  const toTag = (tags) => {
     var search = '';
     if (search.trim() || tags){
       dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
@@ -114,36 +122,6 @@ const PostDetails = () => {
     value: PropTypes.number.isRequired,
   };
 
-  const ratingModule = () => {
-    if (!user?.result?.name)
-    {
-        return (
-            <div>
-                <Rating defaultValue={2} IconContainerComponent={IconContainer} readOnly />
-                <Typography gutterBottom variant="subtitle1" style={{ fontSize: 10 }}>You are logged out. Login to rate.</Typography>
-            </div>
-        )
-    } else if (user?.result.name !== post.buyer) {
-        return (
-            <div style={{ display: 'flex', flexDirection: 'row', }}>
-                <Rating defaultValue={2} IconContainerComponent={IconContainer} highlightSelectedOnly />
-                <Typography gutterBottom variant="subtitle1" >&nbsp;&nbsp;0 ratings</Typography>
-            </div>
-        )
-    }
-
-    // {user?.result?.name && (
-    //     <div style={{ display: 'flex', flexDirection: 'row', }}>
-    //       <Rating defaultValue={2} IconContainerComponent={IconContainer} highlightSelectedOnly />
-    //       <Typography gutterBottom variant="subtitle1" >&nbsp;&nbsp;0 ratings</Typography>
-    //     </div>
-    //   ) || (
-    //       <div>
-    //         <Rating defaultValue={2} IconContainerComponent={IconContainer} readOnly />
-    //         <Typography gutterBottom variant="subtitle1" style={{ fontSize: 10 }}>You are logged out. Login to rate.</Typography>
-    //       </div>
-    //     )}
-  }  
 
   return (
     <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
@@ -162,15 +140,15 @@ const PostDetails = () => {
               )}
           </div>
           <div className={classes.ratingContainer}>
-            {user?.result?.name && (
+            {(user?.result?._id === post.buyer && user?.result?.name !== null) && (
               <div style={{ display: 'flex', flexDirection: 'row', }}>
-                <Rating defaultValue={2} IconContainerComponent={IconContainer} highlightSelectedOnly />
-                <Typography gutterBottom variant="subtitle1" >&nbsp;&nbsp;0 ratings</Typography>
+                <Rating value={post?.rating} IconContainerComponent={IconContainer} onClick={(e) => setRate(e.target.value)} highlightSelectedOnly />
+                <Typography gutterBottom variant="subtitle1" >&nbsp;&nbsp;</Typography>
               </div>
             ) || (
                 <div>
-                  <Rating defaultValue={2} IconContainerComponent={IconContainer} readOnly />
-                  <Typography gutterBottom variant="subtitle1" style={{ fontSize: 10 }}>You are logged out. Login to rate.</Typography>
+                  <Rating value={post?.rating} IconContainerComponent={IconContainer} readOnly />
+                  <Typography gutterBottom variant="subtitle1" style={{ fontSize: 10 }}>You need to purchase the item to rate</Typography>
                 </div>
               )}
           </div>

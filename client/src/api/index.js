@@ -14,7 +14,7 @@ export const fetchUser = (id) => API.get(`/posts/profile/${id}`);
 export const fetchPosts = (page, sortType) => API.get(`/posts?page=${page}&sortType=${sortType}`);
 export const fetchPostsByUser = (userId) => API.get(`/posts/userid/${userId}`);
 export const fetchReservationByUser = (userId) => API.get(`/posts/userid/${userId}/reservation`);
-
+export const updateRating = (id, rating) => API.patch(`/posts/rating/${id}`, rating)
 export const fetchPostsBySearch = (searchQuery) => API.get(`/posts/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`);
 export const createPost = (newPost) => API.post('/posts', newPost);
 export const updatePost = (id, updatedPost) => API.patch(`/posts/${id}`, updatedPost);

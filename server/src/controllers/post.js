@@ -137,6 +137,22 @@ export const updatePost = async (req, res) => {
     res.json(updatedPost);
 }
 
+export const updateRating = async (req, res) => {
+  const { id } = req.params;
+  const rating = parseInt(Object.keys(req.body)[0]);
+  console.log(rating);
+
+  if (!mongoose.Types.ObjectId.isValid(id))
+      return res.status(404).send(`No post with id: ${id}`);
+
+  const updatedPost = await PostMessage.findById(id);
+  updatedPost.rating = rating;
+
+  await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
+  console.log(updatedPost);
+  res.json(updatedPost);
+}
+
 export const deletePost = async (req, res) => {
     const { id } = req.params;
     const userId = req.userId;

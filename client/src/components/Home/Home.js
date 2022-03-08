@@ -26,9 +26,9 @@ const Home = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const options = [
-    "Sort By: Popularity",
-    "Sort By: Newest Arrivals",
-    "Sort By: Price",
+    "Sort By Popularity",
+    "Sort By Time",
+    "Sort By Price",
   ]
   const [sortType, setSortType] = useState(options[0]);
   var display = false;

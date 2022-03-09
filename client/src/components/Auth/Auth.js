@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
+import PhoneInput from 'react-phone-input-2';
 import FileBase from 'react-file-base64';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { useDispatch } from 'react-redux';
@@ -31,8 +32,15 @@ const Auth = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
       if (isSignup) {
-      dispatch(signup(formData, navigate));
-    } else {
+      console.log(isNaN(formData.phone));
+      if (formData.phone.length === 11 && parseInt(formData.phone)){
+        dispatch(signup(formData, navigate));
+        console.log(formData);
+      }
+      else 
+        alert("please input correct phone number")
+      } 
+     else {
       dispatch(signin(formData, navigate));
     }
   };
@@ -61,7 +69,7 @@ const Auth = () => {
 
   const switchMode = () => {
     setFormData(initialState);
-    setIsSignup((prevIsSignUp) => !prevIsSignUp)
+    setIsSignup((prevIsSignUp) => !prevIsSignUp);
     setShowPassword(false);
   }
 
@@ -80,6 +88,7 @@ const Auth = () => {
               <>
                 <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half />
                 <Input name="lastName" label="Last Name" handleChange={handleChange} half />
+                <Input name="phone" label="phone" handleChange={handleChange} />
               </>
             )}
             <Input name="email" label="Email Address" handleChange={handleChange} type="email" />

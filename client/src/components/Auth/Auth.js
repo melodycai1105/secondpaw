@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
-import PhoneInput from 'react-phone-input-2';
 import FileBase from 'react-file-base64';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { useDispatch } from 'react-redux';

@@ -47,7 +47,8 @@ const UserPage = () => {
    }
     console.log(user);
     var str = user.phone;
-    var res = '+' + str.substring(0,1) + ' ('+ str.substring(1,4) + ') ' + str.substring(4,7) + '-' + str.substring(7,11) ;
+    if (str != null)
+    {var res = '+' + str.substring(0,1) + ' ('+ str.substring(1,4) + ') ' + str.substring(4,7) + '-' + str.substring(7,11) ;}
     return (
       <Paper className={classes.profilePaper} elevation={6}>
         <div className={classes.card}>

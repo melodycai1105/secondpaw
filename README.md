@@ -35,4 +35,5 @@ change directory to server/client and use npm to install the following packages
     - @mui/icons-material
     - react-number-format
     - react-img-zoom
+    - @heroicons/react
 

@@ -36,8 +36,7 @@ const PostDetails = () => {
   const classes = useStyles();
   const { id } = useParams();
   const [reserved, setReserved] = useState(false);
-  const [rateVal, setRate] = useState(0);
-  console.log(post?.rating);
+  const [rating, setRating] = useState(-1);
 
   useEffect(() => {
     dispatch(getPost(id));
@@ -54,12 +53,6 @@ const PostDetails = () => {
       dispatch(getPostsBySearch({ search: 'none', tags: post?.tags.join(',') }));
     }
   }, [post]);
-
-  useEffect(() => {
-    if (rateVal){
-      dispatch(updateRating(id, rateVal));
-    }
-  }, [rateVal])
 
   const userId = user?.result?._id || user?.result?.googleId;
   // const hasReserved = user?.result?.purchased?.find((purchased) => purchased === post._id);
@@ -113,6 +106,11 @@ const PostDetails = () => {
 
   const openPost = (_id) => navigate(`/posts/${_id}`);
 
+  const handleRating = (e) => {
+    setRating(e.target.value);
+    dispatch(updateRating(id, e.target.value))
+  }
+
   const recommendedPosts = Array.isArray(posts) ? posts.filter(({ _id }) => _id !== post._id) : [];
 
   const customIcons = {
@@ -152,7 +150,7 @@ const PostDetails = () => {
           <div className={classes.ratingContainer}>
             {(user?.result?._id === post.buyer && user?.result?.name !== null) && (
               <div style={{ display: 'flex', flexDirection: 'row', }}>
-                <Rating value={post?.rating} IconContainerComponent={IconContainer} onClick={(e) => setRate(e.target.value)} highlightSelectedOnly />
+                <Rating value={rating === -1 ? post?.rating : rating} IconContainerComponent={IconContainer} onClick={(e) => handleRating(e)} highlightSelectedOnly />
                 <Typography gutterBottom variant="subtitle1" >&nbsp;&nbsp;</Typography>
               </div>
             ) || (

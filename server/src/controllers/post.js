@@ -148,7 +148,6 @@ export const updateRating = async (req, res) => {
   updatedPost.rating = rating;
 
   await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
-  console.log(updatedPost);
   res.json(updatedPost);
 }
 

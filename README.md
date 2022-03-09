@@ -4,7 +4,11 @@ UCLA secondhand trading site
 ## Install nodejs
 https://nodejs.org/
 
+## Clone the repo
+git clone https://github.com/melodycai1105
+
 ## Dependencies Used
+change directory to server/client and use npm to install the following packages
 ### Server
     - react
     - axios (Used to make HTTP Request)
@@ -31,3 +35,4 @@ https://nodejs.org/
     - @mui/icons-material
     - react-number-format
     - react-img-zoom
+

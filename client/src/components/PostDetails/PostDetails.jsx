@@ -91,11 +91,21 @@ const PostDetails = () => {
     navigate(`/user/${post.creator}`)
   }
 
+  // const toTag = (tags) => {
+  //   var search = '';
+  //   if (search.trim() || tags){
+  //     dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
+  //     navigate(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
+  //   }else{
+  //     navigate('/');
+  //   }
+  // }
+
   const toTag = (tags) => {
     var search = '';
     if (search.trim() || tags){
-      dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
-      navigate(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
+      dispatch(getPostsBySearch({ search, tags }));
+      navigate(`/posts/search?searchQuery=${search || 'none'}&tags=${tags}`);
     }else{
       navigate('/');
     }
@@ -174,10 +184,16 @@ const PostDetails = () => {
           </div>
           <Typography gutterBottom variant="subtitle1" component="p" style={{ margin: '15px 0px 15px 0px' }}>Descriptions: {post.message}</Typography>
           {/* <Typography gutterBottom variant="h6" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography> */}
-          <Chip icon={<AutoAwesomeIcon style={{ color: '#6a5acd' }} />} onClick={() => toTag(post.tags)} 
-            style={{ fontSize: 12, color: '#6a5acd' }} gutterBottom variant="h6" size="medium" component="h2" 
-            label={post.tags.map((tag) => `${tag} `)}>
-          </Chip>
+            {post.tags?.map((tag) => (
+              <Chip icon={<AutoAwesomeIcon style={{ color: '#6a5acd'}} />} onClick={() => toTag(tag)} 
+              style={{ fontSize: 12, color: '#6a5acd' }} gutterBottom variant="h6" size="medium" component="h2" 
+              label={tag}>
+              </Chip>
+            ))}
+            {/* <Chip icon={<AutoAwesomeIcon style={{ color: '#6a5acd' }} />} onClick={() => toTag(post.tags)} 
+              style={{ fontSize: 12, color: '#6a5acd' }} gutterBottom variant="h6" size="medium" component="h2" 
+              label={post.tags.map((tag) => `${tag} `)}>
+            </Chip> */}
           <Divider style={{ margin: '10px 0' }} />
           <CommentSection post={post} />
         </div>

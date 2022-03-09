@@ -3,7 +3,6 @@ import { Chip, Avatar, Paper, Typography, Divider, CircularProgress, Grid, Butto
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import { useParams, useNavigate, UNSAFE_NavigationContext } from 'react-router-dom';
-import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import PropTypes from 'prop-types';
 import Rating from '@mui/material/Rating';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
@@ -23,7 +22,6 @@ import CommentSection from './CommentSection';
 import { getPost, getPostsBySearch, makePurchase } from '../../actions/posts';
 import useStyles from './styles';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
-import TagIcon from '@mui/icons-material/Tag';
 import AddReactionIcon from '@mui/icons-material/AddReaction';
 import { getUser, updateRating } from '../../actions/posts';
 
@@ -83,16 +81,6 @@ const PostDetails = () => {
   const toUser = () => {
     navigate(`/user/${post.creator}`)
   }
-
-  // const toTag = (tags) => {
-  //   var search = '';
-  //   if (search.trim() || tags){
-  //     dispatch(getPostsBySearch({ search, tags: tags.join(',') }));
-  //     navigate(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
-  //   }else{
-  //     navigate('/');
-  //   }
-  // }
 
   const toTag = (tags) => {
     var search = '';
@@ -168,10 +156,16 @@ const PostDetails = () => {
           </Typography>
           <Divider style={{ margin: '10px 0' }} />
           <div style={{ display: 'flex', margin: '0px 0px -15px 0px' }}>
-            <Typography gutterBottom variant="subtitle1" component="p" style={{ margin: '2px 0px 0px 0px' }}>Price:</Typography>
-            <Typography variant="h6" gutterBottom>
-              <NumberFormat value={post.price} style={{ color: '#dc143c', margin: '0px 0px 0px 5px', fontSize: 25 }} displayType={'text'} thousandSeparator={true} prefix={'$'} />
-            </Typography>
+            <Typography gutterBottom variant="subtitle1" component="p" style={{ margin: '2px 0px 0px 0px' }}>Price:</Typography>           
+            
+            {
+              (post.price === -1) && (<Typography style={{ color: '#dc143c', margin: '0px 0px 0px 5px', fontSize: 25 }}>Discuss in Person</Typography>) ||
+              
+              (<Typography variant="h6" gutterBottom> <NumberFormat value={post.price} style={{ color: '#dc143c', margin: '0px 0px 0px 5px', fontSize: 25 }} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+              </Typography>)
+            }
+
+
           </div>
           <div style={{ display: 'flex', margin: '15px 0px 0px 0px' }}>
             <Typography gutterBottom variant="subtitle1" style={{ margin: '5px 0px 0px 0px' }}>Seller:</Typography>

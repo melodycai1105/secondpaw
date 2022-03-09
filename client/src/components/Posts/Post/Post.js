@@ -76,7 +76,9 @@ const Post = ({ post }) => {
         </div>
         <Typography style={{padding: '0 16px'}} variant="h6">{post.title}</Typography>
         <Typography style={{padding: '0 16px'}} variant="subtitle1" gutterBottom>
-          <NumberFormat value={post.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+          {(post.price === -1) && (<Typography style={{ color: '#dc143c', padding: '0 0px'}} >Discuss in Person  </Typography>) 
+          || <NumberFormat value={post.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+          }
         </Typography>
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">{post.message.split(' ').splice(0, 20).join(' ')}...</Typography>

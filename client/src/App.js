@@ -6,7 +6,6 @@ import Navbar from './components/Navbar/Navbar';
 import Home from './components/Home/Home';
 import Search from './components/Search/Search';
 import Auth from './components/Auth/Auth';
-import Form from './components/Form/Form';
 import EditPost from './components/EditPost/EditPost';
 import Posts from './components/Posts/Posts';
 import PostDetails from './components/PostDetails/PostDetails';

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Paper, Typography, Divider, CircularProgress, Button, Grid } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -16,12 +16,19 @@ const UserPage = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const { isLoading, user } = useSelector((state) => state.user);
-    console.log(user);
     const { isLoadingPost, posts } = useSelector((state) => state.posts);
+    const postRatings = posts?.data?.map(x => x.rating)?.filter(x => x !== null);
+    const [rating, setRating] = useState(0);
     const userPosts = posts.data;
-    const navigate = useNavigate();
     const classes = useStyles();
     const openPost = (_id) => navigate(`/posts/${_id}`);
+    const average = arr => arr?.reduce((a,b) => a + b, 0) / arr?.length
+    const navigate = useNavigate();
+
+
+    useEffect(() => {
+      setRating(average(postRatings));
+    }, [postRatings])
 
     useEffect(() => {
         dispatch(getUser(id));
@@ -58,7 +65,7 @@ const UserPage = () => {
               </div>
               <div className={classes.rating}>
                 <Typography variant="subtitle1"><strong>Rating:  </strong></Typography>
-                <Rating value={5} readOnly />
+                <Rating value={rating} precision={0.5} readOnly />
               </div>
             </div>
           </div>

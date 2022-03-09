@@ -51,7 +51,7 @@ export const makePurchase = async (req, res) => {
 export const getUser = async (req, res) => {
     const { id } = req.params
     try {
-        const { name, email, phone, posts, purchased, profile_pic } = await User.findById(id);
+        const { name, email, phone, posts, purchased, profile_pic } = await User.findById(id);     
         res.status(200).json({ name, email, phone, posts, purchased, profile_pic })
     }
     catch (error) {
@@ -140,7 +140,6 @@ export const updatePost = async (req, res) => {
 export const updateRating = async (req, res) => {
   const { id } = req.params;
   const rating = parseInt(Object.keys(req.body)[0]);
-  console.log(rating);
 
   if (!mongoose.Types.ObjectId.isValid(id))
       return res.status(404).send(`No post with id: ${id}`);

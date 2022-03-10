@@ -25,7 +25,6 @@ const UserPage = () => {
     const average = arr => arr?.reduce((a,b) => a + b, 0) / arr?.length
     const navigate = useNavigate();
 
-
     useEffect(() => {
       setRating(average(postRatings));
     }, [postRatings])
@@ -44,8 +43,8 @@ const UserPage = () => {
         return <Paper className={classes.loadingPaper} elevation={6}>
         <CircularProgress size='7em'/>
         </Paper>
-   }
-    console.log(user);
+    }
+
     var str = user.phone;
     if (str != null)
     {var res = '+' + str.substring(0,1) + ' ('+ str.substring(1,4) + ') ' + str.substring(4,7) + '-' + str.substring(7,11) ;}
@@ -56,15 +55,17 @@ const UserPage = () => {
               <img className={classes.media} src={user.profile_pic || default_profile_pic} />
             <div className={classes.profileInfo}>
               <Typography variant="h3" >{user.name}</Typography>
-              <Tooltip title="SEND AN EMAIL" placement="right" arrow>
-                <Button onClick={() => window.open(`mailto:${user.email}?subject=SecondPaw`)} style={{cursor: 'pointer'}}>
-                  <MailIcon color="primary"/>
-                  <Typography variant="subtitle1" style={{marginLeft: '10px'}}>{user.email}</Typography>
-                </Button>
-              </Tooltip>
-              <div style={{margin: '5px 0 10px 10px', display: 'flex'}}>
-                <PhoneIcon color="secondary"/>
-                <Typography variant="subtitle1" style={{marginLeft: '8px'}}>{res}</Typography>
+              <div className={classes.contactInfo}>
+                <Tooltip title="SEND AN EMAIL" placement="right" arrow>
+                  <Button onClick={() => window.open(`mailto:${user.email}?subject=SecondPaw`)} style={{cursor: 'pointer'}}>
+                    <MailIcon color="primary"/>
+                    <Typography variant="subtitle1" style={{marginLeft: '10px'}}>{user.email}</Typography>
+                  </Button>
+                </Tooltip>
+                <div style={{margin: '5px 0 10px 7px', display: 'flex'}}>
+                  <PhoneIcon color="secondary"/>
+                  <Typography variant="subtitle1" style={{marginLeft: '8px'}}>{res}</Typography>
+                </div>
               </div>
               <div className={classes.rating}>
                 <Typography variant="subtitle1"><strong>Rating:  </strong></Typography>

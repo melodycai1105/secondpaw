@@ -17,7 +17,7 @@ const initialState = {
   email: '',
   password: '',
   confirmPassword: '',
-  profile_pic: ''
+  profile_pic: '',
 }
 
 const Auth = () => {
@@ -31,14 +31,14 @@ const Auth = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
       if (isSignup) {
-      console.log(isNaN(formData.phone));
-      if (formData.phone.length === 11 && parseInt(formData.phone)){
-        dispatch(signup(formData, navigate));
-        console.log(formData);
-      }
-      else 
-        alert("please input correct phone number")
-      } 
+        // console.log(isNaN(formData.phone));
+        if (formData.phone.length === 11 && parseInt(formData.phone)){
+          dispatch(signup(formData, navigate));
+          // console.log(formData);
+        }
+        else 
+          alert("please input correct phone number")
+        } 
      else {
       dispatch(signin(formData, navigate));
     }

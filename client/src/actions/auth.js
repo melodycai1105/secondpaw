@@ -9,8 +9,15 @@ export const signin = (formData, router) => async (dispatch) => {
 
     router('/');
   } catch (error) {
-    console.log(error);
-  }
+    console.log(error)
+    if (error == "Error: Request failed with status code 404") 
+      alert("User with this email address does not exist") 
+    else if (error == "Error: Request failed with status code 409")
+      alert("Incorrect password")
+    else 
+      alert(error.message)
+    }
+
 };
 
 export const signup = (formData, router) => async (dispatch) => {
@@ -21,6 +28,12 @@ export const signup = (formData, router) => async (dispatch) => {
 
     router('/');
   } catch (error) {
-    console.log(error);
-  }
+    console.log(error)
+    if (error == "Error: Request failed with status code 400") 
+      alert("The two password fields don't match") 
+    else if (error == "Error: Request failed with status code 409")
+      alert("User with this email address already exists")
+    else 
+      alert(error.message)
+    }
 };

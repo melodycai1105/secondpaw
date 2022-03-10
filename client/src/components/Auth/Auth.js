@@ -37,7 +37,7 @@ const Auth = () => {
         // console.log(formData);
       }
       else 
-        alert("please input correct phone number")
+        alert("Please input correct a phone number")
       } 
      else {
       dispatch(signin(formData, navigate));

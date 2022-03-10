@@ -199,10 +199,10 @@ const PostDetails = () => {
                     <Typography gutterBottom variant="h6">{title}</Typography>
                     <Typography gutterBottom variant="subtitle2">{name}</Typography>
                     <Typography gutterBottom variant="subtitle2">
-                      <NumberFormat value={price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                      <NumberFormat value={price} displayType={'text'} style={{color:"#8B008B", fontSize:20}} thousandSeparator={true} prefix={'$'} />
                     </Typography>
-                    <Typography gutterBottom variant="subtitle2">{message.split(' ').splice(0, 5).join(' ')}...</Typography>
-                    <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
+                    <Typography gutterBottom variant="subtitle2" color="textSecondary">{message.split(' ').splice(0, 5).join(' ')}...</Typography>
+                    <Typography gutterBottom variant="subtitle2">Likes: {likes.length}</Typography>
                     <div className={classes.imgContainer}><img src={selectedFile} alt='' width='230px' /></div>
                   </Paper>
                 </Grid>

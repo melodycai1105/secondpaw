@@ -1,6 +1,6 @@
 import React from 'react';
 import Post from './Post/Post';
-import { Grid, CircularProgress } from '@material-ui/core';
+import { Grid, CircularProgress, Typography, Paper } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import useStyles from './styles';
 
@@ -8,7 +8,11 @@ const Posts = () => {
   const { posts, isLoading } = useSelector((state) => state.posts);
   const classes = useStyles();
   
-  if (!posts.length && !isLoading) return 'No posts';
+  if (!posts.length && !isLoading) return (
+    <Paper style={{padding: '10px 20px'}}> 
+      <Typography gutterBottom variant="h6">NO POSTS FOUND</Typography>
+    </Paper>
+  );
 
   return (
     isLoading ? <CircularProgress size='6em' color="secondary" /> : (

@@ -32,7 +32,6 @@ export const signup = async (req, res) => {
       return res.status(400).json({ message: "Wrong Password" });
 
     const hashedPassword = await bcrypt.hash(password, 12);
-    console.log(profile_pic);
     const result = await User.create({ email, password: hashedPassword, name: `${firstName} ${lastName}`, profile_pic, phone });
     const token = jwt.sign({ email: result.email, id: result._id }, 'test', { expiresIn: "1h" });
     res.status(200).json({ result, token });

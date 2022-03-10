@@ -87,7 +87,7 @@ const UserPage = () => {
                       <Typography gutterBottom variant="subtitle2">
                         <NumberFormat value={price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
                       </Typography>
-                      <Typography gutterBottom variant="subtitle2">{message}</Typography>
+                      <Typography gutterBottom variant="subtitle2">{message.split(' ').splice(0, 5).join(' ')}...</Typography>
                       <Typography gutterBottom variant="subtitle1">Likes: {likes.length}</Typography>
                       <div className={classes.imgContainer}><img src={selectedFile} alt='' width='230px' /></div>
                     </Paper>

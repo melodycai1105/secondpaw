@@ -42,13 +42,13 @@ const Reservation = () => {
     // const reservedPosts = Array.isArray(posts) ? posts.data.filter((el) => userReservations.includes(el._id)) : [];
 
     return (
-      <Paper className={classes.paperContainer} elevation={6}>
+      <Paper className={classes.paperContainer} style={{margin:"0px 60px"}} elevation={6}>
         {!!!posts?.data?.length && (
           <Typography gutterBottom variant="h6">You haven't reserved anything! Go check it out:)</Typography>
         )}
         {!!posts?.data?.length && (
-          <div className={classes.content}>
-            <Typography gutterBottom variant="h5" style={{marginLeft: '20px', marginBottom: '20px'}}>Your Reservations: </Typography>
+          <div className={classes.content} style={{marginBottom:"20px"}}>
+            <Typography gutterBottom variant="subtitle2" style={{fontSize:23, marginLeft: '10px', marginBottom: '20px'}}>Your Reservations: </Typography>
             <Grid className={classes.reservedPosts} container alignItems="stretch" spacing={3}>
               {posts?.data?.map(({ title, name, price, message, likes, selectedFile, _id }) => (
                 <Grid key={_id} item>
@@ -56,10 +56,10 @@ const Reservation = () => {
                     <Typography gutterBottom variant="h6">{title}</Typography>
                     <Typography gutterBottom variant="subtitle2">{name}</Typography>
                     <Typography gutterBottom variant="subtitle2">
-                      <NumberFormat value={price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                      <NumberFormat value={price} style={{color:'#dc143c', fontSize:15}} displayType={'text'} thousandSeparator={true} prefix={'$'} />
                     </Typography>
-                    <Typography gutterBottom variant="subtitle2">{message}</Typography>
-                    <Typography gutterBottom variant="subtitle1">Likes: {likes?.length}</Typography>
+                    <Typography gutterBottom variant="subtitle2" color="textSecondary">{message}</Typography>
+                    <Typography gutterBottom variant="subtitle2">Likes: {likes?.length}</Typography>
                     <div className={classes.imgContainer}><img src={selectedFile} alt='' width='230px' /></div>
                   </Paper>
                 </Grid>

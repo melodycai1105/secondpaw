@@ -5,7 +5,7 @@ UCLA secondhand trading site
 https://nodejs.org/
 
 ## Clone the repo
-git clone https://github.com/melodycai1105
+`git clone https://github.com/melodycai1105`
 
 ## Dependencies Used
 change directory to server/client and use npm to install the following packages

@@ -32,6 +32,10 @@ export default makeStyles((theme) => ({
     height: '160px', 
     borderRadius: '100px',
   },
+  contactInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
   rating: {
     display: 'flex',
     flexDirection: 'row',

@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AppBar, Avatar, Toolbar, Typography, TextField, Grid, Container, Button } from '@material-ui/core';
 import useStyles from './styles';
 import SecondPaw9 from '../images/SecondPaw5.svg';
-import logo from '../images/footprint.png';
+import default_profile_pic from '../images/bruin_logo.jpeg';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
 import * as actionType from '../../constants/actionTypes';
@@ -32,7 +32,6 @@ const Navbar = () => {
   const dispatch = useDispatch();
 
   const query = useQuery();
-  const searchQuery = query.get('searchQuery');
 
   const [search, setSearch] = useState('');
   const [tags, setTags] = useState([]);
@@ -117,7 +116,7 @@ const Navbar = () => {
                 e.stopPropagation();
                 navigate(`/user/${user?.result?._id}`);
             }}>
-                <Avatar className={classes.avatar} alt={user?.result.name} src={user?.result.imageUrl} style={{margin:'0px 15px 0px 0px'}}>{user?.result.name.charAt(0)}</Avatar>
+                <Avatar className={classes.avatar} alt={user?.result.name} src={user?.result?.profile_pic || default_profile_pic} style={{margin:'0px 15px 0px 0px'}} />
             </div>
           )}        
         <div className={classes.dashboard} >

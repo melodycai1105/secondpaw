@@ -54,8 +54,8 @@ const Post = ({ post }) => {
       <CardActionArea className={classes.cardAction} onClick={openPost}>
         <CardMedia className={classes.media} image={post.selectedFile || default_bruin} title={post.title} />
         <div className={classes.overlay}>
-          <Typography variant="h6">{post.name}</Typography>
-          <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
+          <Typography variant="h6" style={{fontSize:16}}>{post.name}</Typography>
+          <Typography variant="body2" style={{fontSize:10}}>{moment(post.createdAt).fromNow()}</Typography>
         </div>
         {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
           <div className={classes.overlay2} name="edit">
@@ -74,13 +74,15 @@ const Post = ({ post }) => {
         <div className={classes.details}>
           <Typography variant="body2" color="textSecondary" component="h2">{post.tags.map((tag) => `#${tag} `)}</Typography>
         </div>
-        <Typography style={{padding: '0 16px'}} variant="h6">{post.title}</Typography>
-        <Typography style={{padding: '0 16px'}} variant="subtitle1" gutterBottom>
+        <Typography style={{padding: '0 16px',fontSize:20}} variant="h6">{post.title}</Typography>
+        <Typography style={{padding: '0 16px', color:'#C71585', fontSize: 24, marginBottom:'-3px'}} variant="subtitle1" gutterBottom>
+          <strong>
           {(post.price === -1) && (<Typography style={{ color: '#dc143c', padding: '0 0px'}} >Discuss in Person  </Typography>) 
-          || <NumberFormat value={post.price} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+          || <NumberFormat value={post.price} style={{margin:'0px 0px 0px 0px'}} displayType={'text'} thousandSeparator={true} prefix={'$'} />
           }
+          </strong>
         </Typography>
-        <CardContent>
+        <CardContent style={{marginTop:'-7px',marginBottom:'-7px'}}>
           <Typography variant="body2" color="textSecondary" component="p">{post.message.split(' ').splice(0, 20).join(' ')}...</Typography>
         </CardContent>
       </CardActionArea>

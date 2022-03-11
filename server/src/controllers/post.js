@@ -179,6 +179,7 @@ export const likePost = async (req, res) => {
         post.likeCount = post.likes.length;
     } else {
         post.likes = post.likes.filter((id) => id !== String(req.userId));
+        post.likeCount = post.likes.length;
     }
     const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true });
     res.status(200).json(updatedPost);

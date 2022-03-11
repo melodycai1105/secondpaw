@@ -10,10 +10,10 @@ import Sort from '../Sort'
 import useStyles from './styles';
 import Trending from '../images/Trending5.svg';
 import NewestArrivals from '../images/NewestArrivals.svg';
-import Price from '../images/Price3.svg';
+import Price from '../images/Price2.svg';
 import HotDeal from '../images/fire.png';
 import New from '../images/new2.png';
-import Tag from '../images/tag.png';
+import Tag from '../images/best-price.png';
 import { getPosts } from '../../actions/posts';
 
 function useQuery() {

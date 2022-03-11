@@ -20,7 +20,7 @@ export const getPosts = async (req, res) => {
                 searchTerm = { price: 1 };
                 break;
             case "Sort By Popularity":
-                searchTerm = { likeCount: -1 };
+                searchTerm = { likeCount: -1, id: -1 };
         }
         const posts = await PostMessage.find().sort(searchTerm).limit(LIMIT).skip(startIndex);
 

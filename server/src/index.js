@@ -16,7 +16,9 @@ app.use(cors());
 app.use('/user', userRoutes);
 app.use('/posts', postRoutes); // localhost:5000/posts
 // Use Mongodb cloud atlas
-const CONNECTION_URL = 'mongodb+srv://melodycai:eggertisbald@cluster0.jhbg4.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+//const CONNECTION_URL = 'mongodb+srv://danny_zyh:bruin-on-sale@cluster0.dhu6d.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+//const CONNECTION_URL = 'mongodb+srv://melodycai:eggertisbald@cluster0.jhbg4.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'; 
+const CONNECTION_URL = 'mongodb+srv://melodycai:eggertisbald@secondpaw.jhbg4.mongodb.net/SecondPaw?retryWrites=true&w=majority'; 
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(CONNECTION_URL, {

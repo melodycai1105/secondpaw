@@ -17,7 +17,7 @@ export const getPosts = async (req, res) => {
         let searchTerm = { _id: -1 };
         switch (sortType) {
             case "Sort By Price":
-                searchTerm = { price: -1 };
+                searchTerm = { price: 1 };
                 break;
             case "Sort By Popularity":
                 searchTerm = { likeCount: -1 };

@@ -144,7 +144,7 @@ const PostDetails = () => {
             ) || (
                 <div>
                   <Rating value={post?.rating} IconContainerComponent={IconContainer} readOnly />
-                  <Typography gutterBottom variant="subtitle1" style={{ fontSize: 10 }}>You need to purchase the item to rate</Typography>
+                  <Typography gutterBottom variant="subtitle1" style={{ fontSize: 10 }}>You need to reserve the item to rate</Typography>
                 </div>
               )}
           </div>

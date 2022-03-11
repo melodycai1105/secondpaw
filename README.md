@@ -15,6 +15,21 @@ CS 35L Project By Johanna Bai, Xinlin Cai, Ximeng Guo, Yuanhong Zeng, and Hanyu 
 
 
 ## App Features
+- Sign up / Log in
+- Search Title / Tags (Categories)
+- Post Detail Page
+  - Comment
+  - Like
+  - Rating
+  - Recommendation based on tags
+  - Reservation Button
+- Pagination
+- Sorting based on date, popularity, and price
+- User Profile page 
+- Reservation Page
+- Create / Edit / Delete Posts
+- Creative and easy to use interface
+
 
 ## Dependencies Used
 If you want to install the dependencies by hand, change directory to `secondpaw/server` and `secondpaw/client` and use npm to install the following packages:
@@ -45,4 +60,3 @@ If you want to install the dependencies by hand, change directory to `secondpaw/
     - react-number-format
     - react-img-zoom
     - @heroicons/react
-## Screenshots

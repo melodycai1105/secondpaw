@@ -20,7 +20,7 @@ export const getPosts = async (req, res) => {
                 searchTerm = { price: 1 };
                 break;
             case "Sort By Popularity":
-                searchTerm = { likeCount: -1 };
+                searchTerm = { likeCount: -1, _id: -1 };
         }
         const posts = await PostMessage.find().sort(searchTerm).limit(LIMIT).skip(startIndex);
 
@@ -179,6 +179,7 @@ export const likePost = async (req, res) => {
         post.likeCount = post.likes.length;
     } else {
         post.likes = post.likes.filter((id) => id !== String(req.userId));
+        post.likeCount = post.likes.length;
     }
     const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true });
     res.status(200).json(updatedPost);

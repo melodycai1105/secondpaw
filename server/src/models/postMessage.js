@@ -9,7 +9,7 @@ const postSchema = mongoose.Schema({
   selectedFile: String,
   likes: { type: [String], default: [] },
   likeCount: { type: Number, default: 0 },
-  price: { type: Number, default: -1 },
+  price: { type: Number, default: 0 },
   rating: { type: Number, default: null },
   buyer: { type: String, default: null },
   comments: { type: [String], default: [] },

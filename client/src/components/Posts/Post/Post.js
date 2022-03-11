@@ -77,7 +77,7 @@ const Post = ({ post }) => {
         <Typography style={{padding: '0 16px',fontSize:20}} variant="h6">{post.title}</Typography>
         <Typography style={{padding: '0 16px', color:'#C71585', fontSize: 24, marginBottom:'-3px'}} variant="subtitle1" gutterBottom>
           <strong>
-          {(post.price === -1) && (<Typography style={{ color: '#dc143c', padding: '0 0px'}} >Discuss in Person  </Typography>) 
+          {(post.price === 0) && (<Typography style={{ color: '#dc143c', padding: '0 0px'}} >Discuss in Person  </Typography>) 
           || <NumberFormat value={post.price} style={{margin:'0px 0px 0px 0px'}} displayType={'text'} thousandSeparator={true} prefix={'$'} />
           }
           </strong>

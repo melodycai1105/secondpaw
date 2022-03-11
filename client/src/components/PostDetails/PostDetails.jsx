@@ -159,7 +159,7 @@ const PostDetails = () => {
             <Typography gutterBottom variant="subtitle1" component="p" style={{ margin: '2px 0px 0px 0px' }}>Price:</Typography>           
             
             {
-              (post.price === -1) && (<Typography style={{ color: '#dc143c', margin: '0px 0px 0px 5px', fontSize: 25 }}>Discuss in Person</Typography>) ||
+              (post.price === 0) && (<Typography style={{ color: '#dc143c', margin: '0px 0px 0px 5px', fontSize: 25 }}>Discuss in Person</Typography>) ||
               
               (<Typography variant="h6" gutterBottom> <NumberFormat value={post.price} style={{ color: '#dc143c', margin: '0px 0px 0px 5px', fontSize: 25 }} displayType={'text'} thousandSeparator={true} prefix={'$'} />
               </Typography>)
